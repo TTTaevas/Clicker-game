@@ -3,8 +3,10 @@ import { useState } from "react";
 export default function Clicker({ setScore, score }) {
   const [clicker, setClicker] = useState(0);
   const handleBuyClicker = () => {
-    setScore(score - 10);
-    setClicker(clicker + 1);
+    if (score >= 10) {
+      setScore(score - 10);
+      setClicker(clicker + 1);
+    }
   };
   return (
     <>

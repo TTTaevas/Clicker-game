@@ -1,5 +1,5 @@
 import { useState } from "react";
-export default function Clicker({ setScore, score, setLife, life }) {
+export default function Clicker({ setScore, score, setLife }) {
   const [clicker, setClicker] = useState(0);
   const [price, setPrice] = useState(10);
   const handleBuyClicker = () => {

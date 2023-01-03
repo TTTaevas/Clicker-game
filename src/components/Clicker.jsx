@@ -1,5 +1,5 @@
 import { useState } from "react";
-export default function Clicker({ setScore, score }) {
+export default function Clicker({ setScore, score, setLife, life }) {
   const [clicker, setClicker] = useState(0);
   const [price, setPrice] = useState(10);
   const handleBuyClicker = () => {
@@ -7,7 +7,7 @@ export default function Clicker({ setScore, score }) {
       setScore(score - Math.round(price));
       setClicker(clicker + 1);
       setPrice(price * 1.2);
-      setInterval(() => setScore((oldScore) => oldScore + 1), 1000);
+      setInterval(() => setLife((oldLife) => oldLife - 1), 1000);
     }
   };
   return (

@@ -7,7 +7,7 @@ import Experiencebar from "./Experiencebar";
 import Zones from "./Zones";
 
 export default function Game(props) {
-  let [power, setPower] = useState(10);
+  let [power, setPower] = useState(1);
   let [score, setScore] = useState(0);
   let [maxLife, setMaxLife] = useState(10);
   let [life, setLife] = useState(maxLife);
@@ -49,7 +49,7 @@ export default function Game(props) {
       <progress max={maxLife} value={life} className="healthbar" />
       <p>{life} HP</p>
       <Clicker score={score} setLife={setLife} setScore={setScore} />
-      <p className="score">{Math.round(score * 100) / 100}</p>
+      <p className="score">{Math.round(score * 10) / 10}</p>
     </div>
   );
 }

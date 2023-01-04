@@ -8,13 +8,11 @@ import Experiencebar from "./Experiencebar";
 export default function Game(props) {
   let [power, setPower] = useState(1);
   let [score, setScore] = useState(0);
-  let [life, setLife] = useState(10);
+  let [max_life, setMaxLife] = useState(10);
+  let [life, setLife] = useState(max_life);
   let [experience, setExperience] = useState(0);
   const handleDeath = () => {
-    if (life <= 0) {
-      setScore(score + 1);
-      setLife((life = 10));
-    } else {
+    if (life > 0) {
       setLife(life - power);
       setExperience(experience + 1);
     }
@@ -22,7 +20,7 @@ export default function Game(props) {
   useEffect(() => {
     if (life <= 0) {
       setScore(score + 1);
-      setLife((life = 10));
+      setLife((life = max_life));
     }
   }, [life]);
   return (
@@ -39,7 +37,7 @@ export default function Game(props) {
         className="blob"
         onClick={() => handleDeath()}
       />
-      <progress max={10} value={life} className="healthbar" />
+      <progress max={max_life} value={life} className="healthbar" />
       <p>{life} HP</p>
       <Clicker score={score} setLife={setLife} setScore={setScore} />
       <p className="score">{score}</p>

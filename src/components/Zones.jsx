@@ -15,7 +15,7 @@ export default function Zones({
     }
     if (maxMonsterCount === monsterCount) {
       setMaxLife(Math.round(maxLife * 1.2));
-      setMonsterCount(monsterCount === 0);
+      setMonsterCount(0);
       setMonsterZone(Math.round(monsterZone * 11.2) / 10);
     }
   });

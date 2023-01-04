@@ -13,18 +13,12 @@ export default function Game(props) {
   let [life, setLife] = useState(maxLife);
   let [experience, setExperience] = useState(0);
   let [monsterZone, setMonsterZone] = useState(1);
-  const handleDeath = () => {
+  const attackMonster = () => {
     if (life > 0) {
       setLife(life - power);
       setExperience(experience + 1);
     }
   };
-  useEffect(() => {
-    if (life <= 0) {
-      setScore(score + monsterZone);
-      setLife((life = maxLife));
-    }
-  }, [life]);
   return (
     <div className="scorecontainer">
       <Experiencebar
@@ -37,10 +31,13 @@ export default function Game(props) {
         src={blob}
         alt="monster"
         className="blob"
-        onClick={() => handleDeath()}
+        onClick={() => attackMonster()}
       />
       <Zones
+        score={score}
+        setScore={setScore}
         life={life}
+        setLife={setLife}
         maxLife={maxLife}
         setMaxLife={setMaxLife}
         monsterZone={monsterZone}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../style/score.css";
 import "../style/progressbar.css";
-import blob from "../assets/blob.png";
+import blob from "../../assets/blob.png";
 import Clicker from "./Clicker";
 import Experiencebar from "./Experiencebar";
 import Zones from "./Zones";

@@ -14,7 +14,7 @@ export default function Zones({
   const [monsterCount, setMonsterCount] = useState(0);
   const [maxMonsterCount, setMaxMonsterCount] = useState(10);
   const [countdown, setCountdown] = useState(30);
-
+  const [beforeBossLife, setBeforeBossLife] = useState(0);
   const displayCountdown = () => {
     setInterval(() => {
       setCountdown(countdown - 1);
@@ -23,7 +23,7 @@ export default function Zones({
 
   const bossTimer = () => {
     setTimeout(() => {
-      setMaxLife((maxLife = Math.round(maxLife / 1.8)));
+      setMaxLife(beforeBossLife);
       setMonsterZone(monsterZone - 1);
       setMonsterCount(0);
       setMaxMonsterCount(10);
@@ -32,6 +32,7 @@ export default function Zones({
   const spawnMonster = () => {
     if (monsterCount === maxMonsterCount - 1) {
       if (monsterZone % 9 === 0) {
+        setBeforeBossLife(maxLife);
         setMaxLife((maxLife = Math.round(maxLife * 60)));
         setMonsterCount(0);
         setMaxMonsterCount(1);

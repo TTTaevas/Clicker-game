@@ -14,6 +14,7 @@ export default function Game(props) {
   let [experience, setExperience] = useState(0);
   let [monsterZone, setMonsterZone] = useState(1);
   const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
+  const [isClickDisabled, setIsClickDisabled] = useState(false);
   const [containerDimensions, setContainerDimensions] = useState({
     width: 0,
     height: 0,
@@ -34,9 +35,17 @@ export default function Game(props) {
     });
   };
   const attackMonster = () => {
-    if (life > 0) {
+    if (life > 0 && monsterZone % 10 !== 0) {
       setLife(life - power);
       setExperience(experience + 1);
+    }
+  };
+  const attackBoss = () => {
+    if (life > 0 && monsterZone % 10 === 0) {
+      setIsClickDisabled(true);
+      setLife(life - power * 3);
+      setExperience(experience + 5);
+      setRandomPosition();
     }
   };
   return (
@@ -53,18 +62,21 @@ export default function Game(props) {
           alt="monster"
           className="blob"
           onClick={() => attackMonster()}
+          disabled={isClickDisabled}
         />
-        <img
-          src="../../assets/cible.png"
-          alt="random"
-          style={{
-            width: "50px",
-            position: "absolute",
-            left: imagePosition.x,
-            top: imagePosition.y,
-          }}
-          onClick={setRandomPosition}
-        />
+        {monsterZone % 10 === 0 && (
+          <img
+            src="../../assets/cible.png"
+            alt="random"
+            style={{
+              width: "50px",
+              position: "absolute",
+              left: imagePosition.x,
+              top: imagePosition.y,
+            }}
+            onClick={() => attackBoss()}
+          />
+        )}
       </div>
 
       <Zones

@@ -7,8 +7,15 @@
   align-items: center;
   margin: auto;
 }
+.clickzone {
+  position: relative;
+}
 .blob {
   width: 200px;
+}
+.cible {
+  width: 50px;
+  position: absolute;
 }
 .score {
   background-color: darkblue;

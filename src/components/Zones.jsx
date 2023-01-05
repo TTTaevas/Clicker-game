@@ -13,6 +13,22 @@ export default function Zones({
 }) {
   const [monsterCount, setMonsterCount] = useState(0);
   const [maxMonsterCount, setMaxMonsterCount] = useState(10);
+  const [countdown, setCountdown] = useState(30);
+
+  const displayCountdown = () => {
+    setInterval(() => {
+      setCountdown(countdown - 1);
+    }, 1000);
+  };
+
+  const bossTimer = () => {
+    setTimeout(() => {
+      setMaxLife((maxLife = Math.round(maxLife / 1.8)));
+      setMonsterZone(monsterZone - 1);
+      setMonsterCount(0);
+      setMaxMonsterCount(10);
+    }, 1000);
+  };
   const spawnMonster = () => {
     if (monsterCount === maxMonsterCount - 1) {
       if (monsterZone % 9 === 0) {
@@ -33,6 +49,10 @@ export default function Zones({
     setLife((life = maxLife));
   };
   useEffect(() => {
+    if (monsterZone % 10 === 0) {
+      displayCountdown();
+      bossTimer();
+    }
     if (life <= 0) {
       setScore(score + maxLife / 6);
       setMonsterCount(monsterCount + 1);
@@ -43,6 +63,7 @@ export default function Zones({
     <div className="monsterCount">
       {monsterCount}/{maxMonsterCount} <br />
       You are in zone {monsterZone}
+      {monsterZone % 10 === 0 && <p> {countdown} seconds left</p>}
     </div>
   );
 }

@@ -16,18 +16,24 @@ export default function Zones({
   const [countdown, setCountdown] = useState(30);
   const [beforeBossLife, setBeforeBossLife] = useState(0);
   const displayCountdown = () => {
-    setInterval(() => {
+    const intervalId = setInterval(() => {
       setCountdown(countdown - 1);
     }, 1000);
+    if (countdown === 0) {
+      clearInterval(intervalId);
+    }
   };
 
   const bossTimer = () => {
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       setMaxLife(beforeBossLife);
       setMonsterZone(monsterZone - 1);
       setMonsterCount(0);
       setMaxMonsterCount(10);
-    }, 1000);
+    }, 2000);
+    if (countdown === 0) {
+      clearTimeout(timeoutId);
+    }
   };
   const spawnMonster = () => {
     if (monsterCount === maxMonsterCount - 1) {

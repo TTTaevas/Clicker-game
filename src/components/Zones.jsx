@@ -11,7 +11,7 @@ export default function Zones({
   monsterZone,
   setMonsterZone,
 }) {
-  const [maxSecondsToKillBoss, setMaxSecondsToKillBoss] = useState(5);
+  const [maxSecondsToKillBoss, setMaxSecondsToKillBoss] = useState(30);
   const [monsterCount, setMonsterCount] = useState(1);
   const [maxMonsterCount, setMaxMonsterCount] = useState(10);
   const [countdown, setCountdown] = useState(maxSecondsToKillBoss);
@@ -22,7 +22,7 @@ export default function Zones({
       setMonsterCount(1);
       if (monsterZone % 9 === 0) {
         setBeforeBossLife(maxLife);
-        setMaxLife((maxLife = Math.round(maxLife * 60)));
+        setMaxLife((maxLife = Math.round(maxLife * 10)));
         setMaxMonsterCount(1);
         setMonsterZone(monsterZone + 1);
       } else {
@@ -37,17 +37,22 @@ export default function Zones({
     setLife((life = maxLife));
   };
   useEffect(() => {
-    if (monsterZone % 10 === 0 && countdown === maxSecondsToKillBoss && life === maxLife) {
+    if (
+      monsterZone % 10 === 0 &&
+      countdown === maxSecondsToKillBoss &&
+      life === maxLife
+    ) {
       for (let i = 0; i < maxSecondsToKillBoss; i++) {
         setTimeout(() => {
-          setCountdown(countdown - (i + 1))
-        }, 1000 * (i + 1))
+          setCountdown(countdown - (i + 1));
+        }, 1000 * (i + 1));
       }
     }
-    if (countdown <= 0 && monsterZone % 10 === 0) { // If still against the boss when timer is done
+    if (countdown <= 0 && monsterZone % 10 === 0) {
+      // If still against the boss when timer is done
       setMaxLife(beforeBossLife);
       setLife(beforeBossLife);
-      setCountdown(maxSecondsToKillBoss)
+      setCountdown(maxSecondsToKillBoss);
       setMonsterZone(monsterZone - 1);
       setMaxMonsterCount(10);
     }

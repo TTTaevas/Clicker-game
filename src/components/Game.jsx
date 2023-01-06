@@ -8,7 +8,7 @@ import Experiencebar from "./Experiencebar";
 import Zones from "./Zones";
 
 export default function Game(props) {
-  let [power, setPower] = useState(10000000000000);
+  let [power, setPower] = useState(100);
   let [score, setScore] = useState(0);
   let [maxLife, setMaxLife] = useState(10);
   let [life, setLife] = useState(maxLife);

@@ -3,7 +3,7 @@ import "../style/score.css";
 import "../style/progressbar.css";
 import blob from "../../assets/blob.png";
 import cible from "../../assets/cible.png";
-import Clicker from "./Clicker";
+import Shop from "./Shop";
 import Experiencebar from "./Experiencebar";
 import Zones from "./Zones";
 
@@ -93,7 +93,7 @@ export default function Game(props) {
 
       <progress max={maxLife} value={life} className="healthbar" />
       <p>{life} HP</p>
-      <Clicker score={score} setLife={setLife} setScore={setScore} />
+      <Shop score={score} setLife={setLife} setScore={setScore} />
       <p className="score">{Math.round(score)}</p>
     </div>
   );

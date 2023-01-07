@@ -1,11 +1,18 @@
 import { useState } from "react";
 
-export default function Potion({ experience, setExperience }) {
-  const [potion, setPotion] = useState(false);
+export default function Potion({
+  potion,
+  setPotion,
+  experience,
+  setExperience,
+}) {
   const [price, setPrice] = useState(100000);
 
   const buyPotion = () => {
     setPotion(true);
+    setTimeout(() => {
+      setPotion(false);
+    }, 15 * 60 * 1000);
   };
 
   return (

@@ -6,11 +6,18 @@ export default function Shop({
   setScore,
   experience,
   setExperience,
+  potion,
+  setPotion,
 }) {
   return (
     <>
-      <Sword dégats="x" score={score} setLife={setLife} setScore={setScore} />
-      <Potion experience={experience} setExperience={setExperience} />
+      <Sword score={score} setLife={setLife} setScore={setScore} />
+      <Potion
+        potion={potion}
+        setPotion={setPotion}
+        experience={experience}
+        setExperience={setExperience}
+      />
     </>
   );
 }

@@ -7,7 +7,8 @@ import Shop from "./Shop";
 import Experiencebar from "./Experiencebar";
 import Zones from "./Zones";
 
-export default function Game(props) {
+export default function Game() {
+  const [potion, setPotion] = useState(false);
   let [power, setPower] = useState(100);
   let [score, setScore] = useState(100000000000000);
   let [maxLife, setMaxLife] = useState(10);
@@ -38,7 +39,11 @@ export default function Game(props) {
   const attackMonster = () => {
     if (life > 0 && monsterZone % 10 !== 0) {
       setLife(life - power);
-      setExperience(experience + 1);
+      if (potion === true) {
+        setExperience(experience + 2);
+      } else {
+        setExperience(experience + 1);
+      }
     }
   };
   const attackBoss = () => {
@@ -94,6 +99,8 @@ export default function Game(props) {
       <progress max={maxLife} value={life} className="healthbar" />
       <p>{life} HP</p>
       <Shop
+        potion={potion}
+        setPotion={setPotion}
         score={score}
         setLife={setLife}
         setScore={setScore}

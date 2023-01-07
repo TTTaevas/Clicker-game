@@ -1,20 +1,20 @@
 import { useState } from "react";
 export default function Sword({ setScore, score, setLife }) {
-  const [clicker, setClicker] = useState(0);
+  const [sword, setSword] = useState(0);
   const [price, setPrice] = useState(10);
-  const handleBuyClicker = () => {
+  const handleBuySword = () => {
     if (score >= Math.round(price)) {
       setScore(score - Math.round(price));
-      setClicker(clicker + 1);
+      setSword(sword + 1);
       setPrice(price * 1.2);
       setInterval(() => setLife((oldLife) => oldLife - 1), 1000);
     }
   };
   return (
     <>
-      <p>You have {clicker} clickers</p>
-      <button type="button" onClick={() => handleBuyClicker()}>
-        Buy clicker : {Math.round(price)} points
+      <p>You have {sword} swords</p>
+      <button type="button" onClick={() => handleBuySword()}>
+        Buy sword : {Math.round(price)} points
       </button>
     </>
   );

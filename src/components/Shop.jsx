@@ -1,9 +1,16 @@
 import Sword from "./Sword";
-
-export default function Shop({ score, setLife, setScore }) {
+import Potion from "./Potion";
+export default function Shop({
+  score,
+  setLife,
+  setScore,
+  experience,
+  setExperience,
+}) {
   return (
     <>
-      <Sword score={score} setLife={setLife} setScore={setScore} />
+      <Sword dégats="x" score={score} setLife={setLife} setScore={setScore} />
+      <Potion experience={experience} setExperience={setExperience} />
     </>
   );
 }

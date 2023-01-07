@@ -2,14 +2,14 @@ import { useState, useRef, useEffect } from "react";
 import "../style/score.css";
 import "../style/progressbar.css";
 import blob from "../../assets/blob.png";
-import cible from "../../assets/cible.png";
+import target from "../../assets/target.png";
 import Shop from "./Shop";
 import Experiencebar from "./Experiencebar";
 import Zones from "./Zones";
 
 export default function Game(props) {
   let [power, setPower] = useState(100);
-  let [score, setScore] = useState(0);
+  let [score, setScore] = useState(100000000000000);
   let [maxLife, setMaxLife] = useState(10);
   let [life, setLife] = useState(maxLife);
   let [experience, setExperience] = useState(0);
@@ -67,7 +67,7 @@ export default function Game(props) {
         />
         {monsterZone % 10 === 0 && (
           <img
-            src={cible}
+            src={target}
             alt="random"
             style={{
               width: "50px",
@@ -93,7 +93,13 @@ export default function Game(props) {
 
       <progress max={maxLife} value={life} className="healthbar" />
       <p>{life} HP</p>
-      <Shop score={score} setLife={setLife} setScore={setScore} />
+      <Shop
+        score={score}
+        setLife={setLife}
+        setScore={setScore}
+        experience={experience}
+        setExperience={setExperience}
+      />
       <p className="score">{Math.round(score)}</p>
     </div>
   );

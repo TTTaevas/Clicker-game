@@ -37,7 +37,7 @@ export default function Zones({
   };
   useEffect(() => {
     if (monsterZone % 10 === 0) {
-      const timeoutId = setTimeout(() => {
+      setTimeout(() => {
         setCountdown(countdown - 1);
       }, 1000);
     } else {

@@ -1,0 +1,57 @@
+.shopContainer {
+    display: flex;
+    flex-direction: column;
+        gap: 20px;
+    text-align:center;
+}
+
+
+
+
+.sword {
+	box-shadow: -1px 1px 7px 1px #3dc21b;
+	background-color:#44c767;
+	border-radius:10px;
+	border:1px solid #18ab29;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	font-size:20px;
+	font-weight:bold;
+	padding:5px 40px;
+	text-decoration:none;
+	text-shadow:-1px 2px 3px #2f6627;
+}
+.sword:hover {
+	background-color:#5cbf2a;
+}
+.sword:active {
+	position:relative;
+	top:1px;
+}
+
+.potion {
+	box-shadow: -1px 1px 7px 1px #c21b1b;
+	background-color:#c74545;
+	border-radius:10px;
+	border:1px solid #ab1919;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	font-size:20px;
+	font-weight:bold;
+	padding:5px 40px;
+	text-decoration:none;
+	text-shadow:-1px 2px 3px #662828;
+}
+.potion:hover {
+	background-color:#bd2a2a;
+}
+.potion:active {
+	position:relative;
+	top:1px;
+}
+
+        

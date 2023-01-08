@@ -16,7 +16,7 @@ export default function Game() {
   let [maxLife, setMaxLife] = useState(10);
   let [life, setLife] = useState(maxLife);
   let [experience, setExperience] = useState(0);
-  let [monsterZone, setMonsterZone] = useState(1);
+  let [monsterZone, setMonsterZone] = useState(9);
   const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
   const [isClickDisabled, setIsClickDisabled] = useState(false);
   const [containerDimensions, setContainerDimensions] = useState({
@@ -56,7 +56,11 @@ export default function Game() {
     if (life > 0 && monsterZone % 10 === 0) {
       setIsClickDisabled(true);
       setLife(life - power * 3);
-      setExperience(experience + 5);
+      if (potion === true) {
+        setExperience(experience + 10);
+      } else {
+        setExperience(experience + 5);
+      }
       setRandomPosition();
     }
     setBlobClicked(true);

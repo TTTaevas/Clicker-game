@@ -7,7 +7,6 @@ import target from "../../assets/target.png";
 import Shop from "./Shop";
 import Experiencebar from "./Experiencebar";
 import Zones from "./Zones";
-import Damage from "./Damage";
 
 export default function Game() {
   const [potion, setPotion] = useState(false);
@@ -128,11 +127,10 @@ export default function Game() {
       <progress max={maxLife} value={life} className="healthbar" />
       <p>{life} HP</p>
 
-      <Damage
-        power={power}
-        sword={sword}
-      />
-      
+      <div className="damage">
+        <p>{power}HP per click | Swords inflict {sword}HP per second</p>
+      </div>
+
       <Shop
         potion={potion}
         setPotion={setPotion}

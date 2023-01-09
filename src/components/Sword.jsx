@@ -1,7 +1,12 @@
 import { useState } from "react";
 import "../style/shop.css";
-export default function Sword({ setScore, score, setLife }) {
-  const [sword, setSword] = useState(0);
+export default function Sword({
+  sword,
+  setSword,
+  setScore,
+  score,
+  setLife
+}) {
   const [price, setPrice] = useState(10);
   const handleBuySword = () => {
     if (score >= Math.round(price)) {

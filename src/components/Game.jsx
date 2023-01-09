@@ -10,6 +10,7 @@ import Zones from "./Zones";
 
 export default function Game() {
   const [potion, setPotion] = useState(false);
+  const [sword, setSword] = useState(0);
   const [blobClicked, setBlobClicked] = useState(false);
   let [power, setPower] = useState(100);
   let [score, setScore] = useState(10000000000000);
@@ -18,7 +19,6 @@ export default function Game() {
   let [experience, setExperience] = useState(0);
   let [monsterZone, setMonsterZone] = useState(9);
   const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
-  const [isClickDisabled, setIsClickDisabled] = useState(false);
   const [containerDimensions, setContainerDimensions] = useState({
     width: 0,
     height: 0,
@@ -39,7 +39,8 @@ export default function Game() {
     });
   };
   const attackMonster = () => {
-    if (life > 0 && monsterZone % 10 !== 0) {
+    if (monsterZone % 10 === 0) return
+    if (life > 0) {
       setLife(life - power);
       if (potion === true) {
         setExperience(experience + 2);
@@ -54,7 +55,6 @@ export default function Game() {
   };
   const attackBoss = () => {
     if (life > 0 && monsterZone % 10 === 0) {
-      setIsClickDisabled(true);
       setLife(life - power * 3);
       if (potion === true) {
         setExperience(experience + 10);
@@ -80,7 +80,6 @@ export default function Game() {
         <button
           type="button"
           onClick={() => attackMonster()}
-          disabled={isClickDisabled}
           className="blob"
         >
           <img
@@ -125,9 +124,16 @@ export default function Game() {
 
       <progress max={maxLife} value={life} className="healthbar" />
       <p>{life} HP</p>
+
+      <div className="damage">
+        <p>{power}HP per click | Swords inflict {sword}HP per second</p>
+      </div>
+
       <Shop
         potion={potion}
         setPotion={setPotion}
+        sword={sword}
+        setSword={setSword}
         score={score}
         setLife={setLife}
         setScore={setScore}

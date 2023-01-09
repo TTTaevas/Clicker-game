@@ -10,7 +10,6 @@ import Zones from "./Zones";
 
 export default function Game() {
   const [potion, setPotion] = useState(false);
-  const [sword, setSword] = useState(0);
   const [blobClicked, setBlobClicked] = useState(false);
   let [power, setPower] = useState(100);
   let [score, setScore] = useState(10000000000000);
@@ -39,7 +38,7 @@ export default function Game() {
     });
   };
   const attackMonster = () => {
-    if (monsterZone % 10 === 0) return
+    if (monsterZone % 10 === 0) return;
     if (life > 0) {
       setLife(life - power);
       if (potion === true) {
@@ -77,11 +76,7 @@ export default function Game() {
         setPower={setPower}
       />
       <div className="clickzone" ref={containerRef}>
-        <button
-          type="button"
-          onClick={() => attackMonster()}
-          className="blob"
-        >
+        <button type="button" onClick={() => attackMonster()} className="blob">
           <img
             src={blob}
             alt="monster"
@@ -126,14 +121,12 @@ export default function Game() {
       <p>{life} HP</p>
 
       <div className="damage">
-        <p>{power}HP per click | Swords inflict {sword}HP per second</p>
+        <p>{power} HP per click</p>
       </div>
 
       <Shop
         potion={potion}
         setPotion={setPotion}
-        sword={sword}
-        setSword={setSword}
         score={score}
         setLife={setLife}
         setScore={setScore}

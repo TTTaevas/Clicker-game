@@ -1,26 +1,24 @@
-import { useState } from "react";
 import "../style/shop.css";
+
 export default function Sword({
-  sword,
-  setSword,
-  setScore,
-  score,
-  setLife
+  id,
+  count,
+  price,
+  damage,
+  name,
+  handleBuySword,
 }) {
-  const [price, setPrice] = useState(10);
-  const handleBuySword = () => {
-    if (score >= Math.round(price)) {
-      setScore(score - Math.round(price));
-      setSword(sword + 1);
-      setPrice(price * 1.2);
-      setInterval(() => setLife((oldLife) => oldLife - 1), 1000);
-    }
-  };
   return (
     <>
-      <p>You have {sword} swords</p>
-      <button className="sword" type="button" onClick={() => handleBuySword()}>
-        Buy sword : {Math.round(price)} points
+      <p>
+        You have {count} {name}
+      </p>
+      <button
+        className="sword"
+        type="button"
+        onClick={() => handleBuySword({ id, price, damage, name })}
+      >
+        Buy {name}: {Math.round(price)} points
       </button>
     </>
   );

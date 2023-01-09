@@ -10,6 +10,7 @@ import Zones from "./Zones";
 
 export default function Game() {
   const [potion, setPotion] = useState(false);
+  const [sword, setSword] = useState(0);
   const [blobClicked, setBlobClicked] = useState(false);
   let [power, setPower] = useState(100);
   let [score, setScore] = useState(10000000000000);
@@ -123,9 +124,16 @@ export default function Game() {
 
       <progress max={maxLife} value={life} className="healthbar" />
       <p>{life} HP</p>
+
+      <div className="damage">
+        <p>{power}HP per click | Swords inflict {sword}HP per second</p>
+      </div>
+
       <Shop
         potion={potion}
         setPotion={setPotion}
+        sword={sword}
+        setSword={setSword}
         score={score}
         setLife={setLife}
         setScore={setScore}

@@ -23,9 +23,14 @@ export default function Shop({ score, setLife, setScore, potion, setPotion }) {
       setInterval(() => setLife((oldLife) => oldLife - sword.damage), 1000);
     }
   };
+  const inactiveDPS = swords.reduce(
+    (acc, sword) => acc + sword.damage * sword.count,
+    0
+  );
 
   return (
     <div className="shopContainer">
+      <p>You inflicts {inactiveDPS} damage/second</p>
       {swords.map((sword) => (
         <Sword
           count={sword.count}

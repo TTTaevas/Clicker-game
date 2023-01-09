@@ -1,19 +1,22 @@
 import { useState, useRef, useEffect } from "react";
-import "../style/score.css";
+import "../style/game.css";
 import "../style/progressbar.css";
 import blob from "../../assets/blob.png";
-import cible from "../../assets/cible.png";
-import Clicker from "./Clicker";
+import hurtBlob from "../../assets/hurtBlob.png";
+import target from "../../assets/target.png";
+import Shop from "./Shop";
 import Experiencebar from "./Experiencebar";
 import Zones from "./Zones";
 
-export default function Game(props) {
+export default function Game() {
+  const [potion, setPotion] = useState(false);
+  const [blobClicked, setBlobClicked] = useState(false);
   let [power, setPower] = useState(100);
-  let [score, setScore] = useState(0);
+  let [score, setScore] = useState(10000000000000);
   let [maxLife, setMaxLife] = useState(10);
   let [life, setLife] = useState(maxLife);
   let [experience, setExperience] = useState(0);
-  let [monsterZone, setMonsterZone] = useState(1);
+  let [monsterZone, setMonsterZone] = useState(9);
   const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
   const [isClickDisabled, setIsClickDisabled] = useState(false);
   const [containerDimensions, setContainerDimensions] = useState({
@@ -38,16 +41,32 @@ export default function Game(props) {
   const attackMonster = () => {
     if (life > 0 && monsterZone % 10 !== 0) {
       setLife(life - power);
-      setExperience(experience + 1);
+      if (potion === true) {
+        setExperience(experience + 2);
+      } else {
+        setExperience(experience + 1);
+      }
     }
+    setBlobClicked(true);
+    setTimeout(() => {
+      setBlobClicked(false);
+    }, 100);
   };
   const attackBoss = () => {
     if (life > 0 && monsterZone % 10 === 0) {
       setIsClickDisabled(true);
       setLife(life - power * 3);
-      setExperience(experience + 5);
+      if (potion === true) {
+        setExperience(experience + 10);
+      } else {
+        setExperience(experience + 5);
+      }
       setRandomPosition();
     }
+    setBlobClicked(true);
+    setTimeout(() => {
+      setBlobClicked(false);
+    }, 100);
   };
   return (
     <div className="scorecontainer">
@@ -58,25 +77,38 @@ export default function Game(props) {
         setPower={setPower}
       />
       <div className="clickzone" ref={containerRef}>
-        <img
-          src={blob}
-          alt="monster"
-          className="blob"
+        <button
+          type="button"
           onClick={() => attackMonster()}
           disabled={isClickDisabled}
-        />
-        {monsterZone % 10 === 0 && (
+          className="blob"
+        >
           <img
-            src={cible}
-            alt="random"
-            style={{
-              width: "50px",
-              position: "absolute",
-              left: imagePosition.x,
-              top: imagePosition.y,
-            }}
-            onClick={() => attackBoss()}
+            src={blob}
+            alt="monster"
+            className="blob"
+            style={{ display: blobClicked ? "none" : "inline" }}
           />
+          <img
+            src={hurtBlob}
+            alt="monster"
+            className="blob"
+            style={{ display: blobClicked ? "inline" : "none" }}
+          />
+        </button>
+        {monsterZone % 10 === 0 && (
+          <button type="button" className="target" onClick={() => attackBoss()}>
+            <img
+              src={target}
+              alt="random"
+              style={{
+                width: "50px",
+                position: "absolute",
+                left: imagePosition.x,
+                top: imagePosition.y,
+              }}
+            />
+          </button>
         )}
       </div>
 
@@ -93,8 +125,14 @@ export default function Game(props) {
 
       <progress max={maxLife} value={life} className="healthbar" />
       <p>{life} HP</p>
-      <Clicker score={score} setLife={setLife} setScore={setScore} />
-      <p className="score">{Math.round(score)}</p>
+      <Shop
+        potion={potion}
+        setPotion={setPotion}
+        score={score}
+        setLife={setLife}
+        setScore={setScore}
+      />
+      <p className="score">score : {Math.round(score)}</p>
     </div>
   );
 }

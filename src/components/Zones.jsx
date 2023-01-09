@@ -17,7 +17,6 @@ export default function Zones({
   const [beforeBossLife, setBeforeBossLife] = useState(0);
 
   const spawnMonster = () => {
-    console.log(monsterZone, monsterZone % 9 === 0, monsterZone % 10 === 0);
     if (monsterCount === maxMonsterCount) {
       setMonsterCount(1);
       if ((monsterZone + 1) % 10 === 0) {
@@ -38,7 +37,7 @@ export default function Zones({
   };
   useEffect(() => {
     if (monsterZone % 10 === 0) {
-      const timeoutId = setTimeout(() => {
+      setTimeout(() => {
         setCountdown(countdown - 1);
       }, 1000);
     } else {

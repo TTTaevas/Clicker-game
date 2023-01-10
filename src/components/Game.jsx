@@ -68,7 +68,7 @@ export default function Game() {
     }, 100);
   };
   return (
-    <div className="scorecontainer">
+    <div className="scoreContainer">
       <Experiencebar
         setExperience={setExperience}
         experience={experience}

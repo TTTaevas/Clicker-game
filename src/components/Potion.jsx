@@ -28,7 +28,7 @@ export default function Potion({ potion, setPotion }) {
           {getLengthInWrittenForm(length)}
         </p>
       )}
-      <button className="potion" type="button" onClick={() => buyPotion()}>
+      <button className="potionButton" type="button" onClick={() => buyPotion()}>
         Buy XP potion: {Math.round(price)} points
       </button>
     </>

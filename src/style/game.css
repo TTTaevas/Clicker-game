@@ -1,11 +1,26 @@
-.scorecontainer {
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+.App {
+  margin: 0;
+  position: absolute;
+}
+@media screen and (min-height: 900px) {
+  .App {
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+}
+
+.scoreContainer {
   display: flex;
+  width: 100vw;
   flex-direction: column;
-  width: 100vh;
-  height: 100vh;
-  justify-content: center;
   align-items: center;
-  margin: auto;
 }
 .clickzone {
   position: relative;

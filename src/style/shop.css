@@ -6,9 +6,13 @@
 }
 
 
-
-
-.sword {
+.swordContainer {
+	display: inline-flex;
+}
+.swordContainer * {
+	padding: 0 10px;
+}
+.swordButton {
 	box-shadow: -1px 1px 7px 1px #3dc21b;
 	background-color:#44c767;
 	border-radius:10px;
@@ -19,19 +23,19 @@
 	font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 	font-size:20px;
 	font-weight:bold;
-	padding:5px 40px;
+	width: 200px;
 	text-decoration:none;
 	text-shadow:-1px 2px 3px #2f6627;
 }
-.sword:hover {
+.swordButton:hover {
 	background-color:#5cbf2a;
 }
-.sword:active {
+.swordButton:active {
 	position:relative;
 	top:1px;
 }
 
-.potion {
+.potionButton {
 	box-shadow: -1px 1px 7px 1px #c21b1b;
 	background-color:#c74545;
 	border-radius:10px;
@@ -46,12 +50,10 @@
 	text-decoration:none;
 	text-shadow:-1px 2px 3px #662828;
 }
-.potion:hover {
+.potionButton:hover {
 	background-color:#bd2a2a;
 }
-.potion:active {
+.potionButton:active {
 	position:relative;
 	top:1px;
 }
-
-        

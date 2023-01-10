@@ -30,7 +30,7 @@ export default function Shop({ score, setLife, setScore, potion, setPotion }) {
 
   return (
     <div className="shopContainer">
-      <p>You inflicts {inactiveDPS} damage/second</p>
+      <p>You inflict {inactiveDPS} damage/second</p>
       {swords.map((sword) => (
         <Sword
           count={sword.count}

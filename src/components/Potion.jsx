@@ -2,6 +2,7 @@ import { useState } from "react";
 import "../style/shop.css";
 
 export default function Potion({ potion, setPotion }) {
+  const [potionStyle, setPotionStyle] = useState("potionButton");
   const [price, setPrice] = useState(100000);
   let [length, setLength] = useState(900);
 
@@ -12,7 +13,9 @@ export default function Potion({ potion, setPotion }) {
         1000
       );
       setPotion(true);
+      setPotionStyle("potionButtonBought");
       setTimeout(() => {
+        setPotionStyle("potionButton");
         setPotion(false);
         clearInterval(countdown);
         setLength(length); // Because it's in timeout, length is the original value
@@ -28,7 +31,7 @@ export default function Potion({ potion, setPotion }) {
           {getLengthInWrittenForm(length)}
         </p>
       )}
-      <button className="potionButton" type="button" onClick={() => buyPotion()}>
+      <button className={potionStyle} type="button" onClick={() => buyPotion()}>
         Buy XP potion: {Math.round(price)} points
       </button>
     </>

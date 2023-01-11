@@ -2,7 +2,14 @@ import { useState } from "react";
 import Sword from "./Sword";
 import Potion from "./Potion";
 
-export default function Shop({ score, setLife, setScore, potion, setPotion }) {
+export default function Shop({
+  score,
+  setLife,
+  setScore,
+  potion,
+  setPotion,
+  power,
+}) {
   // Swords stats is not definitive.
   const [swords, setSwords] = useState([
     { id: 1, count: 0, price: 10, damage: 1, name: "Wooden Sword" },
@@ -29,20 +36,25 @@ export default function Shop({ score, setLife, setScore, potion, setPotion }) {
   );
 
   return (
-    <div className="shopContainer">
-      <p>You inflict {inactiveDPS} damage/second</p>
-      {swords.map((sword) => (
-        <Sword
-          count={sword.count}
-          key={sword.id}
-          id={sword.id}
-          price={sword.price}
-          damage={sword.damage}
-          name={sword.name}
-          handleBuySword={handleBuySword}
-        />
-      ))}
-      <Potion potion={potion} setPotion={setPotion} />
-    </div>
+    <>
+      <div className="damage">
+        <p>{power} HP per click</p>
+        <p>You inflict {inactiveDPS} damage/second</p>
+      </div>
+      <div className="shopContainer">
+        {swords.map((sword) => (
+          <Sword
+            count={sword.count}
+            key={sword.id}
+            id={sword.id}
+            price={sword.price}
+            damage={sword.damage}
+            name={sword.name}
+            handleBuySword={handleBuySword}
+          />
+        ))}
+        <Potion potion={potion} setPotion={setPotion} />
+      </div>
+    </>
   );
 }

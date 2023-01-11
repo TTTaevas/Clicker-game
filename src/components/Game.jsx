@@ -68,70 +68,76 @@ export default function Game() {
     }, 100);
   };
   return (
-    <div className="scoreContainer">
-      <Experiencebar
-        setExperience={setExperience}
-        experience={experience}
-        power={power}
-        setPower={setPower}
-      />
-      <div className="clickzone" ref={containerRef}>
-        <button type="button" onClick={() => attackMonster()} className="blob">
-          <img
-            src={blob}
-            alt="monster"
+    <>
+      <div className="scoreContainer">
+        <Experiencebar
+          setExperience={setExperience}
+          experience={experience}
+          power={power}
+          setPower={setPower}
+        />
+        <div className="clickzone" ref={containerRef}>
+          <button
+            type="button"
+            onClick={() => attackMonster()}
             className="blob"
-            style={{ display: blobClicked ? "none" : "inline" }}
-          />
-          <img
-            src={hurtBlob}
-            alt="monster"
-            className="blob"
-            style={{ display: blobClicked ? "inline" : "none" }}
-          />
-        </button>
-        {monsterZone % 10 === 0 && (
-          <button type="button" className="target" onClick={() => attackBoss()}>
+          >
             <img
-              src={target}
-              alt="random"
-              style={{
-                width: "50px",
-                position: "absolute",
-                left: imagePosition.x,
-                top: imagePosition.y,
-              }}
+              src={blob}
+              alt="monster"
+              className="blob"
+              style={{ display: blobClicked ? "none" : "inline" }}
+            />
+            <img
+              src={hurtBlob}
+              alt="monster"
+              className="blob"
+              style={{ display: blobClicked ? "inline" : "none" }}
             />
           </button>
-        )}
+          {monsterZone % 10 === 0 && (
+            <button
+              type="button"
+              className="target"
+              onClick={() => attackBoss()}
+            >
+              <img
+                src={target}
+                alt="random"
+                style={{
+                  width: "50px",
+                  position: "absolute",
+                  left: imagePosition.x,
+                  top: imagePosition.y,
+                }}
+              />
+            </button>
+          )}
+          <Zones
+            score={score}
+            setScore={setScore}
+            life={life}
+            setLife={setLife}
+            maxLife={maxLife}
+            setMaxLife={setMaxLife}
+            monsterZone={monsterZone}
+            setMonsterZone={setMonsterZone}
+          />
+        </div>
+        <progress max={maxLife} value={life} className="healthbar" />
+        <p>{life} HP</p>
+        <p className="score">score : {Math.round(score)}</p>
       </div>
-
-      <Zones
-        score={score}
-        setScore={setScore}
-        life={life}
-        setLife={setLife}
-        maxLife={maxLife}
-        setMaxLife={setMaxLife}
-        monsterZone={monsterZone}
-        setMonsterZone={setMonsterZone}
-      />
-
-      <progress max={maxLife} value={life} className="healthbar" />
-      <p>{life} HP</p>
-
-      <div className="damage">
-        <p>{power} HP per click</p>
-      </div>
-
-      <Shop
-        potion={potion}
-        setPotion={setPotion}
-        score={score}
-        setLife={setLife}
-        setScore={setScore}
-      />
-      <p className="score">score : {Math.round(score)}</p>
-    </div>
+      <footer>
+        <Shop
+          potion={potion}
+          setPotion={setPotion}
+          score={score}
+          setLife={setLife}
+          setScore={setScore}
+          power={power}
+        />
+      </footer>
+    </>
   );
 }

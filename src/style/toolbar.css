@@ -1,0 +1,29 @@
+.toolbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid;
+	height: 70px;
+	max-height: 70px;
+}
+
+.toolbar > * {
+	margin: 10px;
+}
+
+.toolbarImage {
+	height: 50px;
+	width: auto;
+}
+
+.title {
+	font-weight: bold;
+	height: min-content;
+}
+
+.settingsButton {
+	cursor: pointer;
+}
+.settingsButton:hover {
+	transform: rotate(25deg);
+}

@@ -1,14 +1,25 @@
-.healthbar {
-  border: none;
-  width: 400px;
-  height: 60px;
-  background: crimson;
+.health {
+  display: inline-flex;
+  width: 100vw;
+  margin: 10px;
+}
+.health * {
+  position: absolute;
+  margin: 0;
+  width: 350px;
+  left: calc(50% - 350px / 2);
+}
+
+.healthcounter {
+  text-align: center;
+  padding-top: 2px;
 }
 
 .healthbar {
+  border: none;
+  background: crimson;
   color: crimson;
   height: 25px;
-  width: 350px;
 }
 
 .healthbar::-moz-progress-bar {

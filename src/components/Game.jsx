@@ -124,8 +124,10 @@ export default function Game() {
             setMonsterZone={setMonsterZone}
           />
         </div>
-        <progress max={maxLife} value={life} className="healthbar" />
-        <p>{life} HP</p>
+        <div className="health">
+          <progress max={maxLife} value={life} className="healthbar" />
+          <p className="healthcounter">{life} HP</p>
+        </div>
         <p className="score">score : {Math.round(score)}</p>
       </div>
       <footer>

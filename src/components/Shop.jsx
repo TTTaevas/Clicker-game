@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import Sword from "./Sword";
 import Potion from "./Potion";
 
@@ -10,6 +11,7 @@ export default function Shop({
   setPotion,
   power,
 }) {
+  const [selectedTab, setSelectedTab] = useState(0);
   // Swords stats is not definitive.
   const [swords, setSwords] = useState([
     { id: 1, count: 0, price: 10, damage: 1, name: "Wooden Sword" },
@@ -37,24 +39,52 @@ export default function Shop({
 
   return (
     <>
-      <div className="damage">
-        <p>{power} HP per click</p>
-        <p>You inflict {inactiveDPS} damage/second</p>
-      </div>
-      <div className="shopContainer">
-        {swords.map((sword) => (
-          <Sword
-            count={sword.count}
-            key={sword.id}
-            id={sword.id}
-            price={sword.price}
-            damage={sword.damage}
-            name={sword.name}
-            handleBuySword={handleBuySword}
-          />
-        ))}
-        <Potion potion={potion} setPotion={setPotion} />
-      </div>
+      <Tabs>
+        <TabList className="tabsContainer">
+          <Tab className="tabs">
+            <img
+              className="tabIcons"
+              src="../../assets/sword.png"
+              alt="sword icon"
+            />
+          </Tab>
+          <Tab className="tabs">
+            <img
+              className="tabIcons"
+              src="../../assets/potion.png"
+              alt="potion icon"
+            />
+          </Tab>
+        </TabList>
+        <div className="damage">
+          <p>{power} HP per click</p>
+          <p>You inflict {inactiveDPS} damage/second</p>
+        </div>
+
+        <TabPanel>
+          <div className="shopContainer">
+            <br />
+            {swords.map((sword) => (
+              <Sword
+                count={sword.count}
+                key={sword.id}
+                id={sword.id}
+                price={sword.price}
+                damage={sword.damage}
+                name={sword.name}
+                handleBuySword={handleBuySword}
+              />
+            ))}
+          </div>
+        </TabPanel>
+        <TabPanel>
+          <div>
+            <div className="shopContainer">
+              <Potion potion={potion} setPotion={setPotion} />
+            </div>
+          </div>
+        </TabPanel>
+      </Tabs>
     </>
   );
 }

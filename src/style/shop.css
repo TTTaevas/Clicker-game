@@ -4,6 +4,10 @@
 	border: 1px solid black;
 	flex-direction: column;
 	gap: 10px;
+	overflow-y: scroll;
+	height: 152px;
+	align-items: flex-start;
+	margin-top: -85px;
 }
 .damage {
 	text-align: end;
@@ -30,6 +34,7 @@
 	width: 200px;
 	text-decoration:none;
 	text-shadow:-1px 2px 3px #2f6627;
+	margin-left: 20px;
 }
 .swordButton:hover {
 	background-color:#5cbf2a;
@@ -83,4 +88,26 @@
 .potionButtonBought:active {
 	position:relative;
 	top:1px;
+}
+.tabsContainer {
+	display:flex;
+	margin-top: -20px;
+	list-style: none;
+	gap: 10px;
+	align-items:center;
+	justify-content: start;
+}
+.tabIcons {
+	width:35px;
+}
+.tabs {
+    display:flex;
+    border: 1px solid black;
+	border-radius: 10px;
+    width: 100px;
+    justify-content: center;
+	background-color: rgb(87, 58, 14)
+}
+.tabs:hover {
+	cursor: pointer;
 }

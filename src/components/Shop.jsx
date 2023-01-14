@@ -11,7 +11,6 @@ export default function Shop({
   setPotion,
   power,
 }) {
-  const [selectedTab, setSelectedTab] = useState(0);
   // Swords stats is not definitive.
   const [swords, setSwords] = useState([
     { id: 1, count: 0, price: 10, damage: 1, name: "Wooden Sword" },

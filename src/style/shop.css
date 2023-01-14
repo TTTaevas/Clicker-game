@@ -4,11 +4,10 @@
 	border: 1px solid black;
 	flex-direction: column;
 	gap: 10px;
-	padding: 10px;
 	overflow-y: scroll;
 	align-items: flex-start;
 	position: fixed;
-	max-height: 20vh;
+	max-height: 30vh;
     bottom: 0;
     width: 100%;
 }
@@ -18,6 +17,7 @@
 }
 .swordContainer {
 	display: inline-flex;
+	padding: 5px;
 }
 .swordContainer * {
 	padding: 0 10px;
@@ -91,7 +91,7 @@
 	position:relative;
 	top:1px;
 }
-.tabsContainer {
+/* .tabsContainer {
 	display:flex;
 	margin-top: -20px;
 	list-style: none;
@@ -112,4 +112,7 @@
 }
 .tabs:hover {
 	cursor: pointer;
+} */
+.tabButtons img {
+	width: 30px;
 }

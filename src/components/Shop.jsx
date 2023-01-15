@@ -50,21 +50,19 @@ export default function Shop({
         <p>{power} HP per click</p>
         <p>You inflict {inactiveDPS} damage/second</p>
       </div>
-        <div className="tabs">
-           <button className="tabButtons" onClick={() => {
-            setCurrentTab(0)
+        <div className="tabs" onLoad={() => {
+          const resizeObserver = new ResizeObserver(entries => {
             let height = document.getElementsByClassName("shopContainer")[0].clientHeight
-            document.getElementsByClassName("tabs")[0].style.bottom = `${height + 4}px`
-          }}>
-             <img src={swordIcon} alt="sword icon" />
-           </button>
-           <button className="tabButtons" onClick={() => {
-            setCurrentTab(1)
-            let height = document.getElementsByClassName("shopContainer")[0].clientHeight
-            document.getElementsByClassName("tabs")[0].style.bottom = `${height + 4}px`
-          }}>
-            <img src={potionIcon} alt="potion icon" />
-           </button>
+            document.getElementsByClassName("tabs")[0].style.bottom = `${height + 2}px`
+          })
+          resizeObserver.observe(document.getElementsByClassName("shopContainer")[0])
+        }}>
+          <button className="tabButtons" onClick={() => setCurrentTab(0)}>
+          <img src={swordIcon} alt="sword icon" />
+          </button>
+          <button className="tabButtons" onClick={() => setCurrentTab(1)}>
+          <img src={potionIcon} alt="potion icon" />
+          </button>
         </div>
         <div className="shopContainer">
           <br />

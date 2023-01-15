@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Sword from "./Sword";
 import Potion from "./Potion";
+import swordIcon from "../../assets/sword.png";
+import potionIcon from "../../assets/potion.png";
 
 export default function Shop({
   score,
@@ -48,33 +50,38 @@ export default function Shop({
         <p>{power} HP per click</p>
         <p>You inflict {inactiveDPS} damage/second</p>
       </div>
-      <button className="tabButtons" onClick={() => setCurrentTab(0)}>
-        <img src="../../assets/sword.png" alt="sword icon" />
-      </button>
-      <button className="tabButtons" onClick={() => setCurrentTab(1)}>
-        <img src="../../assets/potion.png" alt="potion icon" />
-      </button>
-      <div className="shopContainer">
-        <br />
-        {currentTab === 0 &&
-          swords.map((sword) => (
-            <Sword
-              count={sword.count}
-              key={sword.id}
-              id={sword.id}
-              price={sword.price}
-              damage={sword.damage}
-              name={sword.name}
-              handleBuySword={handleBuySword}
-            />
-          ))}
-      </div>
-
-      <div>
+        <div className="tabs">
+           <button className="tabButtons" onClick={() => {
+            setCurrentTab(0)
+            let height = document.getElementsByClassName("shopContainer")[0].clientHeight
+            document.getElementsByClassName("tabs")[0].style.bottom = `${height + 4}px`
+          }}>
+             <img src={swordIcon} alt="sword icon" />
+           </button>
+           <button className="tabButtons" onClick={() => {
+            setCurrentTab(1)
+            let height = document.getElementsByClassName("shopContainer")[0].clientHeight
+            document.getElementsByClassName("tabs")[0].style.bottom = `${height + 4}px`
+          }}>
+            <img src={potionIcon} alt="potion icon" />
+           </button>
+        </div>
         <div className="shopContainer">
+          <br />
+          {currentTab === 0 &&
+            swords.map((sword) => (
+              <Sword
+                count={sword.count}
+                key={sword.id}
+                id={sword.id}
+                price={sword.price}
+                damage={sword.damage}
+                name={sword.name}
+                handleBuySword={handleBuySword}
+              />
+            ))}
           {currentTab === 1 && <Potion potion={potion} setPotion={setPotion} />}
         </div>
-      </div>
     </>
   );
 }

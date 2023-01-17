@@ -2,13 +2,14 @@ import { useState } from "react";
 export default function Scrolls({
   handleBuyScroll,
   handleSellScroll,
+  handleEquipScroll,
   id,
   price,
-  name,
   bought,
+  equipped,
+  name,
   handleUse,
 }) {
-  let [equipped, setEquipped] = useState(false);
   const [isScrollUsed, setIsScrollUsed] = useState(false);
 
   const handleUseScrolls = () => {
@@ -36,13 +37,13 @@ export default function Scrolls({
             Sell {name}: You will gain {Math.round(price) / 1.25} points
           </button>
           {equipped === false && (
-            <button type="button" onClick={() => setEquipped(true)}>
+            <button type="button" onClick={() => handleEquipScroll({ id, price, bought }, true)}>
               Equip
             </button>
           )}
           {equipped === true && (
             <div>
-              <button type="button" onClick={() => setEquipped(false)}>
+              <button type="button" onClick={() => handleEquipScroll({ id, price, bought }, false)}>
                 Unequip
               </button>
               <button type="button" onClick={() => handleUseScrolls()}>

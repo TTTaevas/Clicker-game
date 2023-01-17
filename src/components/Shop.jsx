@@ -24,33 +24,31 @@ export default function Shop({
     { id: 4, count: 0, price: 100000, damage: 100, name: "Diamond Sword" },
   ]);
 
-  const handleUseScroll2 = () => {
-    setPower(power * 200);
-  };
-  const handleUseScroll1 = () => {
-    const intervalId = setInterval(
-      () => setLife((oldLife) => oldLife - power),
-      100
-    );
-    setTimeout(() => clearInterval(intervalId), 30000);
-  };
   const [scrolls, setScrolls] = useState([
     {
       id: 1,
       bought: false,
+      equipped: false,
       price: 1000,
       name: "First Scroll",
-      handleUse: handleUseScroll1,
+      handleUse: () => {
+        const intervalId = setInterval(
+          () => setLife((oldLife) => oldLife - power),
+          100
+        );
+        setTimeout(() => clearInterval(intervalId), 30000);
+      },
     },
     {
       id: 2,
       bought: false,
+      equipped: false,
       price: 5000,
       name: "Second Scroll",
-      handleUse: handleUseScroll2,
+      handleUse: () => {setPower(power * 200)},
     },
-    { id: 3, bought: false, price: 8000, name: "Third Scroll" },
-    { id: 4, bought: false, price: 15000, name: "Fourth Scroll" },
+    { id: 3, bought: false, equipped: false, price: 8000, name: "Third Scroll" },
+    { id: 4, bought: false, equipped: false, price: 15000, name: "Fourth Scroll" },
   ]);
   const handleBuyScroll = (scroll) => {
     if (score >= Math.round(scroll.price)) {
@@ -64,6 +62,31 @@ export default function Shop({
       setScrolls(updatedScrolls);
     }
   };
+  const handleEquipScroll = (scroll, equip) => {
+    let doAction = false;
+    if (!equip) {
+      doAction = true;
+    } else if (equip) {
+      let how_many_equipped = 0;
+      scrolls.forEach((s) => {
+        if (s.equipped) {
+          how_many_equipped++;
+        }
+      })
+      if (how_many_equipped < 3) {
+        doAction = true;
+      }
+    }
+    if (doAction) {
+      const updatedScrolls = scrolls.map((s) => {
+        if (s.id === scroll.id) {
+          return { ...s, equipped: equip };
+        }
+        return s;
+      });
+      setScrolls(updatedScrolls);
+    }
+  }
   const handleSellScroll = (scroll) => {
     setScore(score + Math.round(scroll.price) / 1.25);
     const updatedScrolls = scrolls.map((s) => {
@@ -148,8 +171,10 @@ export default function Shop({
               id={scrolls.id}
               price={scrolls.price}
               bought={scrolls.bought}
+              equipped={scrolls.equipped}
               handleBuyScroll={handleBuyScroll}
               handleSellScroll={handleSellScroll}
+              handleEquipScroll={handleEquipScroll}
               handleUse={scrolls.handleUse}
             />
           ))}

@@ -20,13 +20,43 @@ export default function Shop({
     { id: 1, count: 0, price: 10, damage: 1, name: "Wooden Sword" },
     { id: 2, count: 0, price: 1000, damage: 5, name: "Stone Sword" },
     { id: 3, count: 0, price: 10000, damage: 10, name: "Iron Sword" },
-    { id: 3, count: 0, price: 10000, damage: 10, name: "Iron Sword" },
-    { id: 3, count: 0, price: 10000, damage: 10, name: "Iron Sword" },
-    { id: 3, count: 0, price: 10000, damage: 10, name: "Iron Sword" },
-    { id: 3, count: 0, price: 10000, damage: 10, name: "Iron Sword" },
-    { id: 3, count: 0, price: 10000, damage: 10, name: "Iron Sword" },
-    { id: 3, count: 0, price: 10000, damage: 10, name: "Iron Sword" },
   ]);
+  const handleUseScroll1 = () => {
+    setInterval(() => setLife((oldLife) => oldLife - power), 100);
+  };
+  const [scrolls, setScrolls] = useState([
+    {
+      id: 1,
+      bought: false,
+      price: 1000,
+      name: "First Scroll",
+      handleUse: handleUseScroll1,
+    },
+    { id: 2, bought: false, price: 5000, name: "Second Scroll" },
+    { id: 3, bought: false, price: 8000, name: "Third Scroll" },
+  ]);
+  const handleBuyScroll = (scroll) => {
+    if (score >= Math.round(scroll.price)) {
+      setScore(score - Math.round(scroll.price));
+      const updatedScrolls = scrolls.map((s) => {
+        if (s.id === scroll.id) {
+          return { ...s, bought: true };
+        }
+        return s;
+      });
+      setScrolls(updatedScrolls);
+    }
+  };
+  const handleSellScroll = (scroll) => {
+    setScore(score + Math.round(scroll.price) / 1.25);
+    const updatedScrolls = scrolls.map((s) => {
+      if (s.id === scroll.id) {
+        return { ...s, bought: false };
+      }
+      return s;
+    });
+    setScrolls(updatedScrolls);
+  };
 
   const handleBuySword = (sword) => {
     if (score >= Math.round(sword.price)) {
@@ -93,7 +123,19 @@ export default function Shop({
             />
           ))}
         {currentTab === 1 && <Potion potion={potion} setPotion={setPotion} />}
-        {currentTab === 2 && <Scrolls />}
+        {currentTab === 2 &&
+          scrolls.map((scrolls) => (
+            <Scrolls
+              key={scrolls.id}
+              name={scrolls.name}
+              id={scrolls.id}
+              price={scrolls.price}
+              bought={scrolls.bought}
+              handleBuyScroll={handleBuyScroll}
+              handleSellScroll={handleSellScroll}
+              handleUse={scrolls.handleUse}
+            />
+          ))}
       </div>
     </>
   );

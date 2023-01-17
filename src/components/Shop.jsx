@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Sword from "./Sword";
 import Potion from "./Potion";
 import Scrolls from "./Scrolls";
@@ -27,7 +27,6 @@ export default function Shop({
   const handleUseScroll2 = () => {
     setPower(power * 200);
   };
-
   const handleUseScroll1 = () => {
     const intervalId = setInterval(
       () => setLife((oldLife) => oldLife - power),
@@ -51,6 +50,7 @@ export default function Shop({
       handleUse: handleUseScroll2,
     },
     { id: 3, bought: false, price: 8000, name: "Third Scroll" },
+    { id: 4, bought: false, price: 15000, name: "Fourth Scroll" },
   ]);
   const handleBuyScroll = (scroll) => {
     if (score >= Math.round(scroll.price)) {

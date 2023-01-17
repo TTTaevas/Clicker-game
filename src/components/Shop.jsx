@@ -1,8 +1,10 @@
 import { useState } from "react";
 import Sword from "./Sword";
 import Potion from "./Potion";
+import Scrolls from "./Scrolls";
 import swordIcon from "../../assets/sword.png";
 import potionIcon from "../../assets/potion.png";
+import scrollIcon from "../../assets/scroll.png";
 
 export default function Shop({
   score,
@@ -50,36 +52,49 @@ export default function Shop({
         <p>{power} HP per click</p>
         <p>You inflict {inactiveDPS} damage/second</p>
       </div>
-        <div className="tabs" onLoad={() => {
-          const resizeObserver = new ResizeObserver(entries => {
-            let height = document.getElementsByClassName("shopContainer")[0].clientHeight
-            document.getElementsByClassName("tabs")[0].style.bottom = `${height + 2}px`
-          })
-          resizeObserver.observe(document.getElementsByClassName("shopContainer")[0])
-        }}>
-          <button className="tabButtons" onClick={() => setCurrentTab(0)}>
+      <div
+        className="tabs"
+        onLoad={() => {
+          // "resizeObserver" is to resize tabs at the same height as the shopContainer
+          const resizeObserver = new ResizeObserver((entries) => {
+            let height =
+              document.getElementsByClassName("shopContainer")[0].clientHeight;
+            document.getElementsByClassName("tabs")[0].style.bottom = `${
+              height + 2
+            }px`;
+          });
+          resizeObserver.observe(
+            document.getElementsByClassName("shopContainer")[0]
+          );
+        }}
+      >
+        <button className="tabButtons" onClick={() => setCurrentTab(0)}>
           <img src={swordIcon} alt="sword icon" />
-          </button>
-          <button className="tabButtons" onClick={() => setCurrentTab(1)}>
+        </button>
+        <button className="tabButtons" onClick={() => setCurrentTab(1)}>
           <img src={potionIcon} alt="potion icon" />
-          </button>
-        </div>
-        <div className="shopContainer">
-          <br />
-          {currentTab === 0 &&
-            swords.map((sword) => (
-              <Sword
-                count={sword.count}
-                key={sword.id}
-                id={sword.id}
-                price={sword.price}
-                damage={sword.damage}
-                name={sword.name}
-                handleBuySword={handleBuySword}
-              />
-            ))}
-          {currentTab === 1 && <Potion potion={potion} setPotion={setPotion} />}
-        </div>
+        </button>
+        <button className="tabButtons" onClick={() => setCurrentTab(2)}>
+          <img src={scrollIcon} alt="scrolls icon" />
+        </button>
+      </div>
+      <div className="shopContainer">
+        <br />
+        {currentTab === 0 &&
+          swords.map((sword) => (
+            <Sword
+              count={sword.count}
+              key={sword.id}
+              id={sword.id}
+              price={sword.price}
+              damage={sword.damage}
+              name={sword.name}
+              handleBuySword={handleBuySword}
+            />
+          ))}
+        {currentTab === 1 && <Potion potion={potion} setPotion={setPotion} />}
+        {currentTab === 2 && <Scrolls />}
+      </div>
     </>
   );
 }

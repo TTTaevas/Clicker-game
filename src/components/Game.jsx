@@ -138,6 +138,7 @@ export default function Game() {
           setLife={setLife}
           setScore={setScore}
           power={power}
+          setPower={setPower}
         />
       </footer>
     </>

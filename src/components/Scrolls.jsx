@@ -9,11 +9,14 @@ export default function Scrolls({
   handleUse,
 }) {
   let [equipped, setEquipped] = useState(false);
+  const [isScrollUsed, setIsScrollUsed] = useState(false);
 
   const handleUseScrolls = () => {
-    handleUse();
+    if (isScrollUsed === false) {
+      handleUse();
+      setTimeout(setIsScrollUsed(), 3600000);
+    }
   };
-
   return (
     <div>
       {bought === false && (

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Sword from "./Sword";
 import Potion from "./Potion";
 import Scrolls from "./Scrolls";
@@ -13,6 +13,7 @@ export default function Shop({
   potion,
   setPotion,
   power,
+  setPower,
 }) {
   const [currentTab, setCurrentTab] = useState(0);
   // Swords stats is not definitive.
@@ -20,9 +21,19 @@ export default function Shop({
     { id: 1, count: 0, price: 10, damage: 1, name: "Wooden Sword" },
     { id: 2, count: 0, price: 1000, damage: 5, name: "Stone Sword" },
     { id: 3, count: 0, price: 10000, damage: 10, name: "Iron Sword" },
+    { id: 4, count: 0, price: 100000, damage: 100, name: "Diamond Sword" },
   ]);
+
+  const handleUseScroll2 = () => {
+    setPower(power * 200);
+  };
+
   const handleUseScroll1 = () => {
-    setInterval(() => setLife((oldLife) => oldLife - power), 100);
+    const intervalId = setInterval(
+      () => setLife((oldLife) => oldLife - power),
+      100
+    );
+    setTimeout(() => clearInterval(intervalId), 30000);
   };
   const [scrolls, setScrolls] = useState([
     {
@@ -32,7 +43,13 @@ export default function Shop({
       name: "First Scroll",
       handleUse: handleUseScroll1,
     },
-    { id: 2, bought: false, price: 5000, name: "Second Scroll" },
+    {
+      id: 2,
+      bought: false,
+      price: 5000,
+      name: "Second Scroll",
+      handleUse: handleUseScroll2,
+    },
     { id: 3, bought: false, price: 8000, name: "Third Scroll" },
   ]);
   const handleBuyScroll = (scroll) => {

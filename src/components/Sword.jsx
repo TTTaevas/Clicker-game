@@ -35,7 +35,9 @@ export default function Sword({
       {bought === true && equipped === false && (
         <button
           type="button"
-          onClick={() => handleEquipSword({ id, price, bought, damage }, true)}
+          onClick={() =>
+            handleEquipSword({ id, price, bought, damage, level }, true)
+          }
         >
           Equip
         </button>

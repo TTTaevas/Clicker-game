@@ -23,7 +23,7 @@ export default function Shop({
       id: 1,
       bought: false,
       equipped: false,
-      level: 1,
+      level: 0,
       price: 10,
       damage: 1,
       name: "Wooden Sword",
@@ -32,7 +32,7 @@ export default function Shop({
       id: 2,
       bought: false,
       equipped: false,
-      level: 1,
+      level: 0,
       price: 1000,
       damage: 5,
       name: "Stone Sword",
@@ -41,7 +41,7 @@ export default function Shop({
       id: 3,
       bought: false,
       equipped: false,
-      level: 1,
+      level: 0,
       price: 10000,
       damage: 10,
       name: "Iron Sword",
@@ -50,7 +50,7 @@ export default function Shop({
       id: 4,
       bought: false,
       equipped: false,
-      level: 1,
+      level: 0,
       price: 100000,
       damage: 100,
       name: "Diamond Sword",
@@ -136,6 +136,7 @@ export default function Shop({
   };
 
   const handleEquipSword = (sword, equip) => {
+    const previousLevel = sword.level - 1;
     let doAction = false;
     let howManyEquipped = 0;
     if (!equip) {
@@ -159,7 +160,7 @@ export default function Shop({
       });
       setSwords(updatedSwords);
       if (equip) {
-        const intervalId = setIntervalId(
+        setIntervalId(
           setInterval(
             () => setLife((oldLife) => oldLife - sword.damage),
             1000 / sword.level
@@ -192,7 +193,7 @@ export default function Shop({
             ...s,
             price: s.price * 1.2,
             bought: true,
-            level: level++,
+            level: s.level + 1,
           };
         }
         return s;

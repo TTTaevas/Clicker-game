@@ -24,7 +24,7 @@ export default function Shop({
     { id: 4, count: 0, price: 100000, damage: 100, name: "Diamond Sword" },
   ]);
 
-  let [scrolls, setScrolls] = useState([
+  const [scrolls, setScrolls] = useState([
     {
       id: 1,
       bought: false,
@@ -46,7 +46,7 @@ export default function Shop({
       price: 5000,
       name: "Second Scroll",
       handleUse: () => {
-        setPower((power = power * 200));
+        setPower((power = power * 2));
       },
     },
     {

@@ -16,12 +16,45 @@ export default function Shop({
   setPower,
 }) {
   const [currentTab, setCurrentTab] = useState(0);
+  const [intervalId, setIntervalId] = useState(null);
   // Swords stats is not definitive.
   const [swords, setSwords] = useState([
-    { id: 1, count: 0, price: 10, damage: 1, name: "Wooden Sword" },
-    { id: 2, count: 0, price: 1000, damage: 5, name: "Stone Sword" },
-    { id: 3, count: 0, price: 10000, damage: 10, name: "Iron Sword" },
-    { id: 4, count: 0, price: 100000, damage: 100, name: "Diamond Sword" },
+    {
+      id: 1,
+      bought: false,
+      equipped: false,
+      level: 1,
+      price: 10,
+      damage: 1,
+      name: "Wooden Sword",
+    },
+    {
+      id: 2,
+      bought: false,
+      equipped: false,
+      level: 1,
+      price: 1000,
+      damage: 5,
+      name: "Stone Sword",
+    },
+    {
+      id: 3,
+      bought: false,
+      equipped: false,
+      level: 1,
+      price: 10000,
+      damage: 10,
+      name: "Iron Sword",
+    },
+    {
+      id: 4,
+      bought: false,
+      equipped: false,
+      level: 1,
+      price: 100000,
+      damage: 100,
+      name: "Diamond Sword",
+    },
   ]);
 
   const [scrolls, setScrolls] = useState([
@@ -81,13 +114,13 @@ export default function Shop({
     if (!equip) {
       doAction = true;
     } else if (equip) {
-      let how_many_equipped = 0;
+      let howManyEquipped = 0;
       scrolls.forEach((s) => {
         if (s.equipped) {
-          how_many_equipped++;
+          howManyEquipped++;
         }
       });
-      if (how_many_equipped < 3) {
+      if (howManyEquipped < 3) {
         doAction = true;
       }
     }
@@ -101,6 +134,44 @@ export default function Shop({
       setScrolls(updatedScrolls);
     }
   };
+
+  const handleEquipSword = (sword, equip) => {
+    let doAction = false;
+    let howManyEquipped = 0;
+    if (!equip) {
+      doAction = true;
+    } else if (equip) {
+      swords.forEach((s) => {
+        if (s.equipped) {
+          howManyEquipped++;
+        }
+      });
+      if (howManyEquipped < 1) {
+        doAction = true;
+      }
+    }
+    if (doAction) {
+      const updatedSwords = swords.map((s) => {
+        if (s.id === sword.id) {
+          return { ...s, equipped: equip };
+        }
+        return s;
+      });
+      setSwords(updatedSwords);
+      if (equip) {
+        const intervalId = setIntervalId(
+          setInterval(
+            () => setLife((oldLife) => oldLife - sword.damage),
+            1000 / sword.level
+          )
+        );
+      } else {
+        clearInterval(intervalId);
+        setIntervalId(null);
+      }
+    }
+  };
+
   const handleSellScroll = (scroll) => {
     setScore(score + Math.round(scroll.price) / 1.25);
     const updatedScrolls = scrolls.map((s) => {
@@ -117,16 +188,20 @@ export default function Shop({
       setScore(score - Math.round(sword.price));
       const updatedSwords = swords.map((s) => {
         if (s.id === sword.id) {
-          return { ...s, price: s.price * 1.2, count: s.count + 1 };
+          return {
+            ...s,
+            price: s.price * 1.2,
+            bought: true,
+            level: level++,
+          };
         }
         return s;
       });
       setSwords(updatedSwords);
-      setInterval(() => setLife((oldLife) => oldLife - sword.damage), 1000);
     }
   };
   const inactiveDPS = swords.reduce(
-    (acc, sword) => acc + sword.damage * sword.count,
+    (acc, sword) => acc + sword.damage * sword.level,
     0
   );
 
@@ -167,13 +242,16 @@ export default function Shop({
         {currentTab === 0 &&
           swords.map((sword) => (
             <Sword
-              count={sword.count}
               key={sword.id}
               id={sword.id}
+              level={sword.level}
               price={sword.price}
               damage={sword.damage}
+              bought={sword.bought}
+              equipped={sword.equipped}
               name={sword.name}
               handleBuySword={handleBuySword}
+              handleEquipSword={handleEquipSword}
             />
           ))}
         {currentTab === 1 && <Potion potion={potion} setPotion={setPotion} />}

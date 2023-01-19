@@ -24,7 +24,7 @@ export default function Shop({
     { id: 4, count: 0, price: 100000, damage: 100, name: "Diamond Sword" },
   ]);
 
-  const [scrolls, setScrolls] = useState([
+  let [scrolls, setScrolls] = useState([
     {
       id: 1,
       bought: false,
@@ -45,10 +45,24 @@ export default function Shop({
       equipped: false,
       price: 5000,
       name: "Second Scroll",
-      handleUse: () => {setPower(power * 200)},
+      handleUse: () => {
+        setPower((power = power * 200));
+      },
     },
-    { id: 3, bought: false, equipped: false, price: 8000, name: "Third Scroll" },
-    { id: 4, bought: false, equipped: false, price: 15000, name: "Fourth Scroll" },
+    {
+      id: 3,
+      bought: false,
+      equipped: false,
+      price: 8000,
+      name: "Third Scroll",
+    },
+    {
+      id: 4,
+      bought: false,
+      equipped: false,
+      price: 15000,
+      name: "Fourth Scroll",
+    },
   ]);
   const handleBuyScroll = (scroll) => {
     if (score >= Math.round(scroll.price)) {
@@ -72,7 +86,7 @@ export default function Shop({
         if (s.equipped) {
           how_many_equipped++;
         }
-      })
+      });
       if (how_many_equipped < 3) {
         doAction = true;
       }
@@ -86,7 +100,7 @@ export default function Shop({
       });
       setScrolls(updatedScrolls);
     }
-  }
+  };
   const handleSellScroll = (scroll) => {
     setScore(score + Math.round(scroll.price) / 1.25);
     const updatedScrolls = scrolls.map((s) => {

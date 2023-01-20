@@ -135,8 +135,15 @@ export default function Shop({
     }
   };
 
+  const makeSwordDealDamage = (sword) => {
+    setIntervalId(
+      setInterval(
+        () => setLife((oldLife) => oldLife - sword.damage),
+        1000 / sword.level
+      )
+    );
+  }
   const handleEquipSword = (sword, equip) => {
-    const previousLevel = sword.level - 1;
     let doAction = false;
     let howManyEquipped = 0;
     if (!equip) {
@@ -160,12 +167,7 @@ export default function Shop({
       });
       setSwords(updatedSwords);
       if (equip) {
-        setIntervalId(
-          setInterval(
-            () => setLife((oldLife) => oldLife - sword.damage),
-            1000 / sword.level
-          )
-        );
+        makeSwordDealDamage(sword)
       } else {
         clearInterval(intervalId);
         setIntervalId(null);
@@ -185,6 +187,11 @@ export default function Shop({
   };
 
   const handleBuySword = (sword) => {
+    let s = swords.find((s) => s.id === sword.id)
+    if (s.equipped) {
+      clearInterval(intervalId);
+      makeSwordDealDamage(s)
+    }
     if (score >= Math.round(sword.price)) {
       setScore(score - Math.round(sword.price));
       const updatedSwords = swords.map((s) => {

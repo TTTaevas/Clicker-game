@@ -2,6 +2,7 @@ import { useState } from "react";
 import Sword from "./Sword";
 import Potion from "./Potion";
 import Scrolls from "./Scrolls";
+import Enchants from "./Enchants";
 import swordIcon from "../../assets/sword.png";
 import potionIcon from "../../assets/potion.png";
 import scrollIcon from "../../assets/scroll.png";
@@ -17,7 +18,9 @@ export default function Shop({
 }) {
   const [currentTab, setCurrentTab] = useState(0);
   const [intervalId, setIntervalId] = useState(null);
+  const [enchantsPrice, setEnchantsPrice] = useState(1000000);
   // Swords stats is not definitive.
+
   const [swords, setSwords] = useState([
     {
       id: 1,
@@ -27,6 +30,8 @@ export default function Shop({
       price: 10,
       damage: 1,
       name: "Wooden Sword",
+      desc: `The Wooden Sword does 1 damage and cost 10. There is no enchants binded to it yet.`,
+      enchant: 0,
     },
     {
       id: 2,
@@ -36,6 +41,8 @@ export default function Shop({
       price: 1000,
       damage: 5,
       name: "Stone Sword",
+      desc: `The Stone Sword does 5 damage and cost 1000. There is no enchants binded to it yet.`,
+      enchant: 0,
     },
     {
       id: 3,
@@ -45,6 +52,8 @@ export default function Shop({
       price: 10000,
       damage: 10,
       name: "Iron Sword",
+      desc: `The Iron Sword does 10 damage and cost 10000. There is no enchants binded to it yet.`,
+      enchant: 0,
     },
     {
       id: 4,
@@ -54,9 +63,11 @@ export default function Shop({
       price: 100000,
       damage: 100,
       name: "Diamond Sword",
+      desc: `The Diamond Sword does 100 damage and cost 100000. There is no enchants binded to it yet.`,
+      enchant: 0,
     },
   ]);
-
+  const [selectedSword, setSelectedSword] = useState(0);
   const [scrolls, setScrolls] = useState([
     {
       id: 1,
@@ -97,6 +108,26 @@ export default function Shop({
       name: "Fourth Scroll",
     },
   ]);
+  const handleBuyEnchant = () => {
+    if (score >= Math.round(enchantsPrice)) {
+      setScore(score - Math.round(enchantsPrice));
+      setEnchantsPrice(enchantsPrice * 1.2);
+      const updatedSwords = swords.map((s) => {
+        if (s.id === parseInt(selectedSword)) {
+          s.enchant = Math.floor(Math.random() * 1000);
+        }
+        if (s.enchant > 500) {
+          return { ...s, damage: Math.round(s.damage * 1.1) };
+        }
+        if (s.enchant < 500) {
+          return { ...s, price: Math.round(s.price * 0.5) };
+        }
+        return s;
+      });
+      setSwords(updatedSwords);
+    }
+  };
+
   const handleBuyScroll = (scroll) => {
     if (score >= Math.round(scroll.price)) {
       setScore(score - Math.round(scroll.price));
@@ -165,13 +196,13 @@ export default function Shop({
         }
         return s;
       });
-      setSwords(updatedSwords);
       if (equip) {
         makeSwordDealDamage(sword)
       } else {
         clearInterval(intervalId);
         setIntervalId(null);
       }
+      setSwords(updatedSwords);
     }
   };
 
@@ -179,7 +210,7 @@ export default function Shop({
     setScore(score + Math.round(scroll.price) / 1.25);
     const updatedScrolls = scrolls.map((s) => {
       if (s.id === scroll.id) {
-        return { ...s, bought: false };
+        return { ...s, equipped: false, bought: false };
       }
       return s;
     });
@@ -244,6 +275,9 @@ export default function Shop({
         <button className="tabButtons" onClick={() => setCurrentTab(2)}>
           <img src={scrollIcon} alt="scrolls icon" />
         </button>
+        <button className="tabButtons" onClick={() => setCurrentTab(3)}>
+          <img src={scrollIcon} alt="scrolls icon" />
+        </button>
       </div>
       <div className="shopContainer">
         <br />
@@ -258,6 +292,7 @@ export default function Shop({
               bought={sword.bought}
               equipped={sword.equipped}
               name={sword.name}
+              desc={sword.desc}
               handleBuySword={handleBuySword}
               handleEquipSword={handleEquipSword}
             />
@@ -278,6 +313,19 @@ export default function Shop({
               handleUse={scrolls.handleUse}
             />
           ))}
+        {currentTab === 3 && (
+          <Enchants
+            swords={swords}
+            setSwords={setSwords}
+            swordId={swords.id}
+            swordDamage={swords.damage}
+            swordEnchant={swords.enchant}
+            enchantsPrice={enchantsPrice}
+            handleBuyEnchant={handleBuyEnchant}
+            selectedSword={selectedSword}
+            setSelectedSword={setSelectedSword}
+          />
+        )}
       </div>
     </>
   );

@@ -10,6 +10,7 @@ export default function Sword({
   handleBuySword,
   handleEquipSword,
   level,
+  desc,
 }) {
   return (
     <div className="swordContainer">
@@ -17,6 +18,7 @@ export default function Sword({
         <button
           className="swordButton"
           type="button"
+          title={desc}
           onClick={() => handleBuySword({ id, price })}
         >
           Buy {name}: {Math.round(price)} points

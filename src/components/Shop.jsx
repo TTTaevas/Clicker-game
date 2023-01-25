@@ -114,11 +114,13 @@ export default function Shop({
       setEnchantsPrice(enchantsPrice * 1.2);
       const updatedSwords = swords.map((s) => {
         if (s.id === parseInt(selectedSword)) {
-          s.enchant = 1;
-          s.enchanted = true;
+          s.enchant = Math.floor(Math.random() * 1000);
         }
-        if (s.enchant === 1) {
+        if (s.enchant > 500) {
           return { ...s, damage: Math.round(s.damage * 1.1) };
+        }
+        if (s.enchant < 500) {
+          return { ...s, price: Math.round(s.price * 0.5) };
         }
         return s;
       });

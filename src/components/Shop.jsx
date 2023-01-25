@@ -67,7 +67,6 @@ export default function Shop({
       enchant: 0,
     },
   ]);
-  const [selectedSword, setSelectedSword] = useState(0);
   const [scrolls, setScrolls] = useState([
     {
       id: 1,
@@ -108,7 +107,7 @@ export default function Shop({
       name: "Fourth Scroll",
     },
   ]);
-  const handleBuyEnchant = () => {
+  const handleBuyEnchant = (selectedSword) => {
     if (score >= Math.round(enchantsPrice)) {
       setScore(score - Math.round(enchantsPrice));
       setEnchantsPrice(enchantsPrice * 1.2);
@@ -119,7 +118,7 @@ export default function Shop({
         if (s.enchant > 500) {
           return { ...s, damage: Math.round(s.damage * 1.1) };
         }
-        if (s.enchant < 500) {
+        if (s.enchant <= 500) {
           return { ...s, price: Math.round(s.price * 0.5) };
         }
         return s;
@@ -317,13 +316,8 @@ export default function Shop({
           <Enchants
             swords={swords}
             setSwords={setSwords}
-            swordId={swords.id}
-            swordDamage={swords.damage}
-            swordEnchant={swords.enchant}
             enchantsPrice={enchantsPrice}
             handleBuyEnchant={handleBuyEnchant}
-            selectedSword={selectedSword}
-            setSelectedSword={setSelectedSword}
           />
         )}
       </div>

@@ -1,35 +1,29 @@
 import "../style/shop.css";
 
 export default function Enchants({
-  swordId,
-  swordDamage,
-  swordEnchant,
   enchantsPrice,
   handleBuyEnchant,
-  swords,
-  selectedSword,
-  setSelectedSword,
+  swords
 }) {
   return (
     <div className="enchantsTab">
-      <select
-        value={selectedSword}
-        onChange={(e) => setSelectedSword(e.target.value)}
-      >
+      <select className="selectSword">
         {swords.map(
           (sword) =>
-            sword.bought === true && (
+            (sword.bought === true && sword.enchant < 1) && (
               <option key={sword.id} value={sword.id}>
                 {sword.name}
               </option>
             )
         )}
       </select>
-
+      
       <button
         className="enchantButtons"
         type="button"
-        onClick={() => handleBuyEnchant(swordId, swordDamage, swordEnchant)}
+        onClick={() => {
+          handleBuyEnchant(document.getElementsByClassName("selectSword")[0].value)
+        }}
       >
         Enchant sword {Math.round(enchantsPrice)}
       </button>

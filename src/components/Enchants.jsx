@@ -1,3 +1,5 @@
+import "../style/shop.css";
+
 export default function Enchants({
   swordId,
   swordDamage,
@@ -25,6 +27,7 @@ export default function Enchants({
       </select>
 
       <button
+        className="enchantButtons"
         type="button"
         onClick={() => handleBuyEnchant(swordId, swordDamage, swordEnchant)}
       >

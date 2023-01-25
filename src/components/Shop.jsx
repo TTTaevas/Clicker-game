@@ -207,7 +207,7 @@ export default function Shop({
     setScore(score + Math.round(scroll.price) / 1.25);
     const updatedScrolls = scrolls.map((s) => {
       if (s.id === scroll.id) {
-        return { ...s, bought: false };
+        return { ...s, equipped: false, bought: false };
       }
       return s;
     });

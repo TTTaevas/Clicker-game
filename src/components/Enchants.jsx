@@ -5,28 +5,31 @@ export default function Enchants({
   handleBuyEnchant,
   swords
 }) {
+  const swordsToEnchant = swords.filter((s) => s.bought && s.enchant < 1)
   return (
     <div className="enchantsTab">
       <select className="selectSword">
-        {swords.map(
-          (sword) =>
-            (sword.bought === true && sword.enchant < 1) && (
-              <option key={sword.id} value={sword.id}>
-                {sword.name}
-              </option>
-            )
+        {swordsToEnchant.map(
+          (sword) => (
+            <option key={sword.id} value={sword.id}>
+              {sword.name}
+            </option>
+          )
         )}
       </select>
       
-      <button
-        className="enchantButtons"
-        type="button"
-        onClick={() => {
-          handleBuyEnchant(document.getElementsByClassName("selectSword")[0].value)
-        }}
-      >
+      {swordsToEnchant.length > 0 && (
+        <button
+          className="enchantButtons"
+          type="button"
+          onClick={() => {
+            handleBuyEnchant(document.getElementsByClassName("selectSword")[0].value)
+          }}
+        >
         Enchant sword {Math.round(enchantsPrice)}
-      </button>
+        </button>
+      )}
+
     </div>
   );
 }

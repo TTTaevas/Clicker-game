@@ -1,8 +1,13 @@
 .shopContainer {
+  background: linear-gradient(#241214, #2c1618);
   background-size:cover;
+  border: 10px solid transparent;
+            border-image-source: url("../../assets/borders.png");
+            border-image-repeat: round;
+            border-image-slice: 60;
+            border-image-width: 10px;
     display: flex;
     text-align:center;
-	border: 1px solid black;
 	flex-direction: column;
 	gap: 10px;
 	overflow-y: scroll;
@@ -10,15 +15,16 @@
 	position: fixed;
 max-height:30vh;
     bottom: 0;
-    width: 100%;
+    width: 98.8%;
 }
 .damage {
-display:grid;
+display: inline-flex;
+width: 100%;
+justify-content: space-between;
 text-align:end;
-  grid-template-columns: repeat(3, 1fr)
 }
 .damagetext {
-  margin-top: 40px;
+  margin-top: -5px;
   margin-right: 20px;
 }
 .score {

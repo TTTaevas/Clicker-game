@@ -12,7 +12,7 @@ export default function Game() {
   const [potion, setPotion] = useState(false);
   const [blobClicked, setBlobClicked] = useState(false);
   let [power, setPower] = useState(1);
-  let [score, setScore] = useState(0);
+  let [score, setScore] = useState(10000000);
   let [maxLife, setMaxLife] = useState(10);
   let [life, setLife] = useState(maxLife);
   let [experience, setExperience] = useState(0);

@@ -261,18 +261,17 @@ export default function Shop({
   return (
     <>
       <div className="damage">
-        <p className="score">score : {Math.round(score)}</p>
-        <div className="dps">
-          <p className="damagetext">{power} HP per click</p>
-          <p className="damagetext">You inflict {inactiveDPS} damage/second</p>
-        </div>
-
         {potion && (
           <p>
             The potion's effects will dissipate in :
             {getLengthInWrittenForm(length)}
           </p>
         )}
+        <p className="score">score : {Math.round(score)}</p>
+        <div className="dps">
+          <p className="damagetext">{power} HP per click</p>
+          <p className="damagetext">You inflict {inactiveDPS} damage/second</p>
+        </div>
       </div>
 
       <div
@@ -283,7 +282,7 @@ export default function Shop({
             let height =
               document.getElementsByClassName("shopContainer")[0].clientHeight;
             document.getElementsByClassName("tabs")[0].style.bottom = `${
-              height + 2
+              height + 15
             }px`;
           });
           resizeObserver.observe(

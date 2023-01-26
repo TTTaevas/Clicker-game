@@ -21,7 +21,7 @@ export default function Shop({
   const [enchantsPrice, setEnchantsPrice] = useState(1000000);
   const [potionStyle, setPotionStyle] = useState("potionButton");
   let [length, setLength] = useState(900);
-  // Swords stats is not definitive.
+  // Swords stats are not definitive.
 
   const [swords, setSwords] = useState([
     {
@@ -40,10 +40,10 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      price: 1000,
-      damage: 5,
+      price: 500,
+      damage: 3,
       name: "Stone Sword",
-      desc: `The Stone Sword does 5 damage and cost 1000. There is no enchants binded to it yet.`,
+      desc: `The Stone Sword does 3 damage and cost 500. There is no enchants binded to it yet.`,
       enchant: 0,
     },
     {
@@ -51,10 +51,10 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      price: 10000,
-      damage: 10,
+      price: 2000,
+      damage: 5,
       name: "Iron Sword",
-      desc: `The Iron Sword does 10 damage and cost 10000. There is no enchants binded to it yet.`,
+      desc: `The Iron Sword does 5 damage and cost 2000. There is no enchants binded to it yet.`,
       enchant: 0,
     },
     {
@@ -62,10 +62,10 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      price: 100000,
-      damage: 100,
+      price: 10000,
+      damage: 10,
       name: "Diamond Sword",
-      desc: `The Diamond Sword does 100 damage and cost 100000. There is no enchants binded to it yet.`,
+      desc: `The Diamond Sword does 10 damage and cost 10000. There is no enchants binded to it yet.`,
       enchant: 0,
     },
   ]);
@@ -171,7 +171,7 @@ export default function Shop({
     setIntervalId(
       setInterval(
         () => setLife((oldLife) => oldLife - sword.damage),
-        1000 / sword.level
+        (1000 / sword.level) * 0.93
       )
     );
   };
@@ -230,7 +230,7 @@ export default function Shop({
         if (s.id === sword.id) {
           return {
             ...s,
-            price: s.price * 1.2,
+            price: Math.ceil(s.price * 1.07),
             bought: true,
             level: s.level + 1,
           };
@@ -261,8 +261,12 @@ export default function Shop({
   return (
     <>
       <div className="damage">
-        <p>{power} HP per click</p>
-        <p>You inflict {inactiveDPS} damage/second</p>
+        <p className="score">score : {Math.round(score)}</p>
+        <div className="dps">
+          <p className="damagetext">{power} HP per click</p>
+          <p className="damagetext">You inflict {inactiveDPS} damage/second</p>
+        </div>
+
         {potion && (
           <p>
             The potion's effects will dissipate in :
@@ -320,6 +324,8 @@ export default function Shop({
           ))}
         {currentTab === 1 && (
           <Potion
+            score={score}
+            setScore={setScore}
             potionStyle={potionStyle}
             setPotionStyle={setPotionStyle}
             length={length}

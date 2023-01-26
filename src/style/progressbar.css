@@ -2,6 +2,7 @@
   display: inline-flex;
   width: 100vw;
   margin: 10px;
+  margin-left: -100px;
 }
 .health * {
   position: absolute;
@@ -20,6 +21,7 @@
   background: crimson;
   color: crimson;
   height: 25px;
+  max-width: 60vh;
 }
 
 .healthbar::-moz-progress-bar {

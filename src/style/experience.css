@@ -1,3 +1,7 @@
 .experience {
     text-align: center;
+    display: inline-flex;
+    align-items: center;
+    gap:5vh;
+    margin-right: 3vh;
 }

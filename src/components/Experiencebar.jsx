@@ -18,7 +18,7 @@ export default function Experiencebar({
   });
   return (
     <div className="experience">
-      <h2>You are level {level}</h2>
+      <h2> Level {level}</h2>
       <progress max={maxExperience} value={experience} /> <br />
       {experience}/{maxExperience} XP
     </div>

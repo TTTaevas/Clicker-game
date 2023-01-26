@@ -2,6 +2,8 @@ import { useState } from "react";
 import "../style/shop.css";
 
 export default function Potion({
+  score,
+  setScore,
   potion,
   setPotion,
   length,
@@ -9,10 +11,11 @@ export default function Potion({
   potionStyle,
   setPotionStyle,
 }) {
-  const [price, setPrice] = useState(100000);
+  const [price, setPrice] = useState(5000);
 
   const buyPotion = () => {
-    if (!potion) {
+    if (!potion && score >= price) {
+      setScore(score - price);
       let countdown = setInterval(
         () => setLength((length) => length - 1),
         1000

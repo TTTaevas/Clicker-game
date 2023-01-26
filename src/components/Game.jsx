@@ -12,11 +12,11 @@ export default function Game() {
   const [potion, setPotion] = useState(false);
   const [blobClicked, setBlobClicked] = useState(false);
   let [power, setPower] = useState(1);
-  let [score, setScore] = useState(10000000000000);
+  let [score, setScore] = useState(0);
   let [maxLife, setMaxLife] = useState(10);
   let [life, setLife] = useState(maxLife);
   let [experience, setExperience] = useState(0);
-  let [monsterZone, setMonsterZone] = useState(9);
+  let [monsterZone, setMonsterZone] = useState(1);
   const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
   const [containerDimensions, setContainerDimensions] = useState({
     width: 0,
@@ -69,7 +69,7 @@ export default function Game() {
   };
   return (
     <>
-      <div className="scoreContainer">
+      <div className="gameContainer">
         <Experiencebar
           setExperience={setExperience}
           experience={experience}
@@ -114,21 +114,24 @@ export default function Game() {
             </button>
           )}
         </div>
-        <Zones
-          score={score}
-          setScore={setScore}
-          life={life}
-          setLife={setLife}
-          maxLife={maxLife}
-          setMaxLife={setMaxLife}
-          monsterZone={monsterZone}
-          setMonsterZone={setMonsterZone}
-        />
-        <div className="health">
-          <progress max={maxLife} value={life} className="healthbar" />
-          <p className="healthcounter">{life} HP</p>
+        <div className="bottomGame">
+          <Zones
+            score={score}
+            setScore={setScore}
+            life={life}
+            setLife={setLife}
+            maxLife={maxLife}
+            setMaxLife={setMaxLife}
+            monsterZone={monsterZone}
+            setMonsterZone={setMonsterZone}
+          />
         </div>
-        <p className="score">score : {Math.round(score)}</p>
+      </div>
+      <div className="health">
+        <progress max={maxLife} value={life} className="healthbar" />
+        <p className="healthcounter">
+          {life} / {maxLife} HP
+        </p>
       </div>
       <footer>
         <Shop

@@ -19,6 +19,8 @@ export default function Shop({
   const [currentTab, setCurrentTab] = useState(0);
   const [intervalId, setIntervalId] = useState(null);
   const [enchantsPrice, setEnchantsPrice] = useState(1000000);
+  const [potionStyle, setPotionStyle] = useState("potionButton");
+  let [length, setLength] = useState(900);
   // Swords stats is not definitive.
 
   const [swords, setSwords] = useState([
@@ -172,7 +174,7 @@ export default function Shop({
         1000 / sword.level
       )
     );
-  }
+  };
   const handleEquipSword = (sword, equip) => {
     let doAction = false;
     let howManyEquipped = 0;
@@ -196,7 +198,7 @@ export default function Shop({
         return s;
       });
       if (equip) {
-        makeSwordDealDamage(sword)
+        makeSwordDealDamage(sword);
       } else {
         clearInterval(intervalId);
         setIntervalId(null);
@@ -217,10 +219,10 @@ export default function Shop({
   };
 
   const handleBuySword = (sword) => {
-    let s = swords.find((s) => s.id === sword.id)
+    let s = swords.find((s) => s.id === sword.id);
     if (s.equipped) {
       clearInterval(intervalId);
-      makeSwordDealDamage(s)
+      makeSwordDealDamage(s);
     }
     if (score >= Math.round(sword.price)) {
       setScore(score - Math.round(sword.price));
@@ -243,12 +245,32 @@ export default function Shop({
     0
   );
 
+  function getLengthInWrittenForm(length) {
+    let minutes = 0;
+    let seconds = 0;
+    for (let i = length; i >= 60; i -= 60) {
+      minutes++;
+      length -= 60;
+    }
+    for (let i = 0; i < length; i++) {
+      seconds++;
+    }
+    return `${minutes}:${String(seconds).padStart(2, "0")}`;
+  }
+
   return (
     <>
       <div className="damage">
         <p>{power} HP per click</p>
         <p>You inflict {inactiveDPS} damage/second</p>
+        {potion && (
+          <p>
+            The potion's effects will dissipate in :
+            {getLengthInWrittenForm(length)}
+          </p>
+        )}
       </div>
+
       <div
         className="tabs"
         onLoad={() => {
@@ -296,7 +318,16 @@ export default function Shop({
               handleEquipSword={handleEquipSword}
             />
           ))}
-        {currentTab === 1 && <Potion potion={potion} setPotion={setPotion} />}
+        {currentTab === 1 && (
+          <Potion
+            potionStyle={potionStyle}
+            setPotionStyle={setPotionStyle}
+            length={length}
+            setLength={setLength}
+            potion={potion}
+            setPotion={setPotion}
+          />
+        )}
         {currentTab === 2 &&
           scrolls.map((scrolls) => (
             <Scrolls

@@ -120,7 +120,7 @@ export default function Shop({
         if (s.enchant > 500) {
           if (s.equipped) {
             clearInterval(intervalId);
-            makeSwordDealDamage({ ...s, damage: Math.round(s.damage * 1.1) })
+            makeSwordDealDamage({ ...s, damage: Math.round(s.damage * 1.1) });
           }
           return { ...s, damage: Math.round(s.damage * 1.1) };
         }
@@ -244,11 +244,13 @@ export default function Shop({
       setSwords(updatedSwords);
     }
   };
-  const inactiveDPS = swords.filter((s) => s.equipped).reduce(
-    (acc, sword) => Math.round(acc + sword.damage * sword.level),
-    0
-  );
-
+  const inactiveDPS = swords
+    .filter((s) => s.equipped)
+    .reduce(
+      (acc, sword) =>
+        acc + Math.round(sword.damage * sword.level * (1 / 0.93) * 10) / 10,
+      0
+    );
   function getLengthInWrittenForm(length) {
     let minutes = 0;
     let seconds = 0;

@@ -1,10 +1,12 @@
 .gameContainer {
+  background-image: url("../../assets/1Tiles.png"), url("../../assets/2Fence.png"), url("../../assets/3Bushes.png"), url("../../assets/4Ground.png"), url("../../assets/5BackBushes.png"), url("../../assets/6Forest.png"), url("../../assets/7Hills.png"), url("../../assets/8Sky.png");
   display: flex;
   flex-direction: column;
   width: 100vw;
   align-items: center;
   border-bottom: 1px solid black;
-height:55vh;
+height:49vh;
+justify-content:end;
 }
 
 .clickzone {
@@ -19,6 +21,8 @@ height:55vh;
 -moz-user-select: none; /* Firefox */
 -ms-user-select: none; /* IE10+/Edge */
 user-select: none; /* Standard */
+margin-top: 40px;
+margin-bottom: -29px;
 
 }
 .blob img {

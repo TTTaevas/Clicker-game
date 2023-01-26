@@ -5,13 +5,19 @@ html body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-
+background-color: #241214
+}
+@font-face {
+  font-family: 'Custom Font';
+  src: url("../assets/NineteenNinetySix-lWzq.ttf")
 }
 * {
      -webkit-user-select: none; /* Chrome all / Safari all */
   -moz-user-select: none; /* Firefox all */
   -ms-user-select: none; /* IE 10+ */
   user-select: none; /* Standard syntax */
+  font-family: 'Custom Font';
+  color: #fff;
 }
 
 .App {

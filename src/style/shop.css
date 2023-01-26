@@ -1,5 +1,4 @@
 .shopContainer {
-  /* background-color:rgb(142, 114, 79); */
   background-size:cover;
     display: flex;
     text-align:center;
@@ -121,5 +120,13 @@ transform: translateY(5px);
 }
 
 .tabButtons img {
-	width: 30px;
+	width: 20px;
+}
+.tabButtons {
+  background-color: #4b3537;
+  width: 60px;
+  border: 3px solid rgb(255, 255, 123);
+  border-bottom : 0px;
+  border-radius: 50% 50% 0% 0%
+
 }

@@ -7,6 +7,7 @@ import target from "../../assets/target.png";
 import Shop from "./Shop";
 import Experiencebar from "./Experiencebar";
 import Zones from "./Zones";
+import Debug from "./Debug";
 
 export default function Game() {
   const [potion, setPotion] = useState(false);
@@ -69,6 +70,12 @@ export default function Game() {
   };
   return (
     <>
+      <Debug
+        setPower={setPower}
+        setScore={setScore}
+        setExperience={setExperience}
+        setMonsterZone={setMonsterZone}
+      />
       <div className="gameContainer">
         <Experiencebar
           setExperience={setExperience}

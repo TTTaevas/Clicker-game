@@ -10,6 +10,7 @@ import Zones from "./Zones";
 import Debug from "./Debug";
 
 export default function Game() {
+  const allowDebug = false;
   const [potion, setPotion] = useState(false);
   const [blobClicked, setBlobClicked] = useState(false);
   let [power, setPower] = useState(1);
@@ -70,12 +71,14 @@ export default function Game() {
   };
   return (
     <>
-      <Debug
-        setPower={setPower}
-        setScore={setScore}
-        setExperience={setExperience}
-        setMonsterZone={setMonsterZone}
-      />
+      {allowDebug === true && (
+        <Debug
+          setPower={setPower}
+          setScore={setScore}
+          setExperience={setExperience}
+          setMonsterZone={setMonsterZone}
+        />
+      )}
       <div className="gameContainer">
         <Experiencebar
           setExperience={setExperience}

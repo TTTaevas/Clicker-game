@@ -279,7 +279,6 @@ export default function Shop({
           <p className="damagetext">You inflict {inactiveDPS} damage/second</p>
         </div>
       </div>
-
       <div
         className="tabs"
         onLoad={() => {

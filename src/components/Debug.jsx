@@ -19,7 +19,7 @@ export default function Debug({
 
     const keydown = function(e) {
       keyPressed[e.key + e.location] = true;
-      if (keyPressed.Shift1 == true && keyPressed.Control1 == true) {
+      if (keyPressed.Control1 == true && keyPressed.Control2 == true) {
         debugMenu.style.display = debugMenu.style.display === "none" ?
         "block" : "none";
         keyPressed = {};

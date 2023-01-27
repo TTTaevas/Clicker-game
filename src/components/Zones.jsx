@@ -59,9 +59,14 @@ export default function Zones({
   });
   return (
     <div className="monsterCount">
-      {monsterCount}/{maxMonsterCount} <br />
-      Zone {monsterZone}
-      {monsterZone % 10 === 0 && <p> {countdown} seconds left</p>}
+      {/* <span classname="bossSpan">Boss</span> */}
+      {monsterZone % 10 === 0 && (
+        <p className="timer"> {countdown} seconds left</p>
+      )}
+      <p className="zoneCount">
+        {monsterCount}/{maxMonsterCount} <br />
+        Zone {monsterZone}
+      </p>
     </div>
   );
 }

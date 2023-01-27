@@ -1,10 +1,11 @@
 .gameContainer {
   background-image: url("../../assets/1Tiles.png"), url("../../assets/2Fence.png"), url("../../assets/3Bushes.png"), url("../../assets/4Ground.png"), url("../../assets/5BackBushes.png"), url("../../assets/6Forest.png"), url("../../assets/7Hills.png"), url("../../assets/8Sky.png");
+  background-size: contain;
   display: flex;
   flex-direction: column;
   width: 100vw;
   align-items: center;
-height:49vh;
+  min-height: 350px;
 justify-content:end;
 }
 
@@ -20,13 +21,15 @@ justify-content:end;
 -moz-user-select: none; /* Firefox */
 -ms-user-select: none; /* IE10+/Edge */
 user-select: none; /* Standard */
-margin-top: 40px;
-margin-bottom: -29px;
+max-height: 100px;
+margin-top: 58px;
+
 
 }
 .blob img {
-  width: 200px;
+  width: 180px;
     pointer-events:none;
+    object-fit:cover;
 }
 
 .bottomGame {

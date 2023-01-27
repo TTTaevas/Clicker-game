@@ -10,7 +10,7 @@ import Zones from "./Zones";
 import Debug from "./Debug";
 
 export default function Game() {
-  const allowDebug = false;
+  const allowDebug = true;
   const [potion, setPotion] = useState(false);
   const [blobClicked, setBlobClicked] = useState(false);
   let [power, setPower] = useState(1);
@@ -19,7 +19,7 @@ export default function Game() {
   let [life, setLife] = useState(maxLife);
   let [experience, setExperience] = useState(0);
   let [monsterZone, setMonsterZone] = useState(1);
-  const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
+  const [imagePosition, setImagePosition] = useState({ x: 100, y: 100 });
   const [containerDimensions, setContainerDimensions] = useState({
     width: 0,
     height: 0,

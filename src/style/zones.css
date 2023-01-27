@@ -1,5 +1,17 @@
 .monsterCount {
-    text-align: end;
+    margin-bottom:-10px;
+    display: flex;
+justify-content:space-between;  
     white-space: nowrap;
+    align-items:center;
+}
+.timer {
+    text-align:end;
+    width:100%;
+    margin-left:165px;
+}
+.zoneCount {
+    text-align:end;
+    width: 100%;
     margin-right: 20px;
 }

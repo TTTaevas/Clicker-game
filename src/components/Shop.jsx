@@ -22,7 +22,6 @@ export default function Shop({
   const [potionStyle, setPotionStyle] = useState("potionButton");
   let [length, setLength] = useState(900);
 
-
   // Sword stats are NOT definitive
   let [swords, setSwords] = useState([{
     key: 1,

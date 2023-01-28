@@ -4,12 +4,13 @@ export default function Sword({
   swords,
   setSwords,
   dealDps,
+  level,
   score,
   setScore,
 }) {
   const handleBuySword = (sword) => {
     let s = swords.find((s) => s.id === sword.id);
-    if (score >= Math.round(sword.price)) {
+    if (score >= Math.round(sword.price) && s.level < level * 15) {
       setScore(score - Math.round(sword.price));
       let new_s = {
         ...s,

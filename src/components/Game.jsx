@@ -10,7 +10,7 @@ import Zones from "./Zones";
 import Debug from "./Debug";
 
 export default function Game() {
-  const allowDebug = false;
+  const allowDebug = true;
   const [potion, setPotion] = useState(false);
   const [blobClicked, setBlobClicked] = useState(false);
   const [intervalId, setIntervalId] = useState(null);

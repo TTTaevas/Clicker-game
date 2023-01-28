@@ -6,6 +6,7 @@ import Enchants from "./Enchants";
 import swordIcon from "../../assets/sword.png";
 import potionIcon from "../../assets/potion.png";
 import scrollIcon from "../../assets/scroll.png";
+import sparkIcon from "../../assets/spark.png";
 
 export default function Shop({
   score,
@@ -288,7 +289,7 @@ export default function Shop({
             let height =
               document.getElementsByClassName("shopContainer")[0].clientHeight;
             document.getElementsByClassName("tabs")[0].style.bottom = `${
-              height + 15
+              height + 13
             }px`;
           });
           resizeObserver.observe(
@@ -306,7 +307,7 @@ export default function Shop({
           <img src={scrollIcon} alt="scrolls icon" />
         </button>
         <button className="tabButtons" onClick={() => setCurrentTab(3)}>
-          <img src={scrollIcon} alt="scrolls icon" />
+          <img src={sparkIcon} alt="scrolls icon" />
         </button>
       </div>
       <div className="shopContainer">

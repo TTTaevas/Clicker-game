@@ -5,9 +5,10 @@ export default function Experiencebar({
   setExperience,
   power,
   setPower,
+  level,
+  setLevel,
 }) {
   let [maxExperience, setMaxExperience] = useState(100);
-  let [level, setLevel] = useState(1);
   useEffect(() => {
     if (experience >= maxExperience) {
       setExperience(0);

@@ -8,249 +8,70 @@ import potionIcon from "../../assets/potion.png";
 import scrollIcon from "../../assets/scroll.png";
 
 export default function Shop({
+  dps,
+  dealDps,
   score,
-  setLife,
   setScore,
   potion,
   setPotion,
   power,
   setPower,
+  level,
 }) {
   const [currentTab, setCurrentTab] = useState(0);
-  const [intervalId, setIntervalId] = useState(null);
-  const [enchantsPrice, setEnchantsPrice] = useState(1000000);
   const [potionStyle, setPotionStyle] = useState("potionButton");
   let [length, setLength] = useState(900);
-  // Swords stats are not definitive.
 
-  const [swords, setSwords] = useState([
-    {
-      id: 1,
-      bought: false,
-      equipped: false,
-      level: 0,
-      price: 10,
-      damage: 1,
-      name: "Wooden Sword",
-      desc: `The Wooden Sword does 1 damage and cost 10. There is no enchants binded to it yet.`,
-      enchant: 0,
-    },
-    {
-      id: 2,
-      bought: false,
-      equipped: false,
-      level: 0,
-      price: 500,
-      damage: 3,
-      name: "Stone Sword",
-      desc: `The Stone Sword does 3 damage and cost 500. There is no enchants binded to it yet.`,
-      enchant: 0,
-    },
-    {
-      id: 3,
-      bought: false,
-      equipped: false,
-      level: 0,
-      price: 2000,
-      damage: 5,
-      name: "Iron Sword",
-      desc: `The Iron Sword does 5 damage and cost 2000. There is no enchants binded to it yet.`,
-      enchant: 0,
-    },
-    {
-      id: 4,
-      bought: false,
-      equipped: false,
-      level: 0,
-      price: 10000,
-      damage: 10,
-      name: "Diamond Sword",
-      desc: `The Diamond Sword does 10 damage and cost 10000. There is no enchants binded to it yet.`,
-      enchant: 0,
-    },
-  ]);
-  const [scrolls, setScrolls] = useState([
-    {
-      id: 1,
-      bought: false,
-      equipped: false,
-      price: 1000,
-      name: "First Scroll",
-      handleUse: () => {
-        const intervalId = setInterval(
-          () => setLife((oldLife) => oldLife - power),
-          100
-        );
-        setTimeout(() => clearInterval(intervalId), 30000);
-      },
-    },
-    {
-      id: 2,
-      bought: false,
-      equipped: false,
-      price: 5000,
-      name: "Second Scroll",
-      handleUse: () => {
-        setPower((power = power * 2));
-      },
-    },
-    {
-      id: 3,
-      bought: false,
-      equipped: false,
-      price: 8000,
-      name: "Third Scroll",
-    },
-    {
-      id: 4,
-      bought: false,
-      equipped: false,
-      price: 15000,
-      name: "Fourth Scroll",
-    },
-  ]);
-  const handleBuyEnchant = (selectedSword) => {
-    if (score >= Math.round(enchantsPrice)) {
-      setScore(score - Math.round(enchantsPrice));
-      setEnchantsPrice(enchantsPrice * 1.2);
-      const updatedSwords = swords.map((s) => {
-        if (s.id === parseInt(selectedSword)) {
-          s.enchant = Math.floor(Math.random() * 1000);
-        }
-        if (s.enchant > 500) {
-          if (s.equipped) {
-            clearInterval(intervalId);
-            makeSwordDealDamage({ ...s, damage: Math.round(s.damage * 1.1) });
-          }
-          return { ...s, damage: Math.round(s.damage * 1.1) };
-        }
-        if (s.enchant <= 500) {
-          return { ...s, price: Math.round(s.price * 0.5) };
-        }
-        return s;
-      });
-      setSwords(updatedSwords);
-    }
-  };
+  // Sword stats are NOT definitive
+  let [swords, setSwords] = useState([{
+    key: 1,
+    id: 1,
+    bought: false,
+    equipped: false,
+    level: 0,
+    price: 10,
+    damage: 1,
+    name: "Wooden Sword",
+    desc: `The Wooden Sword does 1 damage and cost 10. There is no enchants binded to it yet.`,
+    enchant: 0,
+  },
+  {
+    key: 2,
+    id: 2,
+    bought: false,
+    equipped: false,
+    level: 0,
+    price: 100,
+    damage: 3,
+    name: "Stone Sword",
+    desc: `The Stone Sword does 3 damage and cost 100. There is no enchants binded to it yet.`,
+    enchant: 0,
+  },
+  {
+    key: 3,
+    id: 3,
+    bought: false,
+    equipped: false,
+    level: 0,
+    price: 375,
+    damage: 10,
+    name: "Iron Sword",
+    desc: `The Iron Sword does 5 damage and cost 375. There is no enchants binded to it yet.`,
+    enchant: 0,
+  },
+  {
+    key: 4,
+    id: 4,
+    bought: false,
+    equipped: false,
+    level: 0,
+    price: 1000,
+    damage: 12,
+    name: "Diamond Sword",
+    desc: `The Diamond Sword does 12 damage and cost 1000. There is no enchants binded to it yet.`,
+    enchant: 0,
+  }])
 
-  const handleBuyScroll = (scroll) => {
-    if (score >= Math.round(scroll.price)) {
-      setScore(score - Math.round(scroll.price));
-      const updatedScrolls = scrolls.map((s) => {
-        if (s.id === scroll.id) {
-          return { ...s, bought: true };
-        }
-        return s;
-      });
-      setScrolls(updatedScrolls);
-    }
-  };
-  const handleEquipScroll = (scroll, equip) => {
-    let doAction = false;
-    if (!equip) {
-      doAction = true;
-    } else if (equip) {
-      let howManyEquipped = 0;
-      scrolls.forEach((s) => {
-        if (s.equipped) {
-          howManyEquipped++;
-        }
-      });
-      if (howManyEquipped < 3) {
-        doAction = true;
-      }
-    }
-    if (doAction) {
-      const updatedScrolls = scrolls.map((s) => {
-        if (s.id === scroll.id) {
-          return { ...s, equipped: equip };
-        }
-        return s;
-      });
-      setScrolls(updatedScrolls);
-    }
-  };
-
-  const makeSwordDealDamage = (sword) => {
-    setIntervalId(
-      setInterval(
-        () => setLife((oldLife) => oldLife - sword.damage),
-        (1000 / sword.level) * 0.93
-      )
-    );
-  };
-  const handleEquipSword = (sword, equip) => {
-    let doAction = false;
-    let howManyEquipped = 0;
-    if (!equip) {
-      doAction = true;
-    } else if (equip) {
-      swords.forEach((s) => {
-        if (s.equipped) {
-          howManyEquipped++;
-        }
-      });
-      if (howManyEquipped < 1) {
-        doAction = true;
-      }
-    }
-    if (doAction) {
-      const updatedSwords = swords.map((s) => {
-        if (s.id === sword.id) {
-          return { ...s, equipped: equip };
-        }
-        return s;
-      });
-      if (equip) {
-        makeSwordDealDamage(sword);
-      } else {
-        clearInterval(intervalId);
-        setIntervalId(null);
-      }
-      setSwords(updatedSwords);
-    }
-  };
-
-  const handleSellScroll = (scroll) => {
-    setScore(score + Math.round(scroll.price) / 1.25);
-    const updatedScrolls = scrolls.map((s) => {
-      if (s.id === scroll.id) {
-        return { ...s, equipped: false, bought: false };
-      }
-      return s;
-    });
-    setScrolls(updatedScrolls);
-  };
-
-  const handleBuySword = (sword) => {
-    let s = swords.find((s) => s.id === sword.id);
-    if (s.equipped) {
-      clearInterval(intervalId);
-      makeSwordDealDamage(s);
-    }
-    if (score >= Math.round(sword.price)) {
-      setScore(score - Math.round(sword.price));
-      const updatedSwords = swords.map((s) => {
-        if (s.id === sword.id) {
-          return {
-            ...s,
-            price: Math.ceil(s.price * 1.07),
-            bought: true,
-            level: s.level + 1,
-          };
-        }
-        return s;
-      });
-      setSwords(updatedSwords);
-    }
-  };
-  const inactiveDPS = swords
-    .filter((s) => s.equipped)
-    .reduce(
-      (acc, sword) =>
-        acc + Math.round(sword.damage * sword.level * (1 / 0.93) * 10) / 10,
-      0
-    );
   function getLengthInWrittenForm(length) {
     let minutes = 0;
     let seconds = 0;
@@ -269,17 +90,16 @@ export default function Shop({
       <div className="damage">
         {potion && (
           <p>
-            The potion's effects will dissipate in :
+            The potion's effects will dissipate in:
             {getLengthInWrittenForm(length)}
           </p>
         )}
-        <p className="score">score : {Math.round(score)}</p>
+        <p className="score">score: {Math.round(score)}</p>
         <div className="dps">
           <p className="damagetext">{power} HP per click</p>
-          <p className="damagetext">You inflict {inactiveDPS} damage/second</p>
+          <p className="damagetext">You inflict {Math.round(dps * (1 / 0.93) * 10) / 10} damage/second</p>
         </div>
       </div>
-
       <div
         className="tabs"
         onLoad={() => {
@@ -311,22 +131,16 @@ export default function Shop({
       </div>
       <div className="shopContainer">
         <br />
-        {currentTab === 0 &&
-          swords.map((sword) => (
-            <Sword
-              key={sword.id}
-              id={sword.id}
-              level={sword.level}
-              price={sword.price}
-              damage={sword.damage}
-              bought={sword.bought}
-              equipped={sword.equipped}
-              name={sword.name}
-              desc={sword.desc}
-              handleBuySword={handleBuySword}
-              handleEquipSword={handleEquipSword}
-            />
-          ))}
+        {currentTab === 0 && (
+          <Sword
+            swords={swords}
+            setSwords={setSwords}
+            dealDps={dealDps}
+            level={level}
+            score={score}
+            setScore={setScore}
+          />
+        )}
         {currentTab === 1 && (
           <Potion
             score={score}
@@ -339,27 +153,21 @@ export default function Shop({
             setPotion={setPotion}
           />
         )}
-        {currentTab === 2 &&
-          scrolls.map((scrolls) => (
-            <Scrolls
-              key={scrolls.id}
-              name={scrolls.name}
-              id={scrolls.id}
-              price={scrolls.price}
-              bought={scrolls.bought}
-              equipped={scrolls.equipped}
-              handleBuyScroll={handleBuyScroll}
-              handleSellScroll={handleSellScroll}
-              handleEquipScroll={handleEquipScroll}
-              handleUse={scrolls.handleUse}
-            />
-          ))}
+        {currentTab === 2 && (
+          <Scrolls
+            dealDps={dealDps}
+            power={power}
+            setPower={setPower}
+            score={score}
+            setScore={setScore}
+          />
+          )}
         {currentTab === 3 && (
           <Enchants
             swords={swords}
             setSwords={setSwords}
-            enchantsPrice={enchantsPrice}
-            handleBuyEnchant={handleBuyEnchant}
+            score={score}
+            setScore={setScore}
           />
         )}
       </div>

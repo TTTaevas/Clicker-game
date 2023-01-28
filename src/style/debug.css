@@ -1,0 +1,26 @@
+.debugMenu {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 40em;
+  height: 18em;
+  margin-top: -9em; /*set to a negative number 1/2 of height*/
+  margin-left: -20em; /*set to a negative number 1/2 of width*/
+  border: 2px solid white;
+  border-radius: 20px;
+  background-color: black;
+  z-index: 1;
+  text-align: center;
+}
+
+.debugOption {
+  margin: 2px;
+}
+
+.debugOption * {
+  color: black;
+}
+
+.debugOption input {
+  width: 75px;
+}

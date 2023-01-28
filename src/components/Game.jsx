@@ -7,17 +7,22 @@ import target from "../../assets/target.png";
 import Shop from "./Shop";
 import Experiencebar from "./Experiencebar";
 import Zones from "./Zones";
+import Debug from "./Debug";
 
 export default function Game() {
+  const allowDebug = false;
   const [potion, setPotion] = useState(false);
   const [blobClicked, setBlobClicked] = useState(false);
+  const [intervalId, setIntervalId] = useState(null);
+  let [dps, setDps] = useState(0);
+  let [level, setLevel] = useState(1);
   let [power, setPower] = useState(1);
   let [score, setScore] = useState(0);
   let [maxLife, setMaxLife] = useState(10);
   let [life, setLife] = useState(maxLife);
   let [experience, setExperience] = useState(0);
   let [monsterZone, setMonsterZone] = useState(1);
-  const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
+  const [imagePosition, setImagePosition] = useState({ x: 100, y: 100 });
   const [containerDimensions, setContainerDimensions] = useState({
     width: 0,
     height: 0,
@@ -30,12 +35,24 @@ export default function Game() {
       height: container.offsetHeight,
     });
   }, []);
-
   const setRandomPosition = () => {
     setImagePosition({
       x: Math.floor(Math.random() * containerDimensions.width),
       y: Math.floor(Math.random() * containerDimensions.height),
     });
+  };
+
+  const dealDps = (damage) => {
+    setDps(dps + damage)
+    clearInterval(intervalId);
+    if (dps + damage > 0) {
+      setIntervalId(
+        setInterval(
+          () => setLife((oldLife) => oldLife - 1),
+          (1000 / (dps + damage)) * 0.93
+        )
+      );
+    }
   };
   const attackMonster = () => {
     if (monsterZone % 10 === 0) return;
@@ -69,12 +86,22 @@ export default function Game() {
   };
   return (
     <>
+      {allowDebug === true && (
+        <Debug
+          setPower={setPower}
+          setScore={setScore}
+          setExperience={setExperience}
+          setMonsterZone={setMonsterZone}
+        />
+      )}
       <div className="gameContainer">
         <Experiencebar
           setExperience={setExperience}
           experience={experience}
           power={power}
           setPower={setPower}
+          level={level}
+          setLevel={setLevel}
         />
         <div className="clickzone" ref={containerRef}>
           <button
@@ -124,6 +151,9 @@ export default function Game() {
             setMaxLife={setMaxLife}
             monsterZone={monsterZone}
             setMonsterZone={setMonsterZone}
+            experience={experience}
+            setExperience={setExperience}
+            potion={potion}
           />
         </div>
       </div>
@@ -135,13 +165,15 @@ export default function Game() {
       </div>
       <footer>
         <Shop
+          dps={dps}
+          dealDps={dealDps}
+          score={score}
+          setScore={setScore}
           potion={potion}
           setPotion={setPotion}
-          score={score}
-          setLife={setLife}
-          setScore={setScore}
           power={power}
           setPower={setPower}
+          level={level}
         />
       </footer>
     </>

@@ -146,7 +146,7 @@ export default function Game() {
       <div className="health">
         <progress max={maxLife} value={life} className="healthbar" />
         <p className="healthcounter">
-          {life} / {maxLife} HP
+          {Math.round(life)} / {maxLife} HP
         </p>
       </div>
       <footer>

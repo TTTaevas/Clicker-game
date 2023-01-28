@@ -31,7 +31,7 @@ export default function Shop({
       equipped: false,
       level: 0,
       price: 10,
-      damage: 1,
+      damage: 0.2,
       name: "Wooden Sword",
       desc: `The Wooden Sword does 1 damage and cost 10. There is no enchants binded to it yet.`,
       enchant: 0,
@@ -175,8 +175,8 @@ export default function Shop({
   const makeSwordDealDamage = (sword) => {
     setIntervalId(
       setInterval(
-        () => setLife((oldLife) => oldLife - sword.damage),
-        (1000 / sword.level) * 0.93
+        () => setLife((oldLife) => oldLife - sword.damage * sword.level),
+        200
       )
     );
   };
@@ -249,8 +249,7 @@ export default function Shop({
   const inactiveDPS = swords
     .filter((s) => s.equipped)
     .reduce(
-      (acc, sword) =>
-        acc + Math.round(sword.damage * sword.level * (1 / 0.93) * 10) / 10,
+      (acc, sword) => acc + Math.round(sword.damage * (sword.level * 5)),
       0
     );
   function getLengthInWrittenForm(length) {

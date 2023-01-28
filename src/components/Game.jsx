@@ -97,6 +97,7 @@ export default function Game() {
       {allowDebug === true && (
         <Debug
           setPower={setPower}
+          dealDps={dealDps}
           setScore={setScore}
           setExperience={setExperience}
           setMonsterZone={setMonsterZone}

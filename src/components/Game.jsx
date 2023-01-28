@@ -139,6 +139,7 @@ export default function Game() {
             setMonsterZone={setMonsterZone}
             experience={experience}
             setExperience={setExperience}
+            potion={potion}
           />
         </div>
       </div>

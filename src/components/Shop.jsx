@@ -41,10 +41,10 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      price: 500,
+      price: 100,
       damage: 3,
       name: "Stone Sword",
-      desc: `The Stone Sword does 3 damage and cost 500. There is no enchants binded to it yet.`,
+      desc: `The Stone Sword does 3 damage and cost 100. There is no enchants binded to it yet.`,
       enchant: 0,
     },
     {
@@ -52,10 +52,10 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      price: 2000,
-      damage: 5,
+      price: 375,
+      damage: 7,
       name: "Iron Sword",
-      desc: `The Iron Sword does 5 damage and cost 2000. There is no enchants binded to it yet.`,
+      desc: `The Iron Sword does 5 damage and cost 375. There is no enchants binded to it yet.`,
       enchant: 0,
     },
     {
@@ -63,10 +63,10 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      price: 10000,
-      damage: 10,
+      price: 1000,
+      damage: 12,
       name: "Diamond Sword",
-      desc: `The Diamond Sword does 10 damage and cost 10000. There is no enchants binded to it yet.`,
+      desc: `The Diamond Sword does 12 damage and cost 1000. There is no enchants binded to it yet.`,
       enchant: 0,
     },
   ]);
@@ -232,7 +232,7 @@ export default function Shop({
     console.log(sword.level);
     if (score >= Math.round(sword.price)) {
       const updatedSwords = swords.map((s) => {
-        if (s.id === sword.id && s.level < level * 20) {
+        if (s.id === sword.id && s.level < level * 15) {
           setScore(score - Math.round(sword.price));
           return {
             ...s,

@@ -13,6 +13,8 @@ export default function Game() {
   const allowDebug = false;
   const [potion, setPotion] = useState(false);
   const [blobClicked, setBlobClicked] = useState(false);
+  const [intervalId, setIntervalId] = useState(null);
+  let [dps, setDps] = useState(0);
   let [power, setPower] = useState(1);
   let [score, setScore] = useState(0);
   let [maxLife, setMaxLife] = useState(10);
@@ -32,12 +34,22 @@ export default function Game() {
       height: container.offsetHeight,
     });
   }, []);
-
   const setRandomPosition = () => {
     setImagePosition({
       x: Math.floor(Math.random() * containerDimensions.width),
       y: Math.floor(Math.random() * containerDimensions.height),
     });
+  };
+
+  const dealDps = (damage) => {
+    setDps(dps + damage)
+    clearInterval(intervalId);
+    setIntervalId(
+      setInterval(
+        () => setLife((oldLife) => oldLife - (dps + damage)),
+        (1000 / 1) * 0.93
+      )
+    );
   };
   const attackMonster = () => {
     if (monsterZone % 10 === 0) return;
@@ -145,13 +157,13 @@ export default function Game() {
       </div>
       <footer>
         <Shop
+          dps={dps}
+          dealDps={dealDps}
+          score={score}
+          setScore={setScore}
           potion={potion}
           setPotion={setPotion}
-          score={score}
-          setLife={setLife}
-          setScore={setScore}
           power={power}
-          setPower={setPower}
         />
       </footer>
     </>

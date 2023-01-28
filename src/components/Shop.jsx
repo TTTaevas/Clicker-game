@@ -15,6 +15,7 @@ export default function Shop({
   setPotion,
   power,
   setPower,
+  level,
 }) {
   const [currentTab, setCurrentTab] = useState(0);
   const [intervalId, setIntervalId] = useState(null);
@@ -228,10 +229,11 @@ export default function Shop({
       clearInterval(intervalId);
       makeSwordDealDamage(s);
     }
+    console.log(sword.level);
     if (score >= Math.round(sword.price)) {
-      setScore(score - Math.round(sword.price));
       const updatedSwords = swords.map((s) => {
-        if (s.id === sword.id) {
+        if (s.id === sword.id && s.level < level * 20) {
+          setScore(score - Math.round(sword.price));
           return {
             ...s,
             price: Math.ceil(s.price * 1.07),

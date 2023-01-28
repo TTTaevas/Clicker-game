@@ -13,6 +13,7 @@ export default function Game() {
   const allowDebug = true;
   const [potion, setPotion] = useState(false);
   const [blobClicked, setBlobClicked] = useState(false);
+  let [level, setLevel] = useState(1);
   let [power, setPower] = useState(1);
   let [score, setScore] = useState(0);
   let [maxLife, setMaxLife] = useState(10);
@@ -85,6 +86,8 @@ export default function Game() {
           experience={experience}
           power={power}
           setPower={setPower}
+          level={level}
+          setLevel={setLevel}
         />
         <div className="clickzone" ref={containerRef}>
           <button
@@ -134,6 +137,8 @@ export default function Game() {
             setMaxLife={setMaxLife}
             monsterZone={monsterZone}
             setMonsterZone={setMonsterZone}
+            experience={experience}
+            setExperience={setExperience}
           />
         </div>
       </div>
@@ -152,6 +157,7 @@ export default function Game() {
           setScore={setScore}
           power={power}
           setPower={setPower}
+          level={level}
         />
       </footer>
     </>

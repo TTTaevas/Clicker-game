@@ -10,6 +10,8 @@ export default function Zones({
   setMaxLife,
   monsterZone,
   setMonsterZone,
+  experience,
+  setExperience,
 }) {
   const [monsterCount, setMonsterCount] = useState(1);
   const [maxMonsterCount, setMaxMonsterCount] = useState(5);
@@ -54,6 +56,7 @@ export default function Zones({
     if (life <= 0) {
       setScore(Math.round(score + monsterZone * maxLife * 0.1));
       setMonsterCount(monsterCount + 1);
+      setExperience(experience + monsterZone);
       spawnMonster();
     }
   });

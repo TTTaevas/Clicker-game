@@ -6,7 +6,6 @@ let preventUseEffectShenanigans = 0;
 
 export default function Debug({
   setPower,
-  dealDps,
   setScore,
   setExperience,
   setMonsterZone,
@@ -47,19 +46,6 @@ export default function Debug({
           }
         >
           Set
-        </button>
-      </div>
-      <div className="debugOption">
-        DPS:
-        <input className="debugDps"></input>
-        <button
-          onClick={() =>
-            dealDps(
-              Number(document.getElementsByClassName("debugDps")[0].value)
-            )
-          }
-        >
-          Add
         </button>
       </div>
       <div className="debugOption">

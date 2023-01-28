@@ -10,11 +10,9 @@ import Zones from "./Zones";
 import Debug from "./Debug";
 
 export default function Game() {
-  const allowDebug = false;
+  const allowDebug = true;
   const [potion, setPotion] = useState(false);
   const [blobClicked, setBlobClicked] = useState(false);
-  const [intervalId, setIntervalId] = useState(null);
-  let [dps, setDps] = useState(0);
   let [level, setLevel] = useState(1);
   let [power, setPower] = useState(1);
   let [score, setScore] = useState(0);
@@ -35,32 +33,12 @@ export default function Game() {
       height: container.offsetHeight,
     });
   }, []);
+
   const setRandomPosition = () => {
     setImagePosition({
       x: Math.floor(Math.random() * containerDimensions.width),
       y: Math.floor(Math.random() * containerDimensions.height),
     });
-  };
-
-  const dealDps = (damage) => {
-    let x = dps + damage;
-    let y = 1;
-    setDps(x);
-    clearInterval(intervalId);
-
-    while (x > 100) {
-      y *= 2
-      x /= 2
-    }
-
-    if (dps + damage > 0) {
-      setIntervalId(
-        setInterval(
-          () => setLife((oldLife) => oldLife - y),
-          (1000 / x) * 0.93
-        )
-      );
-    }
   };
   const attackMonster = () => {
     if (monsterZone % 10 === 0) return;
@@ -97,7 +75,6 @@ export default function Game() {
       {allowDebug === true && (
         <Debug
           setPower={setPower}
-          dealDps={dealDps}
           setScore={setScore}
           setExperience={setExperience}
           setMonsterZone={setMonsterZone}
@@ -174,12 +151,11 @@ export default function Game() {
       </div>
       <footer>
         <Shop
-          dps={dps}
-          dealDps={dealDps}
-          score={score}
-          setScore={setScore}
           potion={potion}
           setPotion={setPotion}
+          score={score}
+          setLife={setLife}
+          setScore={setScore}
           power={power}
           setPower={setPower}
           level={level}

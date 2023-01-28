@@ -10,18 +10,19 @@ import Zones from "./Zones";
 import Debug from "./Debug";
 
 export default function Game() {
-  const allowDebug = false;
+  const allowDebug = true;
   const [potion, setPotion] = useState(false);
   const [blobClicked, setBlobClicked] = useState(false);
   const [intervalId, setIntervalId] = useState(null);
   let [dps, setDps] = useState(0);
+  let [level, setLevel] = useState(1);
   let [power, setPower] = useState(1);
   let [score, setScore] = useState(0);
   let [maxLife, setMaxLife] = useState(10);
   let [life, setLife] = useState(maxLife);
   let [experience, setExperience] = useState(0);
   let [monsterZone, setMonsterZone] = useState(1);
-  const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
+  const [imagePosition, setImagePosition] = useState({ x: 100, y: 100 });
   const [containerDimensions, setContainerDimensions] = useState({
     width: 0,
     height: 0,
@@ -99,6 +100,8 @@ export default function Game() {
           experience={experience}
           power={power}
           setPower={setPower}
+          level={level}
+          setLevel={setLevel}
         />
         <div className="clickzone" ref={containerRef}>
           <button
@@ -148,6 +151,9 @@ export default function Game() {
             setMaxLife={setMaxLife}
             monsterZone={monsterZone}
             setMonsterZone={setMonsterZone}
+            experience={experience}
+            setExperience={setExperience}
+            potion={potion}
           />
         </div>
       </div>
@@ -166,6 +172,8 @@ export default function Game() {
           potion={potion}
           setPotion={setPotion}
           power={power}
+          setPower={setPower}
+          level={level}
         />
       </footer>
     </>

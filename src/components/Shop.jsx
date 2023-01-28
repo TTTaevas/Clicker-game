@@ -14,11 +14,14 @@ export default function Shop({
   setScore,
   potion,
   setPotion,
-  power
+  power,
+  setPower,
+  level,
 }) {
   const [currentTab, setCurrentTab] = useState(0);
   const [potionStyle, setPotionStyle] = useState("potionButton");
   let [length, setLength] = useState(900);
+
 
   // Sword stats are NOT definitive
   let [swords, setSwords] = useState([{
@@ -98,7 +101,6 @@ export default function Shop({
           <p className="damagetext">You inflict {Math.round(dps * (1 / 0.93) * 10) / 10} damage/second</p>
         </div>
       </div>
-
       <div
         className="tabs"
         onLoad={() => {
@@ -135,6 +137,7 @@ export default function Shop({
             swords={swords}
             setSwords={setSwords}
             dealDps={dealDps}
+            level={level}
             score={score}
             setScore={setScore}
           />
@@ -155,6 +158,7 @@ export default function Shop({
           <Scrolls
             dealDps={dealDps}
             power={power}
+            setPower={setPower}
             score={score}
             setScore={setScore}
           />

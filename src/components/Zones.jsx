@@ -10,6 +10,9 @@ export default function Zones({
   setMaxLife,
   monsterZone,
   setMonsterZone,
+  experience,
+  setExperience,
+  potion,
 }) {
   const [monsterCount, setMonsterCount] = useState(1);
   const [maxMonsterCount, setMaxMonsterCount] = useState(5);
@@ -55,13 +58,23 @@ export default function Zones({
       setScore(Math.round(score + monsterZone * maxLife * 0.1));
       setMonsterCount(monsterCount + 1);
       spawnMonster();
+      if (potion) {
+        setExperience(experience + monsterZone * 2);
+      } else {
+        setExperience(experience + monsterZone);
+      }
     }
   });
   return (
     <div className="monsterCount">
-      {monsterCount}/{maxMonsterCount} <br />
-      Zone {monsterZone}
-      {monsterZone % 10 === 0 && <p> {countdown} seconds left</p>}
+      {/* <span classname="bossSpan">Boss</span> */}
+      {monsterZone % 10 === 0 && (
+        <p className="timer"> {countdown} seconds left</p>
+      )}
+      <p className="zoneCount">
+        {monsterCount}/{maxMonsterCount} <br />
+        Zone {monsterZone}
+      </p>
     </div>
   );
 }

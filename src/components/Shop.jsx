@@ -269,12 +269,6 @@ export default function Shop({
   return (
     <>
       <div className="damage">
-        {potion && (
-          <p>
-            The potion's effects will dissipate in :
-            {getLengthInWrittenForm(length)}
-          </p>
-        )}
         <p className="score">score : {Math.round(score)}</p>
         <div className="dps">
           <p className="damagetext">{power} HP per click</p>
@@ -339,6 +333,12 @@ export default function Shop({
             potion={potion}
             setPotion={setPotion}
           />
+        )}
+        {currentTab === 1 && potion && (
+          <p>
+            The potion's effects will dissipate in :
+            {getLengthInWrittenForm(length)}
+          </p>
         )}
         {currentTab === 2 &&
           scrolls.map((scrolls) => (

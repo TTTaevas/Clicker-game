@@ -43,13 +43,21 @@ export default function Game() {
   };
 
   const dealDps = (damage) => {
-    setDps(dps + damage)
+    let x = dps + damage;
+    let y = 1;
+    setDps(x);
     clearInterval(intervalId);
+
+    while (x > 100) {
+      y *= 2
+      x /= 2
+    }
+
     if (dps + damage > 0) {
       setIntervalId(
         setInterval(
-          () => setLife((oldLife) => oldLife - 1),
-          (1000 / (dps + damage)) * 0.93
+          () => setLife((oldLife) => oldLife - y),
+          (1000 / x) * 0.93
         )
       );
     }

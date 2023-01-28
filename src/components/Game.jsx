@@ -10,7 +10,7 @@ import Zones from "./Zones";
 import Debug from "./Debug";
 
 export default function Game() {
-  const allowDebug = false;
+  const allowDebug = true;
   const [potion, setPotion] = useState(false);
   const [blobClicked, setBlobClicked] = useState(false);
   const [intervalId, setIntervalId] = useState(null);
@@ -44,12 +44,14 @@ export default function Game() {
   const dealDps = (damage) => {
     setDps(dps + damage)
     clearInterval(intervalId);
-    setIntervalId(
-      setInterval(
-        () => setLife((oldLife) => oldLife - (dps + damage)),
-        (1000 / 1) * 0.93
-      )
-    );
+    if (dps + damage > 0) {
+      setIntervalId(
+        setInterval(
+          () => setLife((oldLife) => oldLife - 1),
+          (1000 / (dps + damage)) * 0.93
+        )
+      );
+    }
   };
   const attackMonster = () => {
     if (monsterZone % 10 === 0) return;

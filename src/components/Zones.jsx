@@ -13,9 +13,10 @@ export default function Zones({
   experience,
   setExperience,
   potion,
+  maxMonsterCount,
+  setMaxMonsterCount,
 }) {
   const [monsterCount, setMonsterCount] = useState(1);
-  const [maxMonsterCount, setMaxMonsterCount] = useState(5);
   const [countdown, setCountdown] = useState(30);
   const [beforeBossLife, setBeforeBossLife] = useState(0);
 

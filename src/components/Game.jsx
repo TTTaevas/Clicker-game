@@ -13,9 +13,9 @@ export default function Game() {
   const allowDebug = true;
   const [potion, setPotion] = useState(false);
   const [blobClicked, setBlobClicked] = useState(false);
-  const [intervalId, setIntervalId] = useState(null);
-  let [dps, setDps] = useState(0);
+  const [maxMonsterCount, setMaxMonsterCount] = useState(5);
   let [level, setLevel] = useState(1);
+  let [cps, setCps] = useState(0);
   let [power, setPower] = useState(1);
   let [score, setScore] = useState(0);
   let [maxLife, setMaxLife] = useState(10);
@@ -35,24 +35,18 @@ export default function Game() {
       height: container.offsetHeight,
     });
   }, []);
+
+  const clickPerSecond = () => {
+    setCps(cps + 1);
+
+    setTimeout(() => setCps((cps) => cps - 1), 1000);
+  };
+
   const setRandomPosition = () => {
     setImagePosition({
       x: Math.floor(Math.random() * containerDimensions.width),
       y: Math.floor(Math.random() * containerDimensions.height),
     });
-  };
-
-  const dealDps = (damage) => {
-    setDps(dps + damage)
-    clearInterval(intervalId);
-    if (dps + damage > 0) {
-      setIntervalId(
-        setInterval(
-          () => setLife((oldLife) => oldLife - 1),
-          (1000 / (dps + damage)) * 0.93
-        )
-      );
-    }
   };
   const attackMonster = () => {
     if (monsterZone % 10 === 0) return;
@@ -65,6 +59,7 @@ export default function Game() {
       }
     }
     setBlobClicked(true);
+    clickPerSecond();
     setTimeout(() => {
       setBlobClicked(false);
     }, 100);
@@ -80,6 +75,7 @@ export default function Game() {
       setRandomPosition();
     }
     setBlobClicked(true);
+    clickPerSecond();
     setTimeout(() => {
       setBlobClicked(false);
     }, 100);
@@ -154,26 +150,34 @@ export default function Game() {
             experience={experience}
             setExperience={setExperience}
             potion={potion}
+            maxMonsterCount={maxMonsterCount}
+            setMaxMonsterCount={setMaxMonsterCount}
           />
         </div>
       </div>
       <div className="health">
         <progress max={maxLife} value={life} className="healthbar" />
         <p className="healthcounter">
-          {life} / {maxLife} HP
+          {Math.round(life)} / {maxLife} HP
         </p>
       </div>
+      <p className="cps">{cps} click per second</p>
       <footer>
         <Shop
-          dps={dps}
-          dealDps={dealDps}
-          score={score}
-          setScore={setScore}
           potion={potion}
           setPotion={setPotion}
+          score={score}
+          life={life}
+          setLife={setLife}
+          setScore={setScore}
           power={power}
           setPower={setPower}
           level={level}
+          monsterZone={monsterZone}
+          experience={experience}
+          setExperience={setExperience}
+          maxMonsterCount={maxMonsterCount}
+          setMaxMonsterCount={setMaxMonsterCount}
         />
       </footer>
     </>

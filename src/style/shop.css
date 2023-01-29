@@ -141,3 +141,7 @@ transform: translateY(5px);
   border-radius: 50% 50% 0% 0%
 
 }
+.tabButtons:focus {
+  height:40px;
+   background-color: #694a4c;
+}

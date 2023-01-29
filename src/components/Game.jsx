@@ -15,6 +15,7 @@ export default function Game() {
   const [blobClicked, setBlobClicked] = useState(false);
   const [maxMonsterCount, setMaxMonsterCount] = useState(5);
   let [level, setLevel] = useState(1);
+  let [cps, setCps] = useState(0);
   let [power, setPower] = useState(1);
   let [score, setScore] = useState(0);
   let [maxLife, setMaxLife] = useState(10);
@@ -35,6 +36,12 @@ export default function Game() {
     });
   }, []);
 
+  const clickPerSecond = () => {
+    setCps(cps + 1);
+
+    setTimeout(() => setCps((cps) => cps - 1), 1000);
+  };
+
   const setRandomPosition = () => {
     setImagePosition({
       x: Math.floor(Math.random() * containerDimensions.width),
@@ -52,6 +59,7 @@ export default function Game() {
       }
     }
     setBlobClicked(true);
+    clickPerSecond();
     setTimeout(() => {
       setBlobClicked(false);
     }, 100);
@@ -67,6 +75,7 @@ export default function Game() {
       setRandomPosition();
     }
     setBlobClicked(true);
+    clickPerSecond();
     setTimeout(() => {
       setBlobClicked(false);
     }, 100);
@@ -152,6 +161,7 @@ export default function Game() {
           {Math.round(life)} / {maxLife} HP
         </p>
       </div>
+      <p className="cps">{cps} click per second</p>
       <footer>
         <Shop
           potion={potion}

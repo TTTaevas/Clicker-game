@@ -10,6 +10,7 @@ import sparkIcon from "../../assets/spark.png";
 
 export default function Shop({
   score,
+  life,
   setLife,
   setScore,
   potion,
@@ -33,8 +34,8 @@ export default function Shop({
       level: 0,
       price: 10,
       damage: 0.2,
-      name: "Wooden Sword",
-      desc: `The Wooden Sword does 1 damage and cost 10. There is no enchants binded to it yet.`,
+      name: "Wooden Stick",
+      desc: `The Wooden Sword does 1 damage and cost 10.`,
       enchant: 0,
     },
     {
@@ -42,10 +43,10 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      price: 100,
-      damage: 3,
+      price: 300,
+      damage: 0.6,
       name: "Stone Sword",
-      desc: `The Stone Sword does 3 damage and cost 100. There is no enchants binded to it yet.`,
+      desc: `The Stone Sword does 3 damage and cost 100.`,
       enchant: 0,
     },
     {
@@ -53,10 +54,10 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      price: 375,
-      damage: 7,
+      price: 1000,
+      damage: 1.4,
       name: "Iron Sword",
-      desc: `The Iron Sword does 5 damage and cost 375. There is no enchants binded to it yet.`,
+      desc: `The Iron Sword does 5 damage and cost 375.`,
       enchant: 0,
     },
     {
@@ -64,10 +65,65 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      price: 1000,
-      damage: 12,
+      price: 4000,
+      damage: 2.4,
+      name: "Gold Sword",
+      desc: `The Gold Sword does 12 damage and cost 4000.`,
+      enchant: 0,
+    },
+    {
+      id: 5,
+      bought: false,
+      equipped: false,
+      level: 0,
+      price: 10000,
+      damage: 4,
       name: "Diamond Sword",
-      desc: `The Diamond Sword does 12 damage and cost 1000. There is no enchants binded to it yet.`,
+      desc: `The Diamond Sword does 20 damage and cost 10000.`,
+      enchant: 0,
+    },
+    {
+      id: 6,
+      bought: false,
+      equipped: false,
+      level: 0,
+      price: 20000,
+      damage: 6,
+      name: "Ruby Sword",
+      desc: `The Diamond Sword does 30 damage and cost 15000.`,
+      enchant: 0,
+    },
+    {
+      id: 7,
+      bought: false,
+      equipped: false,
+      level: 0,
+      price: 30000,
+      damage: 8,
+      name: "Topaz Sword",
+      desc: `The Diamond Sword does 40 damage and cost 22500.`,
+      enchant: 0,
+    },
+    {
+      id: 8,
+      bought: false,
+      equipped: false,
+      level: 0,
+      price: 45000,
+      damage: 11,
+      name: "Sapphire Sword",
+      desc: `The Diamond Sword does 55 damage and cost 30000.`,
+      enchant: 0,
+    },
+    {
+      id: 9,
+      bought: false,
+      equipped: false,
+      level: 0,
+      price: 100000,
+      damage: 15,
+      name: "Titan Sword",
+      desc: `The Diamond Sword does 75 damage and cost 100000.`,
       enchant: 0,
     },
   ]);
@@ -76,7 +132,7 @@ export default function Shop({
       id: 1,
       bought: false,
       equipped: false,
-      price: 1000,
+      price: 19999,
       name: "First Scroll",
       handleUse: () => {
         const intervalId = setInterval(
@@ -90,25 +146,37 @@ export default function Shop({
       id: 2,
       bought: false,
       equipped: false,
-      price: 5000,
+      price: 28888,
       name: "Second Scroll",
       handleUse: () => {
-        setPower((power = power * 2));
+        setPower(level * 2);
+        setTimeout(() => setPower(power + level), 30000);
       },
     },
     {
       id: 3,
       bought: false,
       equipped: false,
-      price: 8000,
+      price: 37777,
       name: "Third Scroll",
+      handleUse: () => {
+        setPower(level * 4);
+        setTimeout(() => setPower(power + level), 30000);
+      },
     },
     {
       id: 4,
       bought: false,
       equipped: false,
-      price: 15000,
+      price: 46666,
       name: "Fourth Scroll",
+      handleUse: () => {
+        const intervalId = setInterval(
+          () => setLife((oldLife) => oldLife - power * level * 3),
+          100
+        );
+        setTimeout(() => clearInterval(intervalId), 30000);
+      },
     },
   ]);
   const handleBuyEnchant = (selectedSword) => {
@@ -119,14 +187,22 @@ export default function Shop({
         if (s.id === parseInt(selectedSword)) {
           s.enchant = Math.floor(Math.random() * 1000);
         }
-        if (s.enchant > 500) {
+        if (s.enchant === 727) {
+          alert("Legendary Enchant : WYSI ! Damage of this sword +727%");
+          if (s.equipped) {
+            clearInterval(intervalId);
+            makeSwordDealDamage({ ...s, damage: Math.round(s.damage * 8.27) });
+          }
+          return { ...s, damage: Math.round(s.damage * 1.1) };
+        } else if (s.enchant > 500) {
+          alert("Common enchant : Damage of this sword +10% !");
           if (s.equipped) {
             clearInterval(intervalId);
             makeSwordDealDamage({ ...s, damage: Math.round(s.damage * 1.1) });
           }
           return { ...s, damage: Math.round(s.damage * 1.1) };
-        }
-        if (s.enchant <= 500) {
+        } else if (s.enchant <= 500) {
+          alert("Common enchant : Price of this sword -50% !");
           return { ...s, price: Math.round(s.price * 0.5) };
         }
         return s;

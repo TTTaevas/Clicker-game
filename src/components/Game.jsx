@@ -13,6 +13,7 @@ export default function Game() {
   const allowDebug = true;
   const [potion, setPotion] = useState(false);
   const [blobClicked, setBlobClicked] = useState(false);
+  const [maxMonsterCount, setMaxMonsterCount] = useState(5);
   let [level, setLevel] = useState(1);
   let [power, setPower] = useState(1);
   let [score, setScore] = useState(0);
@@ -140,6 +141,8 @@ export default function Game() {
             experience={experience}
             setExperience={setExperience}
             potion={potion}
+            maxMonsterCount={maxMonsterCount}
+            setMaxMonsterCount={setMaxMonsterCount}
           />
         </div>
       </div>
@@ -154,11 +157,17 @@ export default function Game() {
           potion={potion}
           setPotion={setPotion}
           score={score}
+          life={life}
           setLife={setLife}
           setScore={setScore}
           power={power}
           setPower={setPower}
           level={level}
+          monsterZone={monsterZone}
+          experience={experience}
+          setExperience={setExperience}
+          maxMonsterCount={maxMonsterCount}
+          setMaxMonsterCount={setMaxMonsterCount}
         />
       </footer>
     </>

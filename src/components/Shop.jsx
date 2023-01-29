@@ -309,7 +309,7 @@ export default function Shop({
     console.log(sword.level);
     if (score >= Math.round(sword.price)) {
       const updatedSwords = swords.map((s) => {
-        if (s.id === sword.id && s.level < level * 15) {
+        if (s.id === sword.id && s.level < level * 10) {
           setScore(score - Math.round(sword.price));
           return {
             ...s,

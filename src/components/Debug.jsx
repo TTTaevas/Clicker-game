@@ -47,6 +47,7 @@ export default function Debug({
         >
           Set
         </button>
+        <button className="debugDefault" onClick={() =>setPower(195)}>Set to 195</button>
       </div>
       <div className="debugOption">
         Score:
@@ -60,6 +61,7 @@ export default function Debug({
         >
           Set
         </button>
+        <button className="debugDefault" onClick={() =>setScore(99999999999)}>Set to a lot</button>
       </div>
       <div className="debugOption">
         Experience:
@@ -73,6 +75,7 @@ export default function Debug({
         >
           Set
         </button>
+        <button className="debugDefault" onClick={() =>setExperience(99999999999)}>Set to a lot</button>
       </div>
       <div className="debugOption">
         Zone:
@@ -86,6 +89,7 @@ export default function Debug({
         >
           Set
         </button>
+        <button className="debugDefault" onClick={() =>setMonsterZone(195)}>Set to 195</button>
       </div>
     </div>
   );

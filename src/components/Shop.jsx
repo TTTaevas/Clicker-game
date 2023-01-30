@@ -306,7 +306,6 @@ export default function Shop({
       clearInterval(intervalId);
       makeSwordDealDamage(s);
     }
-    console.log(sword.level);
     if (score >= Math.round(sword.price)) {
       const updatedSwords = swords.map((s) => {
         if (s.id === sword.id && s.level < level * 10) {

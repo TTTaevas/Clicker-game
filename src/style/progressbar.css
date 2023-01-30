@@ -17,22 +17,18 @@
   color: black;
 }
 
-.healthbar {
-  border: none;
+.healthbarcontainer {
   background: crimson;
   color: crimson;
   height: 25px;
-  max-width: 60vh;
 }
 
-.healthbar::-moz-progress-bar {
-  background: greenyellow
-}
-
-.healthbar::-webkit-progress-value {
+.healthbar {
   background: greenyellow;
-}
-
-.healthbar::-webkit-progress-bar {
-  background: crimson;
+  color: greenyellow;
+  border: none;
+  height: 25px;
+  width: 10%;
+  -webkit-transition: all 0.2s linear;
+  transition: all 0.2s linear;
 }

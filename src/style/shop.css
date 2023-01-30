@@ -22,21 +22,6 @@ height: 30vh;
   height: 100%;
 
 }
-.damage {
-display: inline-flex;
-width: 100%;
-justify-content: space-between;
-text-align:end;
-}
-.damagetext {
-  margin-top: -5px;
-  margin-right: 20px;
-}
-.score {
-  display:grid;
-text-align:center;
-grid-column-start: 2;
-}
 .swordContainer {
 	display: inline-flex;
 	padding: 5	px;
@@ -94,7 +79,7 @@ grid-column-start: 2;
   box-shadow: 0px 5px 0px 0px #454444;
 }
 .potionButtonBought:active {
-transform: translateY(5px);
+  transform: translateY(5px);
   box-shadow: 0px 0px 0px 0px #454444;
 }
 .scrollButtons {
@@ -110,11 +95,11 @@ transform: translateY(5px);
   box-shadow: 0px 5px 0px 0px #A7B319;
 }
 .scrollButtons:active {
-	  transform: translateY(5px);
+	transform: translateY(5px);
   box-shadow: 0px 0px 0px 0px;
 }
 .enchantButtons {
- outline: none;
+  outline: none;
   background-color: #6519B3;
   padding: 10px 20px;
   font-size: 16px;
@@ -126,7 +111,7 @@ transform: translateY(5px);
   box-shadow: 0px 5px 0px 0px #50138E;
 }
 .enchantButtons:active {
-	  transform: translateY(5px);
+	transform: translateY(5px);
   box-shadow: 0px 0px 0px 0px #50138E;
 }
 
@@ -143,5 +128,14 @@ transform: translateY(5px);
 }
 .tabButtons:focus {
   height:40px;
-   background-color: #694a4c;
+  background-color: #694a4c;
+}
+
+@media screen and (max-height: 840px) {
+  .shopContainer {
+    position: relative;
+  }
+  .tabs {
+    position: inherit;
+  }
 }

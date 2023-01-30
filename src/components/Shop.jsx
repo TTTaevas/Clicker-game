@@ -18,6 +18,7 @@ export default function Shop({
   power,
   setPower,
   level,
+  cps
 }) {
   const [currentTab, setCurrentTab] = useState(0);
   const [intervalId, setIntervalId] = useState(null);
@@ -312,9 +313,12 @@ export default function Shop({
 
   return (
     <>
-      <div className="damage">
-        <p className="score">score : {Math.round(score)}</p>
-        <div className="dps">
+      <div className="information">
+        <div className="informationleft">
+          <p className="score">score: {Math.round(score)}</p>
+        </div>
+        <div className="informationright">
+          <p className="cps">{cps} click per second</p>
           <p className="damagetext">{power} HP per click</p>
           <p className="damagetext">You inflict {inactiveDPS} damage/second</p>
         </div>

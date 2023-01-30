@@ -1,6 +1,14 @@
 .experience {
-    text-align: center;
-    display: inline-flex;
-    align-items: center;
-    gap:5vh;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 3vw;
+}
+
+@media screen and (max-width: 450px) {
+  .experience {
+    position: absolute;
+    top: 58px;
+    gap: 5vw;
+  }
 }

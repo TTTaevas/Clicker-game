@@ -163,7 +163,6 @@ export default function Game() {
           {Math.round(life)} / {maxLife} HP
         </p>
       </div>
-      <p className="cps">{cps} click per second</p>
       <footer>
         <Shop
           potion={potion}
@@ -174,12 +173,8 @@ export default function Game() {
           setScore={setScore}
           power={power}
           setPower={setPower}
+          cps={cps}
           level={level}
-          monsterZone={monsterZone}
-          experience={experience}
-          setExperience={setExperience}
-          maxMonsterCount={maxMonsterCount}
-          setMaxMonsterCount={setMaxMonsterCount}
         />
       </footer>
     </>

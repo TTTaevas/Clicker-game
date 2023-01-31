@@ -2,6 +2,7 @@ import "../style/shop.css";
 import coinIcon from "../../assets/coin.png";
 
 export default function Sword({
+  displayNumber,
   id,
   price,
   damage,
@@ -24,7 +25,7 @@ export default function Sword({
             onClick={() => handleBuySword({ id, price })}
           >
             Level : {level} <br />
-            Buy : {Math.round(price)}
+            Buy : {displayNumber(price)}
             <img className="coinIcon" src={coinIcon} />
           </button>
           <p>{name}</p>
@@ -38,8 +39,8 @@ export default function Sword({
             title={desc}
             onClick={() => handleBuySword({ id, price })}
           >
-            Level : {level} <br />
-            Level up : {Math.round(price)}
+            Level : {displayNumber(level)} <br />
+            Level up : {displayNumber(price)}
             <img className="coinIcon" src={coinIcon} />
           </button>
           <p>

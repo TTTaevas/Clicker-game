@@ -10,6 +10,7 @@ import sparkIcon from "../../assets/spark.png";
 import coinIcon from "../../assets/coin.png";
 
 export default function Shop({
+  displayNumber,
   score,
   life,
   setLife,
@@ -317,14 +318,16 @@ export default function Shop({
       <div className="information">
         <div className="informationleft">
           <p className="score">
-            You have : {Math.round(score)} gold{" "}
+            You have : {displayNumber(score)} gold{" "}
             <img className="coinIcon" src={coinIcon} />
           </p>
         </div>
         <div className="informationright">
-          <p className="cps">{cps} click per second</p>
-          <p className="damagetext">{power} HP per click</p>
-          <p className="damagetext">You inflict {inactiveDPS} damage/second</p>
+          <p className="cps">{displayNumber(cps)} click per second</p>
+          <p className="damagetext">{displayNumber(power)} HP per click</p>
+          <p className="damagetext">
+            You inflict {displayNumber(inactiveDPS)} damage/second
+          </p>
         </div>
       </div>
       <div
@@ -361,6 +364,7 @@ export default function Shop({
         {currentTab === 0 &&
           swords.map((sword) => (
             <Sword
+              displayNumber={displayNumber}
               key={sword.id}
               id={sword.id}
               level={sword.level}
@@ -376,6 +380,7 @@ export default function Shop({
           ))}
         {currentTab === 1 && (
           <Potion
+            displayNumber={displayNumber}
             score={score}
             setScore={setScore}
             potionStyle={potionStyle}
@@ -395,6 +400,7 @@ export default function Shop({
         {currentTab === 2 &&
           scrolls.map((scrolls) => (
             <Scrolls
+              displayNumber={displayNumber}
               key={scrolls.id}
               name={scrolls.name}
               id={scrolls.id}
@@ -409,6 +415,7 @@ export default function Shop({
           ))}
         {currentTab === 3 && (
           <Enchants
+            displayNumber={displayNumber}
             score={score}
             setScore={setScore}
             swords={swords}

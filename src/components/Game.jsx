@@ -36,6 +36,30 @@ export default function Game() {
     });
   }, []);
 
+  const displayNumber = (num) => {
+    let str = String(Math.round(num))
+    if (str.length < 4) {return str}
+    let shorthands = ["",
+      "K", "M", "B", "T",
+      "q", "Q", "s", "S",
+      "O", "N", "d", "U",
+      "D", "!", "@", "#",
+      "$", "%", "^", "&",
+      "*"
+    ]
+
+    let i = 0
+    while (str.length > 6) {
+      i++
+      str = str.substring(0, str.length - 3)
+    }
+    
+    let e = str.length - 3
+    let display = `${str.substring(0, e)},${str.substring(e, str.length)}`
+    display += shorthands[i]
+    return display
+  }
+
   const clickPerSecond = () => {
     setCps(cps + 1);
 
@@ -127,11 +151,14 @@ export default function Game() {
               <img
                 src={target}
                 alt="random"
+                draggable="false"
+                onDragStart={() => {return false}}
                 style={{
                   width: "50px",
                   position: "absolute",
                   left: imagePosition.x,
                   top: imagePosition.y,
+                  MozUserSelect: "none",
                 }}
               />
             </button>
@@ -139,6 +166,7 @@ export default function Game() {
         </div>
         <div className="bottomGame">
           <Zones
+            displayNumber={displayNumber}
             score={score}
             setScore={setScore}
             life={life}
@@ -163,11 +191,12 @@ export default function Game() {
           ></div>
         </div>
         <p className="healthcounter">
-          {Math.round(life)} / {maxLife} HP
+          {displayNumber(life)} / {displayNumber(maxLife)} HP
         </p>
       </div>
       <footer>
         <Shop
+          displayNumber={displayNumber}
           potion={potion}
           setPotion={setPotion}
           score={score}

@@ -44,7 +44,7 @@ export default function Sword({
             <img className="coinIcon" src={coinIcon} />
           </button>
           <p>
-            {name} / DPS : {Math.round(damage * 5)}
+            {name} / DPS : {Math.round(damage * 5 * level)}
           </p>
         </div>
       )}

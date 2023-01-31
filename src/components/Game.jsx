@@ -127,11 +127,14 @@ export default function Game() {
               <img
                 src={target}
                 alt="random"
+                draggable="false"
+                onDragStart={() => {return false}}
                 style={{
                   width: "50px",
                   position: "absolute",
                   left: imagePosition.x,
                   top: imagePosition.y,
+                  MozUserSelect: "none",
                 }}
               />
             </button>

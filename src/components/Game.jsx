@@ -156,12 +156,13 @@ export default function Game() {
         </div>
       </div>
       <div className="health">
-        <progress max={maxLife} value={life} className="healthbar" />
+        <div className="healthbarcontainer">
+          <div style={{width:`${(life / maxLife) * 100}%`}} className="healthbar"></div>
+        </div>
         <p className="healthcounter">
           {Math.round(life)} / {maxLife} HP
         </p>
       </div>
-      <p className="cps">{cps} click per second</p>
       <footer>
         <Shop
           potion={potion}
@@ -172,12 +173,8 @@ export default function Game() {
           setScore={setScore}
           power={power}
           setPower={setPower}
+          cps={cps}
           level={level}
-          monsterZone={monsterZone}
-          experience={experience}
-          setExperience={setExperience}
-          maxMonsterCount={maxMonsterCount}
-          setMaxMonsterCount={setMaxMonsterCount}
         />
       </footer>
     </>

@@ -4,15 +4,16 @@ html body {
   width: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
-background-color: #241214
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background-color: #241214
 }
 @font-face {
   font-family: 'Custom Font';
   src: url("../assets/NineteenNinetySix-lWzq.ttf")
 }
 * {
-     -webkit-user-select: none; /* Chrome all / Safari all */
+  -webkit-user-select: none; /* Chrome all / Safari all */
   -moz-user-select: none; /* Firefox all */
   -ms-user-select: none; /* IE 10+ */
   user-select: none; /* Standard syntax */
@@ -22,6 +23,7 @@ background-color: #241214
 
 .App {
   height: 100%;
+  width: 100%;
   margin: 0;
   position: absolute;
 }
@@ -30,7 +32,7 @@ footer {
   flex-grow: 1
 }
 
-@media screen and (min-height: 900px) {
+@media screen and (max-height: 840px) {
   .App {
     top: 50%;
     -ms-transform: translateY(-50%);

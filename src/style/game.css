@@ -1,12 +1,12 @@
 .gameContainer {
   background-image: url("../../assets/1Tiles.png"), url("../../assets/2Fence.png"), url("../../assets/3Bushes.png"), url("../../assets/4Ground.png"), url("../../assets/5BackBushes.png"), url("../../assets/6Forest.png"), url("../../assets/7Hills.png"), url("../../assets/8Sky.png");
-  background-size: contain;
+  background-position-y: -8px;
   display: flex;
   flex-direction: column;
   width: 100%;
   align-items: center;
   min-height: 350px;
-justify-content:end;
+  justify-content:end;
 }
 
 .clickzone {
@@ -18,13 +18,11 @@ justify-content:end;
 .blob {
   all: unset;
   -webkit-user-select: none; /* Safari */        
--moz-user-select: none; /* Firefox */
--ms-user-select: none; /* IE10+/Edge */
-user-select: none; /* Standard */
-max-height: 100px;
-margin-top: 58px;
-
-
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+  max-height: 100px;
+  margin-top: 58px;
 }
 .blob img {
   width: 180px;
@@ -36,8 +34,29 @@ margin-top: 58px;
   text-align:end;
   width:100vw;
 }
-.cps{
-  margin-left: -20px;
-  width:100%;
-  text-align:end;
+
+.information {
+  display: flex;
+  position: absolute
+}
+.information * {
+  width: 40vw;
+}
+.informationleft {
+  margin-left: 1vw;
+  margin-right: 9vw;
+  text-align: left;
+}
+.informationright {
+  margin-left: 9vw;
+  margin-right: 1vw;
+  text-align: right;
+}
+.information * * {
+  width: 100%;
+}
+@media screen and (max-height: 840px) {
+  .information {
+    position: inherit;
+  }
 }

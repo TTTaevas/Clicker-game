@@ -26,3 +26,9 @@
 .settingsButton:hover {
 	transform: rotate(25deg);
 }
+
+@media screen and (max-width: 420px) {
+  .toolbar > * {
+    margin: 0;
+  }
+}

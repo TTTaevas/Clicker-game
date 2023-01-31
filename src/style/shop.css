@@ -2,29 +2,27 @@
   background: linear-gradient(#241214, #3a1d20);
   background-size:cover;
   border: 10px solid transparent;
-            border-image-source: url("../../assets/borders.png");
-            border-image-repeat: round;
-            border-image-slice: 60;
-            border-image-width: 10px; 
-    display: flex;
-    text-align:center;
+  border-image-source: url("../../assets/borders.png");
+  border-image-repeat: round;
+  border-image-slice: 60;
+  border-image-width: 10px;
+  display: flex;
+  text-align: center;
 	flex-direction: column;
 	gap: 10px;
 	overflow-y: scroll;
-height: 30vh;
+  height: 30vh;
 	align-items: flex-start;
 	position: fixed;
-    bottom: 0;
-    width: 98.8%;
+  bottom: 0;
+  width: calc(100% - 20px);
 }
 .shopBg {
   width: 100%;
   height: 100%;
-
 }
 .swordContainer {
 	display: inline-flex;
-	padding: 5	px;
 }
 .swordContainer * {
 	padding: 0 10px;

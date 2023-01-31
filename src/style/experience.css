@@ -10,5 +10,9 @@
     position: absolute;
     top: 58px;
     gap: 5vw;
+    margin: 0 10px;
+  }
+  .experience progress {
+    width: 50%;
   }
 }

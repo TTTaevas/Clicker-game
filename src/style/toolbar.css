@@ -31,4 +31,7 @@
   .toolbar > * {
     margin: 0;
   }
+  .title {
+	font-size: 8vw;
+  }
 }

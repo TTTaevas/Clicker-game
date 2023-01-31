@@ -47,7 +47,7 @@ export default function Game() {
   useEffect(() => {
     if (experience >= maxExperience) {
       setExperience(0);
-      setMaxExperience(maxExperience * 2);
+      setMaxExperience(Math.round(maxExperience * 1.4));
       setLevel(level + 1);
       setPower(power + 1);
     }

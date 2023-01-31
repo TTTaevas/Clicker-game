@@ -1,6 +1,7 @@
 import "../style/shop.css";
 
 export default function Enchants({
+  displayNumber,
   score,
   setScore,
   swords,
@@ -64,7 +65,7 @@ export default function Enchants({
             handleBuyEnchant(document.getElementsByClassName("selectSword")[0].value)
           }}
         >
-        Enchant sword {Math.round(enchantsPrice)}
+          Enchant sword {displayNumber(enchantsPrice)}
         </button>
       )}
 

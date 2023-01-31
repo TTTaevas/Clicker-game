@@ -2,6 +2,7 @@ import { useState } from "react";
 import "../style/shop.css";
 
 export default function Potion({
+  displayNumber,
   score,
   setScore,
   potion,
@@ -34,7 +35,7 @@ export default function Potion({
   return (
     <>
       <button className={potionStyle} type="button" onClick={() => buyPotion()}>
-        Buy XP potion: {Math.round(price)} points
+        Buy XP potion: {displayNumber(price)} points
       </button>
     </>
   );

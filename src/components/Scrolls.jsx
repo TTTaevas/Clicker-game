@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../style/shop.css";
 export default function Scrolls({
+  displayNumber,
   handleBuyScroll,
   handleSellScroll,
   handleEquipScroll,
@@ -27,7 +28,7 @@ export default function Scrolls({
           type="button"
           onClick={() => handleBuyScroll({ id, price, bought })}
         >
-          Buy {name}: {Math.round(price)} points
+          Buy {name}: {displayNumber(price)} points
         </button>
       )}
       {bought === true && (
@@ -37,7 +38,7 @@ export default function Scrolls({
             type="button"
             onClick={() => handleSellScroll({ id, price, bought })}
           >
-            Sell {name}: You will gain {Math.round(price) / 1.25} points
+            Sell {name}: You will gain {displayNumber(price / 1.25)} points
           </button>
           {equipped === false && (
             <button

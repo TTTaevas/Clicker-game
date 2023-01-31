@@ -26,13 +26,13 @@
 }
 .blob img {
   width: 180px;
-    pointer-events:none;
-    object-fit:cover;
+  pointer-events: none;
+  object-fit: cover;
 }
 
 .bottomGame {
-  text-align:end;
-  width:100vw;
+  text-align: end;
+  width: 100vw;
 }
 
 .information {

@@ -66,7 +66,7 @@ export default function Game() {
   };
   const attackBoss = () => {
     if (life > 0 && monsterZone % 10 === 0) {
-      setLife(life - power * 3);
+      setLife(life - power * 7);
       if (potion === true) {
         setExperience(experience + 10);
       } else {
@@ -157,7 +157,10 @@ export default function Game() {
       </div>
       <div className="health">
         <div className="healthbarcontainer">
-          <div style={{width:`${(life / maxLife) * 100}%`}} className="healthbar"></div>
+          <div
+            style={{ width: `${(life / maxLife) * 100}%` }}
+            className="healthbar"
+          ></div>
         </div>
         <p className="healthcounter">
           {Math.round(life)} / {maxLife} HP

@@ -36,6 +36,7 @@ height: 30vh;
   outline: none;
   background-color: #5CC35F;
   border:3px solid #4C9E4E;
+  width: 300px;
   padding: 10px 20px;
   font-size: 16px;
   font-weight: 700;
@@ -65,6 +66,23 @@ height: 30vh;
   transform: translateY(5px);
   box-shadow: 0px 0px 0px 0px #A20F04;
 }
+.EquipButton {
+  outline: none;
+  background-color: #704d2c;
+  border:3px solid #50361e;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  border-radius: 5px;
+  transition: all ease 0.1s;
+  box-shadow: 0px 5px 0px 0px #50361e;
+}
+.EquipButton:active {
+  transform: translateY(5px);
+  box-shadow: 0px 0px 0px 0px #A20F04;
+}
+
 
 .potionButtonBought {
   outline: none;
@@ -130,7 +148,12 @@ height: 30vh;
   height:40px;
   background-color: #694a4c;
 }
-
+.swordsButtonsAndText {
+  display: inline-flex;
+}
+.coinIcon {
+  width: 15px;
+}
 @media screen and (max-height: 840px) {
   .shopContainer {
     position: relative;

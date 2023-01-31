@@ -7,6 +7,7 @@ import swordIcon from "../../assets/sword.png";
 import potionIcon from "../../assets/potion.png";
 import scrollIcon from "../../assets/scroll.png";
 import sparkIcon from "../../assets/spark.png";
+import coinIcon from "../../assets/coin.png";
 
 export default function Shop({
   score,
@@ -18,7 +19,7 @@ export default function Shop({
   power,
   setPower,
   level,
-  cps
+  cps,
 }) {
   const [currentTab, setCurrentTab] = useState(0);
   const [intervalId, setIntervalId] = useState(null);
@@ -315,7 +316,10 @@ export default function Shop({
     <>
       <div className="information">
         <div className="informationleft">
-          <p className="score">score: {Math.round(score)}</p>
+          <p className="score">
+            You have : {Math.round(score)} gold{" "}
+            <img className="coinIcon" src={coinIcon} />
+          </p>
         </div>
         <div className="informationright">
           <p className="cps">{cps} click per second</p>

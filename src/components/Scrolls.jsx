@@ -20,7 +20,7 @@ export default function Scrolls({
     }
   };
   return (
-    <div>
+    <div className="scrollContainer">
       {bought === false && (
         <button
           className="scrollButtons"
@@ -41,6 +41,7 @@ export default function Scrolls({
           </button>
           {equipped === false && (
             <button
+              className="EquipButton"
               type="button"
               onClick={() => handleEquipScroll({ id, price, bought }, true)}
             >
@@ -50,12 +51,17 @@ export default function Scrolls({
           {equipped === true && (
             <div>
               <button
+                className="EquipButton"
                 type="button"
                 onClick={() => handleEquipScroll({ id, price, bought }, false)}
               >
                 Unequip
               </button>
-              <button type="button" onClick={() => handleUseScrolls()}>
+              <button
+                className="EquipButton"
+                type="button"
+                onClick={() => handleUseScrolls()}
+              >
                 Use
               </button>
             </div>

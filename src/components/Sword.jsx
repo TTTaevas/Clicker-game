@@ -1,4 +1,5 @@
 import "../style/shop.css";
+import coinIcon from "../../assets/coin.png";
 
 export default function Sword({
   id,
@@ -15,27 +16,40 @@ export default function Sword({
   return (
     <div className="swordContainer">
       {bought === false && (
-        <button
-          className="swordButton"
-          type="button"
-          title={desc}
-          onClick={() => handleBuySword({ id, price })}
-        >
-          Buy {name}: {Math.round(price)} points
-        </button>
+        <div className="swordsButtonsAndText">
+          <button
+            className="swordButton"
+            type="button"
+            title={desc}
+            onClick={() => handleBuySword({ id, price })}
+          >
+            Level : {level} <br />
+            Buy : {Math.round(price)}
+            <img className="coinIcon" src={coinIcon} />
+          </button>
+          <p>{name}</p>
+        </div>
       )}
       {bought === true && (
-        <button
-          className="swordButton"
-          type="button"
-          onClick={() => handleBuySword({ id, price, level })}
-        >
-          Level up {name}: {Math.round(price)} points <br />
-          currently level {level}
-        </button>
+        <div className="swordsButtonsAndText">
+          <button
+            className="swordButton"
+            type="button"
+            title={desc}
+            onClick={() => handleBuySword({ id, price })}
+          >
+            Level : {level} <br />
+            Level up : {Math.round(price)}
+            <img className="coinIcon" src={coinIcon} />
+          </button>
+          <p>
+            {name} / DPS : {Math.round(damage * 5)}
+          </p>
+        </div>
       )}
       {bought === true && equipped === false && (
         <button
+          className="EquipButton"
           type="button"
           onClick={() =>
             handleEquipSword({ id, price, bought, damage, level }, true)
@@ -47,6 +61,7 @@ export default function Sword({
       {equipped === true && (
         <button
           type="button"
+          className="EquipButton"
           onClick={() => handleEquipSword({ id, price, bought, damage }, false)}
         >
           Unequip

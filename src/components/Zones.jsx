@@ -32,7 +32,11 @@ export default function Zones({
         if (monsterZone % 10 === 0) {
           setMaxLife((maxLife = Math.round(maxLife * 0.3)));
         }
-        setMaxLife((maxLife = Math.round(10 * (monsterZone * 1.66))));
+        setMaxLife(
+          (maxLife = Math.round(
+            10 * (monsterZone * 1.66) + beforeBossLife * 0.4
+          ))
+        );
         setMonsterZone(monsterZone + 1);
         setMaxMonsterCount(10);
       }

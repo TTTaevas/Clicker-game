@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Sword from "./Sword";
 import Potion from "./Potion";
 import Scrolls from "./Scrolls";
@@ -27,7 +27,7 @@ export default function Shop({
   let [length, setLength] = useState(900);
   // Swords stats are not definitive.
 
-  const [swords, setSwords] = useState([
+  const [swords, setSwords] = useState(JSON.parse(localStorage.getItem("swords")) || [
     {
       id: 1,
       bought: false,
@@ -128,7 +128,7 @@ export default function Shop({
       enchant: 0,
     },
   ]);
-  const [scrolls, setScrolls] = useState([
+  const [scrolls, setScrolls] = useState(JSON.parse(localStorage.getItem("scrolls")) || [
     {
       id: 1,
       bought: false,
@@ -180,6 +180,9 @@ export default function Shop({
       },
     },
   ]);
+
+  useEffect(() => {localStorage.setItem("swords", JSON.stringify(swords.map((s) => {return {...s, equipped: false}}))), [swords]})
+  useEffect(() => {localStorage.setItem("scrolls", JSON.stringify(scrolls.map((s) => {return {...s, equipped: false}}))), [scrolls]})
 
   const handleBuyScroll = (scroll) => {
     if (score >= Math.round(scroll.price)) {

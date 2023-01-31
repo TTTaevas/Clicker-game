@@ -1,6 +1,7 @@
 import "../style/shop.css";
 
 export default function Sword({
+  displayNumber,
   id,
   price,
   damage,
@@ -21,7 +22,7 @@ export default function Sword({
           title={desc}
           onClick={() => handleBuySword({ id, price })}
         >
-          Buy {name}: {Math.round(price)} points
+          Buy {name}: {displayNumber(price)} points
         </button>
       )}
       {bought === true && (
@@ -30,8 +31,8 @@ export default function Sword({
           type="button"
           onClick={() => handleBuySword({ id, price, level })}
         >
-          Level up {name}: {Math.round(price)} points <br />
-          currently level {level}
+          Level up {name}: {displayNumber(price)} points <br />
+          currently level {displayNumber(level)}
         </button>
       )}
       {bought === true && equipped === false && (

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "../style/zones.css";
 
 export default function Zones({
+  displayNumber,
   score,
   setScore,
   life,
@@ -70,11 +71,11 @@ export default function Zones({
     <div className="monsterCount">
       {/* <span classname="bossSpan">Boss</span> */}
       {monsterZone % 10 === 0 && (
-        <p className="timer"> {countdown} seconds left</p>
+        <p className="timer"> {displayNumber(countdown)} seconds left</p>
       )}
       <p className="zoneCount">
-        {monsterCount}/{maxMonsterCount} <br />
-        Zone {monsterZone}
+        {displayNumber(monsterCount)}/{displayNumber(maxMonsterCount)} <br />
+        Zone {displayNumber(monsterZone)}
       </p>
     </div>
   );

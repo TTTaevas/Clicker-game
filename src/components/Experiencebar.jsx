@@ -13,7 +13,7 @@ export default function Experiencebar({
     if (experience >= maxExperience) {
       setExperience(0);
       setPower(power + 1);
-      setMaxExperience(maxExperience * 2);
+      setMaxExperience(Math.round(maxExperience * 1.4));
       setLevel(level + 1);
     }
   });

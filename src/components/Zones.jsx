@@ -25,7 +25,7 @@ export default function Zones({
       setMonsterCount(1);
       if ((monsterZone + 1) % 10 === 0) {
         setBeforeBossLife(maxLife);
-        setMaxLife((maxLife = Math.round(monsterZone * 131.33)));
+        setMaxLife((maxLife = Math.round(monsterZone * 411)));
         setMaxMonsterCount(1);
         setMonsterZone(monsterZone + 1);
       } else {

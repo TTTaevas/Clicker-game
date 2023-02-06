@@ -1,5 +1,6 @@
 import "../style/shop.css";
 import coinIcon from "../../assets/coin.png";
+import Popup from "./Popup";
 
 export default function Sword({
   displayNumber,
@@ -68,6 +69,15 @@ export default function Sword({
           Unequip
         </button>
       )}
+      <Popup
+        className="popup"
+        damage={damage}
+        price={price}
+        level={level}
+        bought={bought}
+        desc={desc}
+        equipped={equipped}
+      />
     </div>
   );
 }

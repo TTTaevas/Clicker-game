@@ -152,7 +152,7 @@ export default function Shop({
       price: 28888,
       name: "Second Scroll",
       handleUse: () => {
-        setPower(level * 2);
+        setPower(power + level * 2);
         setTimeout(() => setPower(power + level), 30000);
       },
     },
@@ -163,7 +163,7 @@ export default function Shop({
       price: 37777,
       name: "Third Scroll",
       handleUse: () => {
-        setPower(level * 4);
+        setPower(power + level * 4);
         setTimeout(() => setPower(power + level), 30000);
       },
     },

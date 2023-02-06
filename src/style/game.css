@@ -5,7 +5,7 @@
   flex-direction: column;
   width: 100%;
   align-items: center;
-  min-height: 350px;
+  height: 350px;
   justify-content:end;
 }
 
@@ -15,7 +15,7 @@
 .target {
   all: unset;
 }
-.blob {
+#skeleton, #blob, #ghost {
   all: unset;
   -webkit-user-select: none; /* Safari */        
   -moz-user-select: none; /* Firefox */
@@ -24,11 +24,30 @@
   max-height: 100px;
   margin-top: 58px;
 }
-.blob img {
-  width: 180px;
+#blob img {
+  transform: scaleX(-1);
+  top: 17px;
+  position:relative;
+  width: 120px;
   pointer-events: none;
   object-fit: cover;
 }
+#ghost img {
+   transform: scaleX(-1);
+  top: 8px;
+  position:relative;
+  width: 100px;
+  pointer-events: none;
+  object-fit: cover;
+}
+#skeleton img {
+width: 130px;
+pointer-events: none;
+object-fit: cover;
+position: relative;
+top: 8px;
+}
+
 
 .bottomGame {
   text-align: end;

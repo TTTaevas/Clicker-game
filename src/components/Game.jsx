@@ -2,8 +2,12 @@ import { useState, useRef, useEffect } from "react";
 import "../style/game.css";
 import "../style/progressbar.css";
 import blob from "../../assets/blob.png";
-import hurtBlob from "../../assets/hurtBlob.png";
-import deadBlob from "../../assets/deadBlob.png";
+import hurtblob from "../../assets/hurtBlob.png";
+import deadblob from "../../assets/deadBlob.png";
+import ghost from "../../assets/ghost.png";
+import deadghost from "../../assets/deadGhost.png";
+import hurtghost from "../../assets/hurtGhost.png";
+import skeleton from "../../assets/skeleton.png";
 import target from "../../assets/target.png";
 import Shop from "./Shop";
 import Experiencebar from "./Experiencebar";
@@ -13,6 +17,8 @@ import Debug from "./Debug";
 export default function Game() {
   const allowDebug = true;
   const [potion, setPotion] = useState(false);
+  const [currentMob, setCurrentMob] = useState(skeleton);
+  const [currentMobClass, setCurrentMobClass] = useState("skeleton");
   const [blobState, setBlobState] = useState(0);
   const [maxMonsterCount, setMaxMonsterCount] = useState(5);
   let [level, setLevel] = useState(1);
@@ -28,6 +34,12 @@ export default function Game() {
     width: 0,
     height: 0,
   });
+  const hurtMob = [currentMob.slice(0, 8), "hurt", currentMob.slice(8)].join(
+    ""
+  );
+  const deadMob = [currentMob.slice(0, 8), "dead", currentMob.slice(8)].join(
+    ""
+  );
   const containerRef = useRef(null);
   useEffect(() => {
     const container = containerRef.current;
@@ -107,11 +119,23 @@ export default function Game() {
       } else {
         setBlobState(1);
       }
-
       clickPerSecond();
       setTimeout(() => {
         setBlobState(0);
       }, spriteTimer);
+    }
+    if (life === 1) {
+      const mob = Math.random() * 30;
+      if (mob <= 10) {
+        setCurrentMob(skeleton);
+        setCurrentMobClass("skeleton");
+      } else if (mob < 20) {
+        setCurrentMob(ghost);
+        setCurrentMobClass("ghost");
+      } else if (mob < 30) {
+        setCurrentMob(blob);
+        setCurrentMobClass("blob");
+      }
     }
   };
   const attackBoss = () => {
@@ -153,16 +177,16 @@ export default function Game() {
           <button
             type="button"
             onClick={() => attackMonster()}
-            className="blob"
+            id={currentMobClass}
           >
             {blobState === 0 && (
-              <img src={blob} alt="monster" className="blob" />
+              <img src={currentMob} alt="monster" id={currentMobClass} />
             )}
             {blobState === 1 && (
-              <img src={hurtBlob} alt="monster" className="blob" />
+              <img src={hurtMob} alt="monster" id={currentMobClass} />
             )}
             {blobState === 2 && (
-              <img src={deadBlob} alt="monster" className="blob" />
+              <img src={deadMob} alt="monster" id={currentMobClass} />
             )}
           </button>
           {monsterZone % 10 === 0 && (
@@ -205,6 +229,9 @@ export default function Game() {
             potion={potion}
             maxMonsterCount={maxMonsterCount}
             setMaxMonsterCount={setMaxMonsterCount}
+            setBlobState={setBlobState}
+            setCurrentMob={setCurrentMob}
+            setCurrentMobClass={setCurrentMobClass}
           />
         </div>
       </div>

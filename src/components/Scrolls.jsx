@@ -17,7 +17,7 @@ export default function Scrolls({
   const handleUseScrolls = () => {
     if (isScrollUsed === false) {
       handleUse();
-      setTimeout(setIsScrollUsed(), 3600000);
+      setTimeout(setIsScrollUsed(), 900000);
     }
   };
   return (

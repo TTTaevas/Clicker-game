@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
 import "../style/zones.css";
+import blob from "../../assets/blob.png";
+import hurtblob from "../../assets/hurtBlob.png";
+import deadblob from "../../assets/deadBlob.png";
+import ghost from "../../assets/ghost.png";
+import deadghost from "../../assets/deadGhost.png";
+import hurtghost from "../../assets/hurtGhost.png";
+import skeleton from "../../assets/skeleton.png";
 
 export default function Zones({
   displayNumber,
@@ -16,6 +23,9 @@ export default function Zones({
   potion,
   maxMonsterCount,
   setMaxMonsterCount,
+  setBlobState,
+  setCurrentMob,
+  setCurrentMobClass,
 }) {
   const [monsterCount, setMonsterCount] = useState(1);
   const [countdown, setCountdown] = useState(30);
@@ -63,6 +73,19 @@ export default function Zones({
     if (life <= 0) {
       setScore(Math.round(score + monsterZone * maxLife * 0.1));
       setMonsterCount(monsterCount + 1);
+      setBlobState(2);
+      setTimeout(() => setBlobState(0), 300);
+      const mob = Math.random() * 30;
+      if (mob <= 10) {
+        setCurrentMob(skeleton);
+        setCurrentMobClass("skeleton");
+      } else if (mob < 20) {
+        setCurrentMob(ghost);
+        setCurrentMobClass("ghost");
+      } else if (mob < 30) {
+        setCurrentMob(blob);
+        setCurrentMobClass("blob");
+      }
       spawnMonster();
       if (potion) {
         setExperience(experience + monsterZone * 2);

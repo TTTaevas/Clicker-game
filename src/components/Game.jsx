@@ -8,6 +8,7 @@ import ghost from "../../assets/ghost.png";
 import deadghost from "../../assets/deadGhost.png";
 import hurtghost from "../../assets/hurtGhost.png";
 import skeleton from "../../assets/skeleton.png";
+import hurtskeleton from "../../assets/hurtSkeleton.png";
 import target from "../../assets/target.png";
 import Shop from "./Shop";
 import Experiencebar from "./Experiencebar";
@@ -17,8 +18,10 @@ import Debug from "./Debug";
 export default function Game() {
   const allowDebug = true;
   const [potion, setPotion] = useState(false);
-  const [currentMob, setCurrentMob] = useState(skeleton);
-  const [currentMobClass, setCurrentMobClass] = useState("skeleton");
+  const [currentMob, setCurrentMob] = useState(blob);
+  const [currentHurtMob, setCurrentHurtMob] = useState(hurtblob);
+  const [currentDeadMob, setCurrentDeadMob] = useState(deadblob);
+  const [currentMobClass, setCurrentMobClass] = useState("blob");
   const [blobState, setBlobState] = useState(0);
   const [maxMonsterCount, setMaxMonsterCount] = useState(5);
   let [level, setLevel] = useState(1);
@@ -34,12 +37,6 @@ export default function Game() {
     width: 0,
     height: 0,
   });
-  const hurtMob = [currentMob.slice(0, 8), "hurt", currentMob.slice(8)].join(
-    ""
-  );
-  const deadMob = [currentMob.slice(0, 8), "dead", currentMob.slice(8)].join(
-    ""
-  );
   const containerRef = useRef(null);
   useEffect(() => {
     const container = containerRef.current;
@@ -96,7 +93,28 @@ export default function Game() {
 
     setTimeout(() => setCps((cps) => cps - 1), 1000);
   };
-
+  const changeSprites = () => {};
+  useEffect(() => {
+    if (life === maxLife) {
+      const mob = Math.random() * 30;
+      if (mob <= 10) {
+        setCurrentMob(skeleton);
+        setCurrentHurtMob(hurtskeleton);
+        setCurrentDeadMob(hurtskeleton);
+        setCurrentMobClass("skeleton");
+      } else if (mob < 20) {
+        setCurrentMob(ghost);
+        setCurrentHurtMob(hurtghost);
+        setCurrentDeadMob(deadghost);
+        setCurrentMobClass("ghost");
+      } else if (mob < 30) {
+        setCurrentMob(blob);
+        setCurrentHurtMob(hurtblob);
+        setCurrentDeadMob(deadblob);
+        setCurrentMobClass("blob");
+      }
+    }
+  });
   const setRandomPosition = () => {
     setImagePosition({
       x: Math.floor(Math.random() * containerDimensions.width),
@@ -123,19 +141,6 @@ export default function Game() {
       setTimeout(() => {
         setBlobState(0);
       }, spriteTimer);
-    }
-    if (life === 1) {
-      const mob = Math.random() * 30;
-      if (mob <= 10) {
-        setCurrentMob(skeleton);
-        setCurrentMobClass("skeleton");
-      } else if (mob < 20) {
-        setCurrentMob(ghost);
-        setCurrentMobClass("ghost");
-      } else if (mob < 30) {
-        setCurrentMob(blob);
-        setCurrentMobClass("blob");
-      }
     }
   };
   const attackBoss = () => {
@@ -183,10 +188,10 @@ export default function Game() {
               <img src={currentMob} alt="monster" id={currentMobClass} />
             )}
             {blobState === 1 && (
-              <img src={hurtMob} alt="monster" id={currentMobClass} />
+              <img src={currentHurtMob} alt="monster" id={currentMobClass} />
             )}
             {blobState === 2 && (
-              <img src={deadMob} alt="monster" id={currentMobClass} />
+              <img src={currentDeadMob} alt="monster" id={currentMobClass} />
             )}
           </button>
           {monsterZone % 10 === 0 && (

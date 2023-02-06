@@ -3,6 +3,7 @@ import "../style/game.css";
 import "../style/progressbar.css";
 import blob from "../../assets/blob.png";
 import hurtBlob from "../../assets/hurtBlob.png";
+import deadBlob from "../../assets/deadBlob.png";
 import target from "../../assets/target.png";
 import Shop from "./Shop";
 import Experiencebar from "./Experiencebar";
@@ -12,7 +13,7 @@ import Debug from "./Debug";
 export default function Game() {
   const allowDebug = true;
   const [potion, setPotion] = useState(false);
-  const [blobClicked, setBlobClicked] = useState(false);
+  const [blobState, setBlobState] = useState(0);
   const [maxMonsterCount, setMaxMonsterCount] = useState(5);
   let [level, setLevel] = useState(1);
   let [cps, setCps] = useState(0);
@@ -37,28 +38,46 @@ export default function Game() {
   }, []);
 
   const displayNumber = (num) => {
-    let str = String(Math.round(num))
-    if (str.length < 4) {return str}
-    let shorthands = ["",
-      "K", "M", "B", "T",
-      "q", "Q", "s", "S",
-      "O", "N", "d", "U",
-      "D", "!", "@", "#",
-      "$", "%", "^", "&",
-      "*"
-    ]
-
-    let i = 0
-    while (str.length > 6) {
-      i++
-      str = str.substring(0, str.length - 3)
+    let str = String(Math.round(num));
+    if (str.length < 4) {
+      return str;
     }
-    
-    let e = str.length - 3
-    let display = `${str.substring(0, e)},${str.substring(e, str.length)}`
-    display += shorthands[i]
-    return display
-  }
+    let shorthands = [
+      "",
+      "K",
+      "M",
+      "B",
+      "T",
+      "q",
+      "Q",
+      "s",
+      "S",
+      "O",
+      "N",
+      "d",
+      "U",
+      "D",
+      "!",
+      "@",
+      "#",
+      "$",
+      "%",
+      "^",
+      "&",
+      "*",
+    ];
+
+    let i = 0;
+    while (str.length > 6) {
+      i++;
+      str = str.substring(0, str.length - 3);
+    }
+
+    let e = str.length - 3;
+    let display = `${str.substring(0, e)},${str.substring(e, str.length)}`;
+    display += shorthands[i];
+    return display;
+  };
 
   const clickPerSecond = () => {
     setCps(cps + 1);
@@ -81,12 +100,19 @@ export default function Game() {
       } else {
         setExperience(experience + 1);
       }
+      let spriteTimer = 100;
+      if (life === 1) {
+        setBlobState(2);
+        spriteTimer = 300;
+      } else {
+        setBlobState(1);
+      }
+
+      clickPerSecond();
+      setTimeout(() => {
+        setBlobState(0);
+      }, spriteTimer);
     }
-    setBlobClicked(true);
-    clickPerSecond();
-    setTimeout(() => {
-      setBlobClicked(false);
-    }, 100);
   };
   const attackBoss = () => {
     if (life > 0 && monsterZone % 10 === 0) {
@@ -98,10 +124,10 @@ export default function Game() {
       }
       setRandomPosition();
     }
-    setBlobClicked(true);
+    setBlobState(1);
     clickPerSecond();
     setTimeout(() => {
-      setBlobClicked(false);
+      setBlobState(0);
     }, 100);
   };
   return (
@@ -129,18 +155,15 @@ export default function Game() {
             onClick={() => attackMonster()}
             className="blob"
           >
-            <img
-              src={blob}
-              alt="monster"
-              className="blob"
-              style={{ display: blobClicked ? "none" : "inline" }}
-            />
-            <img
-              src={hurtBlob}
-              alt="monster"
-              className="blob"
-              style={{ display: blobClicked ? "inline" : "none" }}
-            />
+            {blobState === 0 && (
+              <img src={blob} alt="monster" className="blob" />
+            )}
+            {blobState === 1 && (
+              <img src={hurtBlob} alt="monster" className="blob" />
+            )}
+            {blobState === 2 && (
+              <img src={deadBlob} alt="monster" className="blob" />
+            )}
           </button>
           {monsterZone % 10 === 0 && (
             <button
@@ -152,7 +175,9 @@ export default function Game() {
                 src={target}
                 alt="random"
                 draggable="false"
-                onDragStart={() => {return false}}
+                onDragStart={() => {
+                  return false;
+                }}
                 style={{
                   width: "50px",
                   position: "absolute",

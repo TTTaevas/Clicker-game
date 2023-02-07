@@ -24,8 +24,7 @@ export default function Zones({
   maxMonsterCount,
   setMaxMonsterCount,
   setBlobState,
-  setCurrentMob,
-  setCurrentMobClass,
+  changeSprites
 }) {
   const [monsterCount, setMonsterCount] = useState(1);
   const [countdown, setCountdown] = useState(30);
@@ -54,6 +53,7 @@ export default function Zones({
     }
     setLife((life = maxLife));
   };
+
   useEffect(() => {
     if (monsterZone % 10 === 0) {
       setTimeout(() => {
@@ -75,17 +75,7 @@ export default function Zones({
       setMonsterCount(monsterCount + 1);
       setBlobState(2);
       setTimeout(() => setBlobState(0), 300);
-      const mob = Math.random() * 30;
-      if (mob <= 10) {
-        setCurrentMob(skeleton);
-        setCurrentMobClass("skeleton");
-      } else if (mob < 20) {
-        setCurrentMob(ghost);
-        setCurrentMobClass("ghost");
-      } else if (mob < 30) {
-        setCurrentMob(blob);
-        setCurrentMobClass("blob");
-      }
+      changeSprites();
       spawnMonster();
       if (potion) {
         setExperience(experience + monsterZone * 2);

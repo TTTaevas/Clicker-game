@@ -9,6 +9,7 @@ import deadghost from "../../assets/deadGhost.png";
 import hurtghost from "../../assets/hurtGhost.png";
 import skeleton from "../../assets/skeleton.png";
 import hurtskeleton from "../../assets/hurtSkeleton.png";
+import deadskeleton from "../../assets/hurtSkeleton.png";
 import target from "../../assets/target.png";
 import Shop from "./Shop";
 import Experiencebar from "./Experiencebar";
@@ -90,31 +91,33 @@ export default function Game() {
 
   const clickPerSecond = () => {
     setCps(cps + 1);
-
     setTimeout(() => setCps((cps) => cps - 1), 1000);
   };
-  const changeSprites = () => {};
-  useEffect(() => {
-    if (life === maxLife) {
-      const mob = Math.random() * 30;
-      if (mob <= 10) {
-        setCurrentMob(skeleton);
-        setCurrentHurtMob(hurtskeleton);
-        setCurrentDeadMob(hurtskeleton);
+  const changeSprites = () => {
+    const mob = Math.random() * 30;
+    if (mob <= 10) {
+      setCurrentMob(skeleton);
+      setCurrentHurtMob(hurtskeleton);
+      setTimeout(() => {
+        setCurrentDeadMob(deadskeleton)
         setCurrentMobClass("skeleton");
-      } else if (mob < 20) {
-        setCurrentMob(ghost);
-        setCurrentHurtMob(hurtghost);
-        setCurrentDeadMob(deadghost);
+      }, 300);
+    } else if (mob < 20) {
+      setCurrentMob(ghost);
+      setCurrentHurtMob(hurtghost);
+      setTimeout(() => {
+        setCurrentDeadMob(deadghost)
         setCurrentMobClass("ghost");
-      } else if (mob < 30) {
-        setCurrentMob(blob);
-        setCurrentHurtMob(hurtblob);
-        setCurrentDeadMob(deadblob);
+      }, 300);
+    } else if (mob < 30) {
+      setCurrentMob(blob);
+      setCurrentHurtMob(hurtblob);
+      setTimeout(() => {
+        setCurrentDeadMob(deadblob)
         setCurrentMobClass("blob");
-      }
+      }, 300);
     }
-  });
+  };
   const setRandomPosition = () => {
     setImagePosition({
       x: Math.floor(Math.random() * containerDimensions.width),
@@ -235,8 +238,7 @@ export default function Game() {
             maxMonsterCount={maxMonsterCount}
             setMaxMonsterCount={setMaxMonsterCount}
             setBlobState={setBlobState}
-            setCurrentMob={setCurrentMob}
-            setCurrentMobClass={setCurrentMobClass}
+            changeSprites={changeSprites}
           />
         </div>
       </div>

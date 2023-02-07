@@ -24,7 +24,9 @@ export default function Zones({
   maxMonsterCount,
   setMaxMonsterCount,
   setBlobState,
-  changeSprites
+  changeSprites,
+  setFirstBgStatus,
+  setSecondBgStatus,
 }) {
   const [monsterCount, setMonsterCount] = useState(1);
   const [countdown, setCountdown] = useState(30);
@@ -32,6 +34,12 @@ export default function Zones({
 
   const spawnMonster = () => {
     if (monsterCount === maxMonsterCount) {
+      setFirstBgStatus("animatebg1");
+      setSecondBgStatus("animatebg2");
+      setTimeout(() => {
+        setFirstBgStatus("bg1");
+        setSecondBgStatus("bg2");
+      }, 4000);
       setMonsterCount(1);
       if ((monsterZone + 1) % 10 === 0) {
         setBeforeBossLife(maxLife);

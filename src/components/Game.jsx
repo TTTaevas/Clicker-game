@@ -19,6 +19,8 @@ import Debug from "./Debug";
 export default function Game() {
   const allowDebug = true;
   const [potion, setPotion] = useState(false);
+  const [firstBgStatus, setFirstBgStatus] = useState("bg1");
+  const [secondBgStatus, setSecondBgStatus] = useState("bg2");
   const [currentMob, setCurrentMob] = useState(blob);
   const [currentHurtMob, setCurrentHurtMob] = useState(hurtblob);
   const [currentDeadMob, setCurrentDeadMob] = useState(deadblob);
@@ -99,21 +101,21 @@ export default function Game() {
       setCurrentMob(skeleton);
       setCurrentHurtMob(hurtskeleton);
       setTimeout(() => {
-        setCurrentDeadMob(deadskeleton)
+        setCurrentDeadMob(deadskeleton);
         setCurrentMobClass("skeleton");
       }, 300);
     } else if (mob < 20) {
       setCurrentMob(ghost);
       setCurrentHurtMob(hurtghost);
       setTimeout(() => {
-        setCurrentDeadMob(deadghost)
+        setCurrentDeadMob(deadghost);
         setCurrentMobClass("ghost");
       }, 300);
     } else if (mob < 30) {
       setCurrentMob(blob);
       setCurrentHurtMob(hurtblob);
       setTimeout(() => {
-        setCurrentDeadMob(deadblob)
+        setCurrentDeadMob(deadblob);
         setCurrentMobClass("blob");
       }, 300);
     }
@@ -172,75 +174,81 @@ export default function Game() {
           setMonsterZone={setMonsterZone}
         />
       )}
-      <div className="gameContainer">
-        <Experiencebar
-          setExperience={setExperience}
-          experience={experience}
-          power={power}
-          setPower={setPower}
-          level={level}
-          setLevel={setLevel}
-        />
-        <div className="clickzone" ref={containerRef}>
-          <button
-            type="button"
-            onClick={() => attackMonster()}
-            id={currentMobClass}
-          >
-            {blobState === 0 && (
-              <img src={currentMob} alt="monster" id={currentMobClass} />
-            )}
-            {blobState === 1 && (
-              <img src={currentHurtMob} alt="monster" id={currentMobClass} />
-            )}
-            {blobState === 2 && (
-              <img src={currentDeadMob} alt="monster" id={currentMobClass} />
-            )}
-          </button>
-          {monsterZone % 10 === 0 && (
+      <div className="backgroundContainer">
+        <div className={secondBgStatus} />
+        <div className="gameContainer">
+          <Experiencebar
+            setExperience={setExperience}
+            experience={experience}
+            power={power}
+            setPower={setPower}
+            level={level}
+            setLevel={setLevel}
+          />
+          <div className="clickzone" ref={containerRef}>
             <button
               type="button"
-              className="target"
-              onClick={() => attackBoss()}
+              onClick={() => attackMonster()}
+              id={currentMobClass}
             >
-              <img
-                src={target}
-                alt="random"
-                draggable="false"
-                onDragStart={() => {
-                  return false;
-                }}
-                style={{
-                  width: "50px",
-                  position: "absolute",
-                  left: imagePosition.x,
-                  top: imagePosition.y,
-                  MozUserSelect: "none",
-                }}
-              />
+              {blobState === 0 && (
+                <img src={currentMob} alt="monster" id={currentMobClass} />
+              )}
+              {blobState === 1 && (
+                <img src={currentHurtMob} alt="monster" id={currentMobClass} />
+              )}
+              {blobState === 2 && (
+                <img src={currentDeadMob} alt="monster" id={currentMobClass} />
+              )}
             </button>
-          )}
+            {monsterZone % 10 === 0 && (
+              <button
+                type="button"
+                className="target"
+                onClick={() => attackBoss()}
+              >
+                <img
+                  src={target}
+                  alt="random"
+                  draggable="false"
+                  onDragStart={() => {
+                    return false;
+                  }}
+                  style={{
+                    width: "50px",
+                    position: "absolute",
+                    left: imagePosition.x,
+                    top: imagePosition.y,
+                    MozUserSelect: "none",
+                  }}
+                />
+              </button>
+            )}
+          </div>
+          <div className="bottomGame">
+            <Zones
+              displayNumber={displayNumber}
+              score={score}
+              setScore={setScore}
+              life={life}
+              setLife={setLife}
+              maxLife={maxLife}
+              setMaxLife={setMaxLife}
+              monsterZone={monsterZone}
+              setMonsterZone={setMonsterZone}
+              experience={experience}
+              setExperience={setExperience}
+              potion={potion}
+              maxMonsterCount={maxMonsterCount}
+              setMaxMonsterCount={setMaxMonsterCount}
+              setBlobState={setBlobState}
+              changeSprites={changeSprites}
+              setFirstBgStatus={setFirstBgStatus}
+              setSecondBgStatus={setSecondBgStatus}
+            />
+          </div>
         </div>
-        <div className="bottomGame">
-          <Zones
-            displayNumber={displayNumber}
-            score={score}
-            setScore={setScore}
-            life={life}
-            setLife={setLife}
-            maxLife={maxLife}
-            setMaxLife={setMaxLife}
-            monsterZone={monsterZone}
-            setMonsterZone={setMonsterZone}
-            experience={experience}
-            setExperience={setExperience}
-            potion={potion}
-            maxMonsterCount={maxMonsterCount}
-            setMaxMonsterCount={setMaxMonsterCount}
-            setBlobState={setBlobState}
-            changeSprites={changeSprites}
-          />
-        </div>
+        <div className={firstBgStatus} />
       </div>
       <div className="health">
         <div className="healthbarcontainer">

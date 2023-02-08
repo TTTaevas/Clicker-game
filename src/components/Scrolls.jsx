@@ -2,21 +2,33 @@ import "../style/shop.css";
 export default function Scrolls({
   displayNumber,
   scrolls,
-  scrollUsageOnCooldown,
-  setScrollUsageOnCooldown,
+  scrollUsageCooldown,
+  setScrollUsageCooldown,
   handleBuyScroll,
   handleSellScroll,
   handleEquipScroll,
 }) {
   const handleUseScrolls = (s) => {
-    if (scrollUsageOnCooldown === false) {
+    let cooldown_length = 900
+    let usage_length = 30
+    
+    if (s.using <= 0 && s.used === false) {
       s.handleUse();
-      setTimeout(setScrollUsageOnCooldown(), 900000);
+      s.used = true;
+      setTimeout(() => {s.used = false}, (cooldown_length + 1) * 1000)
       
-      let usage_length = 30
       s.using = usage_length
-      let timer = setInterval(() => {s.using--}, 1000)
-      setTimeout(() => {clearInterval(timer)}, (usage_length + 1) * 1000)
+      let usage_timer = setInterval(() => {s.using--}, 1000)
+      setTimeout(() => {clearInterval(usage_timer)}, (usage_length + 1) * 1000)
+
+      if (scrollUsageCooldown <= 0) {
+        setScrollUsageCooldown(cooldown_length)
+        let cooldown_timer = setInterval(() => {
+          cooldown_length--
+          setScrollUsageCooldown(cooldown_length)
+        }, 1000)
+        setTimeout(() => {clearInterval(cooldown_timer)}, (cooldown_length + 1) * 1000)
+      }
     }
   };
   return (scrolls.map((s) => {
@@ -50,7 +62,7 @@ export default function Scrolls({
               </button>
             )}
             {s.equipped === true && (
-              <div>
+              <div className="scrollManager">
                 <button
                   className="EquipButton"
                   type="button"

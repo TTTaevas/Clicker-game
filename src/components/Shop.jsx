@@ -130,7 +130,7 @@ export default function Shop({
       enchant: 0,
     },
   ]);
-  const [scrollUsageOnCooldown, setScrollUsageOnCooldown] = useState(false);
+  const [scrollUsageCooldown, setScrollUsageCooldown] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
   const [hoverSwordId, setHoverSwordId] = useState(null);
   const handleMouseOver = (id) => {
@@ -147,6 +147,7 @@ export default function Shop({
       bought: false,
       equipped: false,
       using: 0,
+      used: false,
       price: 19999,
       name: "First Scroll",
       handleUse: () => {
@@ -162,6 +163,7 @@ export default function Shop({
       bought: false,
       equipped: false,
       using: 0,
+      used: false,
       price: 28888,
       name: "Second Scroll",
       handleUse: () => {
@@ -174,6 +176,7 @@ export default function Shop({
       bought: false,
       equipped: false,
       using: 0,
+      used: false,
       price: 37777,
       name: "Third Scroll",
       handleUse: () => {
@@ -186,6 +189,7 @@ export default function Shop({
       bought: false,
       equipped: false,
       using: 0,
+      used: false,
       price: 46666,
       name: "Fourth Scroll",
       handleUse: () => {
@@ -211,6 +215,7 @@ export default function Shop({
     }
   };
   const handleEquipScroll = (scroll, equip) => {
+    if (scrollUsageCooldown > 0 || scroll.using > 0) return
     let doAction = false;
     if (!equip) {
       doAction = true;
@@ -277,14 +282,16 @@ export default function Shop({
   };
 
   const handleSellScroll = (scroll) => {
-    setScore(score + Math.round(scroll.price) / 1.25);
-    const updatedScrolls = scrolls.map((s) => {
-      if (s.id === scroll.id) {
-        return { ...s, equipped: false, bought: false };
-      }
-      return s;
-    });
-    setScrolls(updatedScrolls);
+    if ((!scroll.equipped || scrollUsageCooldown <= 0) && scroll.using <= 0) {
+      setScore(score + Math.round(scroll.price) / 1.25);
+      const updatedScrolls = scrolls.map((s) => {
+        if (s.id === scroll.id) {
+          return { ...s, equipped: false, bought: false };
+        }
+        return s;
+      });
+      setScrolls(updatedScrolls);
+    }
   };
 
   const handleBuySword = (sword) => {
@@ -428,20 +435,27 @@ export default function Shop({
         )}
         {currentTab === 1 && potion && (
           <p>
-            The potion's effects will dissipate in :
+            The potion's effects will dissipate in:
             {getLengthInWrittenForm(length)}
           </p>
         )}
         {currentTab === 2 && (
-          <Scrolls
-            displayNumber={displayNumber}
-            scrolls={scrolls}
-            scrollUsageOnCooldown={scrollUsageOnCooldown}
-            setScrollUsageOnCooldown={setScrollUsageOnCooldown}
-            handleBuyScroll={handleBuyScroll}
-            handleSellScroll={handleSellScroll}
-            handleEquipScroll={handleEquipScroll}
-          />
+          <>
+            {scrollUsageCooldown > 0 && (
+              <p>
+                Cooldown: {getLengthInWrittenForm(scrollUsageCooldown)}
+              </p>
+            )}
+            <Scrolls
+              displayNumber={displayNumber}
+              scrolls={scrolls}
+              scrollUsageCooldown={scrollUsageCooldown}
+              setScrollUsageCooldown={setScrollUsageCooldown}
+              handleBuyScroll={handleBuyScroll}
+              handleSellScroll={handleSellScroll}
+              handleEquipScroll={handleEquipScroll}
+            />
+          </>
         )}
         {currentTab === 3 && (
           <Enchants

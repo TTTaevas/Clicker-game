@@ -38,8 +38,12 @@ export default function Zones({
       setMaxLife(9999999999);
       setFirstBgStatus("animatebg1");
       setSecondBgStatus("animatebg2");
-      document.getElementsByClassName("clickzone")[0].classList.add("invisible");
-      document.getElementsByClassName("zoneCount")[0].classList.add("invisible");
+      document
+        .getElementsByClassName("clickzone")[0]
+        .classList.add("invisible");
+      document
+        .getElementsByClassName("zoneCount")[0]
+        .classList.add("invisible");
       document.getElementsByClassName("health")[0].classList.add("invisible");
       setTimeout(() => {
         setFirstBgStatus("bg1");
@@ -62,15 +66,20 @@ export default function Zones({
           setMonsterZone(monsterZone + 1);
           setMaxMonsterCount(10);
         }
-        document.getElementsByClassName("clickzone")[0].classList.remove("invisible");
-        document.getElementsByClassName("zoneCount")[0].classList.remove("invisible");
-        document.getElementsByClassName("health")[0].classList.remove("invisible");
+        document
+          .getElementsByClassName("clickzone")[0]
+          .classList.remove("invisible");
+        document
+          .getElementsByClassName("zoneCount")[0]
+          .classList.remove("invisible");
+        document
+          .getElementsByClassName("health")[0]
+          .classList.remove("invisible");
         setLife((life = maxLife));
-      }, 4000);
+      }, 1000);
     } else {
       setLife((life = maxLife));
     }
-    
   };
 
   useEffect(() => {

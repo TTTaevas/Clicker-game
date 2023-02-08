@@ -23,6 +23,7 @@
 .swordContainer {
 	display: inline-flex;
   justify-content: space-between;
+  width:50%
 }
 .swordContainer * {
 	padding: 0 10px;

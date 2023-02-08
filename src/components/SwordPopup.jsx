@@ -25,11 +25,12 @@ export default function SwordPopup({
         </p>
         {level === 0 ? (
           <p>
-            DPS : {damage * 5} <img className="coinIcon" src={swordIcon} />
+            DPS : {Math.round(damage * 5)}{" "}
+            <img className="coinIcon" src={swordIcon} />
           </p>
         ) : (
           <p>
-            DPS : {level * 2 * damage * 5}{" "}
+            DPS : {Math.round(level * 2 * damage * 5)}{" "}
             <img className="coinIcon" src={swordIcon} />
           </p>
         )}

@@ -1,6 +1,5 @@
 import "../style/shop.css";
 import coinIcon from "../../assets/coin.png";
-
 export default function Sword({
   displayNumber,
   id,
@@ -13,9 +12,15 @@ export default function Sword({
   handleEquipSword,
   level,
   desc,
+  handleMouseOver,
+  handleMouseOut,
 }) {
   return (
-    <div className="swordContainer">
+    <div
+      className="swordContainer"
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
+    >
       {bought === false && (
         <div className="swordsButtonsAndText">
           <button

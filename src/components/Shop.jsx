@@ -12,7 +12,6 @@ import coinIcon from "../../assets/coin.png";
 export default function Shop({
   displayNumber,
   score,
-  life,
   setLife,
   setScore,
   potion,
@@ -130,11 +129,13 @@ export default function Shop({
       enchant: 0,
     },
   ]);
+  const [scrollUsageOnCooldown, setScrollUsageOnCooldown] = useState(false);
   const [scrolls, setScrolls] = useState([
     {
       id: 1,
       bought: false,
       equipped: false,
+      using: 0,
       price: 19999,
       name: "First Scroll",
       handleUse: () => {
@@ -149,6 +150,7 @@ export default function Shop({
       id: 2,
       bought: false,
       equipped: false,
+      using: 0,
       price: 28888,
       name: "Second Scroll",
       handleUse: () => {
@@ -160,6 +162,7 @@ export default function Shop({
       id: 3,
       bought: false,
       equipped: false,
+      using: 0,
       price: 37777,
       name: "Third Scroll",
       handleUse: () => {
@@ -171,6 +174,7 @@ export default function Shop({
       id: 4,
       bought: false,
       equipped: false,
+      using: 0,
       price: 46666,
       name: "Fourth Scroll",
       handleUse: () => {
@@ -398,21 +402,16 @@ export default function Shop({
           </p>
         )}
         {currentTab === 2 &&
-          scrolls.map((scrolls) => (
-            <Scrolls
-              displayNumber={displayNumber}
-              key={scrolls.id}
-              name={scrolls.name}
-              id={scrolls.id}
-              price={scrolls.price}
-              bought={scrolls.bought}
-              equipped={scrolls.equipped}
-              handleBuyScroll={handleBuyScroll}
-              handleSellScroll={handleSellScroll}
-              handleEquipScroll={handleEquipScroll}
-              handleUse={scrolls.handleUse}
-            />
-          ))}
+          <Scrolls
+            displayNumber={displayNumber}
+            scrolls={scrolls}
+            scrollUsageOnCooldown={scrollUsageOnCooldown}
+            setScrollUsageOnCooldown={setScrollUsageOnCooldown}
+            handleBuyScroll={handleBuyScroll}
+            handleSellScroll={handleSellScroll}
+            handleEquipScroll={handleEquipScroll}
+          />
+        }
         {currentTab === 3 && (
           <Enchants
             displayNumber={displayNumber}

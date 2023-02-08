@@ -1,74 +1,78 @@
-import { useState } from "react";
 import "../style/shop.css";
 export default function Scrolls({
   displayNumber,
+  scrolls,
+  scrollUsageOnCooldown,
+  setScrollUsageOnCooldown,
   handleBuyScroll,
   handleSellScroll,
   handleEquipScroll,
-  id,
-  price,
-  bought,
-  equipped,
-  name,
-  handleUse,
 }) {
-  const [isScrollUsed, setIsScrollUsed] = useState(false);
-
-  const handleUseScrolls = () => {
-    if (isScrollUsed === false) {
-      handleUse();
-      setTimeout(setIsScrollUsed(), 900000);
+  const handleUseScrolls = (s) => {
+    if (scrollUsageOnCooldown === false) {
+      s.handleUse();
+      setTimeout(setScrollUsageOnCooldown(), 900000);
+      
+      let usage_length = 30
+      s.using = usage_length
+      let timer = setInterval(() => {s.using--}, 1000)
+      setTimeout(() => {clearInterval(timer)}, (usage_length + 1) * 1000)
     }
   };
-  return (
-    <div className="scrollContainer">
-      {bought === false && (
-        <button
-          className="scrollButtons"
-          type="button"
-          onClick={() => handleBuyScroll({ id, price, bought })}
-        >
-          Buy {name}: {displayNumber(price)} points
-        </button>
-      )}
-      {bought === true && (
-        <div>
+  return (scrolls.map((s) => {
+    return (
+      <div className="scrollContainer" key={s.id}>
+        {s.bought === false && (
           <button
             className="scrollButtons"
             type="button"
-            onClick={() => handleSellScroll({ id, price, bought })}
+            onClick={() => handleBuyScroll(s)}
           >
-            Sell {name}: You will gain {displayNumber(price / 1.25)} points
+            Buy {s.name}: {displayNumber(s.price)} points
           </button>
-          {equipped === false && (
+        )}
+        {s.bought === true && (
+          <div>
             <button
-              className="EquipButton"
+              className="scrollButtons"
               type="button"
-              onClick={() => handleEquipScroll({ id, price, bought }, true)}
+              onClick={() => handleSellScroll(s)}
             >
-              Equip
+              Sell {s.name}: You will gain {displayNumber(s.price / 1.25)} points
             </button>
-          )}
-          {equipped === true && (
-            <div>
+            {s.equipped === false && (
               <button
                 className="EquipButton"
                 type="button"
-                onClick={() => handleEquipScroll({ id, price, bought }, false)}
+                onClick={() => handleEquipScroll(s, true)}
               >
-                Unequip
+                Equip
               </button>
-              <button
-                className="EquipButton"
-                type="button"
-                onClick={() => handleUseScrolls()}
-              >
-                Use
-              </button>
-            </div>
-          )}
-        </div>
-      )}
-    </div>
-  );
+            )}
+            {s.equipped === true && (
+              <div>
+                <button
+                  className="EquipButton"
+                  type="button"
+                  onClick={() => handleEquipScroll(s, false)}
+                >
+                  Unequip
+                </button>
+                <button
+                  className="EquipButton"
+                  type="button"
+                  onClick={() => handleUseScrolls(s)}
+                >
+                  Use
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+        {s.using > 0 && (
+          <p className="scrollTimer">{s.using}s</p>
+        )}
+      </div>
+    )
+  }));
 }

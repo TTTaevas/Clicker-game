@@ -21,6 +21,11 @@ html body {
   color: #fff;
 }
 
+.invisible, .invisible * {
+  background-color: transparent !important;
+  visibility: hidden !important;
+}
+
 .App {
   height: 100%;
   width: 100%;

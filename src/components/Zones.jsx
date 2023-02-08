@@ -24,8 +24,9 @@ export default function Zones({
   maxMonsterCount,
   setMaxMonsterCount,
   setBlobState,
-  setCurrentMob,
-  setCurrentMobClass,
+  changeSprites,
+  setFirstBgStatus,
+  setSecondBgStatus,
 }) {
   const [monsterCount, setMonsterCount] = useState(1);
   const [countdown, setCountdown] = useState(30);
@@ -33,27 +34,54 @@ export default function Zones({
 
   const spawnMonster = () => {
     if (monsterCount === maxMonsterCount) {
-      setMonsterCount(1);
-      if ((monsterZone + 1) % 10 === 0) {
-        setBeforeBossLife(maxLife);
-        setMaxLife((maxLife = Math.round(monsterZone * 411)));
-        setMaxMonsterCount(1);
-        setMonsterZone(monsterZone + 1);
-      } else {
-        if (monsterZone % 10 === 0) {
-          setMaxLife((maxLife = Math.round(maxLife * 0.3)));
+      setLife((life = 9999999999));
+      setMaxLife(9999999999);
+      setFirstBgStatus("animatebg1");
+      setSecondBgStatus("animatebg2");
+      document
+        .getElementsByClassName("clickzone")[0]
+        .classList.add("invisible");
+      document
+        .getElementsByClassName("zoneCount")[0]
+        .classList.add("invisible");
+      document.getElementsByClassName("health")[0].classList.add("invisible");
+      setTimeout(() => {
+        setFirstBgStatus("bg1");
+        setSecondBgStatus("bg2");
+        setMonsterCount(1);
+        if ((monsterZone + 1) % 10 === 0) {
+          setBeforeBossLife(maxLife);
+          setMaxLife((maxLife = Math.round(monsterZone * 411)));
+          setMaxMonsterCount(1);
+          setMonsterZone(monsterZone + 1);
+        } else {
+          if (monsterZone % 10 === 0) {
+            setMaxLife((maxLife = Math.round(maxLife * 0.3)));
+          }
+          setMaxLife(
+            (maxLife = Math.round(
+              10 * (monsterZone * 1.66) + beforeBossLife * 0.4
+            ))
+          );
+          setMonsterZone(monsterZone + 1);
+          setMaxMonsterCount(10);
         }
-        setMaxLife(
-          (maxLife = Math.round(
-            10 * (monsterZone * 1.66) + beforeBossLife * 0.4
-          ))
-        );
-        setMonsterZone(monsterZone + 1);
-        setMaxMonsterCount(10);
-      }
+        document
+          .getElementsByClassName("clickzone")[0]
+          .classList.remove("invisible");
+        document
+          .getElementsByClassName("zoneCount")[0]
+          .classList.remove("invisible");
+        document
+          .getElementsByClassName("health")[0]
+          .classList.remove("invisible");
+        setLife((life = maxLife));
+      }, 1000);
+    } else {
+      setLife((life = maxLife));
     }
-    setLife((life = maxLife));
   };
+
   useEffect(() => {
     if (monsterZone % 10 === 0) {
       setTimeout(() => {
@@ -75,17 +103,7 @@ export default function Zones({
       setMonsterCount(monsterCount + 1);
       setBlobState(2);
       setTimeout(() => setBlobState(0), 300);
-      const mob = Math.random() * 30;
-      if (mob <= 10) {
-        setCurrentMob(skeleton);
-        setCurrentMobClass("skeleton");
-      } else if (mob < 20) {
-        setCurrentMob(ghost);
-        setCurrentMobClass("ghost");
-      } else if (mob < 30) {
-        setCurrentMob(blob);
-        setCurrentMobClass("blob");
-      }
+      changeSprites();
       spawnMonster();
       if (potion) {
         setExperience(experience + monsterZone * 2);

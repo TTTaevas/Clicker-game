@@ -1,7 +1,5 @@
 import "../style/shop.css";
 import coinIcon from "../../assets/coin.png";
-import Popup from "./Popup";
-
 export default function Sword({
   displayNumber,
   id,
@@ -14,9 +12,15 @@ export default function Sword({
   handleEquipSword,
   level,
   desc,
+  handleMouseOver,
+  handleMouseOut,
 }) {
   return (
-    <div className="swordContainer">
+    <div
+      className="swordContainer"
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
+    >
       {bought === false && (
         <div className="swordsButtonsAndText">
           <button
@@ -69,15 +73,6 @@ export default function Sword({
           Unequip
         </button>
       )}
-      <Popup
-        className="popup"
-        damage={damage}
-        price={price}
-        level={level}
-        bought={bought}
-        desc={desc}
-        equipped={equipped}
-      />
     </div>
   );
 }

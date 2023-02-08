@@ -3,6 +3,7 @@ import Sword from "./Sword";
 import Potion from "./Potion";
 import Scrolls from "./Scrolls";
 import Enchants from "./Enchants";
+import SwordPopup from "./SwordPopup";
 import swordIcon from "../../assets/sword.png";
 import potionIcon from "../../assets/potion.png";
 import scrollIcon from "../../assets/scroll.png";
@@ -37,7 +38,7 @@ export default function Shop({
       price: 10,
       damage: 0.2,
       name: "Wooden Stick",
-      desc: `The Wooden Sword does 1 damage and cost 10.`,
+      desc: `A weird stick an old man sold you. It looks very fragile`,
       enchant: 0,
     },
     {
@@ -48,7 +49,7 @@ export default function Shop({
       price: 300,
       damage: 0.6,
       name: "Stone Sword",
-      desc: `The Stone Sword does 3 damage and cost 100.`,
+      desc: `Two rocks assembled on a stick. It's very cubic.`,
       enchant: 0,
     },
     {
@@ -59,7 +60,7 @@ export default function Shop({
       price: 1000,
       damage: 1.4,
       name: "Iron Sword",
-      desc: `The Iron Sword does 5 damage and cost 375.`,
+      desc: `Forged by a blacksmith amateur. You'll have to deal with it.`,
       enchant: 0,
     },
     {
@@ -70,7 +71,7 @@ export default function Shop({
       price: 4000,
       damage: 2.4,
       name: "Gold Sword",
-      desc: `The Gold Sword does 12 damage and cost 4000.`,
+      desc: `For the rich people who likes to show their money.`,
       enchant: 0,
     },
     {
@@ -81,7 +82,7 @@ export default function Shop({
       price: 10000,
       damage: 4,
       name: "Diamond Sword",
-      desc: `The Diamond Sword does 20 damage and cost 10000.`,
+      desc: `1 stick and 2 diamonds and you can finally craft it !`,
       enchant: 0,
     },
     {
@@ -92,7 +93,7 @@ export default function Shop({
       price: 20000,
       damage: 6,
       name: "Ruby Sword",
-      desc: `The Diamond Sword does 30 damage and cost 15000.`,
+      desc: `Shines like blood. is it even made with Ruby ?`,
       enchant: 0,
     },
     {
@@ -103,7 +104,7 @@ export default function Shop({
       price: 30000,
       damage: 8,
       name: "Topaz Sword",
-      desc: `The Diamond Sword does 40 damage and cost 22500.`,
+      desc: `I don't know why it makes so much damage, it's just rocks.`,
       enchant: 0,
     },
     {
@@ -114,7 +115,7 @@ export default function Shop({
       price: 45000,
       damage: 11,
       name: "Sapphire Sword",
-      desc: `The Diamond Sword does 55 damage and cost 30000.`,
+      desc: `Infused with magic, this sword shoots waves.`,
       enchant: 0,
     },
     {
@@ -125,11 +126,21 @@ export default function Shop({
       price: 100000,
       damage: 15,
       name: "Titan Sword",
-      desc: `The Diamond Sword does 75 damage and cost 100000.`,
+      desc: `You stole this sword from a mighty Titan. Well done.`,
       enchant: 0,
     },
   ]);
   const [scrollUsageOnCooldown, setScrollUsageOnCooldown] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+  const [hoverSwordId, setHoverSwordId] = useState(null);
+  const handleMouseOver = (id) => {
+    setIsHovering(true);
+    setHoverSwordId(id);
+  };
+  const handleMouseOut = () => {
+    setIsHovering(false);
+    setHoverSwordId(null);
+  };
   const [scrolls, setScrolls] = useState([
     {
       id: 1,
@@ -380,8 +391,28 @@ export default function Shop({
               desc={sword.desc}
               handleBuySword={handleBuySword}
               handleEquipSword={handleEquipSword}
+              handleMouseOver={() => handleMouseOver(sword.id)}
+              handleMouseOut={handleMouseOut}
             />
           ))}
+        {isHovering &&
+          hoverSwordId &&
+          swords.map((sword) => {
+            if (sword.id === hoverSwordId) {
+              return (
+                <SwordPopup
+                  className="popup"
+                  damage={sword.damage}
+                  price={sword.price}
+                  level={sword.level}
+                  bought={sword.bought}
+                  desc={sword.desc}
+                  equipped={sword.equipped}
+                />
+              );
+            }
+          })}
+
         {currentTab === 1 && (
           <Potion
             displayNumber={displayNumber}
@@ -401,7 +432,7 @@ export default function Shop({
             {getLengthInWrittenForm(length)}
           </p>
         )}
-        {currentTab === 2 &&
+        {currentTab === 2 && (
           <Scrolls
             displayNumber={displayNumber}
             scrolls={scrolls}
@@ -411,7 +442,7 @@ export default function Shop({
             handleSellScroll={handleSellScroll}
             handleEquipScroll={handleEquipScroll}
           />
-        }
+        )}
         {currentTab === 3 && (
           <Enchants
             displayNumber={displayNumber}

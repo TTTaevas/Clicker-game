@@ -26,6 +26,7 @@ export default function Game() {
   const [currentDeadMob, setCurrentDeadMob] = useState(deadblob);
   const [currentMobClass, setCurrentMobClass] = useState("blob");
   const [blobState, setBlobState] = useState(0);
+  const [nextZoneText, setNextZoneText] = useState(false);
   const [maxMonsterCount, setMaxMonsterCount] = useState(5);
   let [level, setLevel] = useState(1);
   let [cps, setCps] = useState(0);
@@ -225,6 +226,7 @@ export default function Game() {
               </button>
             )}
           </div>
+          {nextZoneText && <h2 className="nextZoneText">Next Zone...</h2>}
           <div className="bottomGame">
             <Zones
               displayNumber={displayNumber}
@@ -245,6 +247,7 @@ export default function Game() {
               changeSprites={changeSprites}
               setFirstBgStatus={setFirstBgStatus}
               setSecondBgStatus={setSecondBgStatus}
+              setNextZoneText={setNextZoneText}
             />
           </div>
         </div>

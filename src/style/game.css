@@ -92,6 +92,9 @@
   position: relative;
   top: 8px;
 }
+.nextZoneText {
+  z-index: 2;
+}
 
 
 .bottomGame {

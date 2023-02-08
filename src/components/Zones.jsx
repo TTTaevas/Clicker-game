@@ -27,6 +27,7 @@ export default function Zones({
   changeSprites,
   setFirstBgStatus,
   setSecondBgStatus,
+  setNextZoneText,
 }) {
   const [monsterCount, setMonsterCount] = useState(1);
   const [countdown, setCountdown] = useState(30);
@@ -38,6 +39,7 @@ export default function Zones({
       setMaxLife(9999999999);
       setFirstBgStatus("animatebg1");
       setSecondBgStatus("animatebg2");
+      setNextZoneText(true);
       document
         .getElementsByClassName("clickzone")[0]
         .classList.add("invisible");
@@ -46,6 +48,7 @@ export default function Zones({
         .classList.add("invisible");
       document.getElementsByClassName("health")[0].classList.add("invisible");
       setTimeout(() => {
+        setNextZoneText(false);
         setFirstBgStatus("bg1");
         setSecondBgStatus("bg2");
         setMonsterCount(1);

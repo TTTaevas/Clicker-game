@@ -3,24 +3,24 @@
   flex-direction: column;
   width: 100%;
   align-items: center;
-  height: 350px;
-  justify-content:end;
+  height: 35vh;
+  justify-content: end;
   left: 0%;
 }
 .bg1 {
   background-image: url("../../assets/1Tiles.png"), url("../../assets/2Fence.png"), url("../../assets/3Bushes.png"), url("../../assets/4Ground.png"), url("../../assets/5BackBushes.png"), url("../../assets/6Forest.png"), url("../../assets/7Hills.png"), url("../../assets/8Sky.png");
-  background-position-y: -8px;
+  background-position-y: 97%;
   width: 100%;
-  height: 350px;
+  height: 35vh;
   float:right;
   position:absolute;
   left: 100%
 }
 .animatebg1 {
   background-image: url("../../assets/1Tiles.png"), url("../../assets/2Fence.png"), url("../../assets/3Bushes.png"), url("../../assets/4Ground.png"), url("../../assets/5BackBushes.png"), url("../../assets/6Forest.png"), url("../../assets/7Hills.png"), url("../../assets/8Sky.png");
-  background-position-y: -8px;
+  background-position-y: 97%;
   width: 100%;
-  height: 350px;
+  height: 35vh;
   -webkit-animation:1s ease-in-out  infinite reverse both running rightToLeft;
   animation: 1s ease-in-out  infinite reverse both running rightToLeft;
   float:right;
@@ -33,19 +33,19 @@
         @keyframes centerToLeft { from { left: -100%; } to { left:0%; }  }
 .animatebg2{
    background-image: url("../../assets/1Tiles.png"), url("../../assets/2Fence.png"), url("../../assets/3Bushes.png"), url("../../assets/4Ground.png"), url("../../assets/5BackBushes.png"), url("../../assets/6Forest.png"), url("../../assets/7Hills.png"), url("../../assets/8Sky.png");
-  background-position-y: -8px;
+  background-position-y: 97%;
   width: 100%;
-  height: 350px;
+  height: 35vh;
   left: 0%;
   position:absolute;
-    -webkit-animation:1s ease-in-out  infinite reverse both running centerToLeft;
+  -webkit-animation:1s ease-in-out  infinite reverse both running centerToLeft;
   animation: 1s ease-in-out  infinite reverse both running centerToLeft;
 }
 .bg2{
    background-image: url("../../assets/1Tiles.png"), url("../../assets/2Fence.png"), url("../../assets/3Bushes.png"), url("../../assets/4Ground.png"), url("../../assets/5BackBushes.png"), url("../../assets/6Forest.png"), url("../../assets/7Hills.png"), url("../../assets/8Sky.png");
-  background-position-y: -8px;
+  background-position-y: 97%;
   width: 100%;
-  height: 350px;
+  height: 35vh;
   left: 0%;
   position:absolute;
 }

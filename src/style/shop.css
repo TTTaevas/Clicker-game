@@ -193,7 +193,7 @@ height: 60px;
 .coinIcon {
   width: 15px;
 } 
-@media screen and (max-height: 840px) {
+@media screen and (max-height: 600px) {
   .shopContainer {
     position: relative;
   }

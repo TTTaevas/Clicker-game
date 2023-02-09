@@ -10,7 +10,7 @@ export default function Enchants({
   intervalId,
   clearInterval,
   enchantsPrice,
-  setEnchantsPrice
+  setEnchantsPrice,
 }) {
   const handleBuyEnchant = (selectedSword) => {
     if (score >= Math.round(enchantsPrice)) {
@@ -38,10 +38,13 @@ export default function Enchants({
             return { ...s, price: Math.round(s.price * 0.5) };
           } else if (s.enchant <= 900) {
             alert("Common enchant: Higher level cap for this sword!");
-            return { ...s, levelCapMultiplier: Math.round(s.levelCapMultiplier * 1.3) };
+            return {
+              ...s,
+              levelCapMultiplier: Math.round(s.levelCapMultiplier * 1.3),
+            };
           } else if (s.enchant <= 1000) {
             alert("Rare enchant: This sword generates gold while equipped!!");
-            return { ...s, goldChance: Math.round(s.goldChance += 1) };
+            return { ...s, goldChance: Math.round((s.goldChance += 1)) };
           }
         }
         return s;
@@ -50,31 +53,30 @@ export default function Enchants({
     }
   };
 
-  const swordsToEnchant = swords.filter((s) => s.bought && s.enchant < 1)
+  const swordsToEnchant = swords.filter((s) => s.bought && s.enchant < 1);
   return (
     <div className="enchantsTab">
       <select className="selectSword">
-        {swordsToEnchant.map(
-          (sword) => (
-            <option key={sword.id} value={sword.id}>
-              {sword.name}
-            </option>
-          )
-        )}
+        {swordsToEnchant.map((sword) => (
+          <option className="selectOptions" key={sword.id} value={sword.id}>
+            {sword.name}
+          </option>
+        ))}
       </select>
-      
+
       {swordsToEnchant.length > 0 && (
         <button
           className="enchantButtons"
           type="button"
           onClick={() => {
-            handleBuyEnchant(document.getElementsByClassName("selectSword")[0].value)
+            handleBuyEnchant(
+              document.getElementsByClassName("selectSword")[0].value
+            );
           }}
         >
           Enchant sword {displayNumber(enchantsPrice)}
         </button>
       )}
-
     </div>
   );
 }

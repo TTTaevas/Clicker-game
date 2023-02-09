@@ -21,6 +21,8 @@ export default function Shop({
   setPotion,
   power,
   setPower,
+  experience,
+  setExperience,
   level,
   cps,
 }) {
@@ -43,6 +45,10 @@ export default function Shop({
       name: "Wooden Stick",
       desc: `A weird stick an old man sold you. It looks very fragile.`,
       goldChance: 0,
+      experienceChance: 0,
+      damageChance: 0,
+      levelUpChance: 0,
+      priceChance: 0,
       enchant: 0,
     },
     {
@@ -56,6 +62,10 @@ export default function Shop({
       name: "Stone Sword",
       desc: `Two rocks assembled on a stick. It's very cubic.`,
       goldChance: 0,
+      experienceChance: 0,
+      damageChance: 0,
+      levelUpChance: 0,
+      priceChance: 0,
       enchant: 0,
     },
     {
@@ -69,6 +79,10 @@ export default function Shop({
       name: "Iron Sword",
       desc: `Forged by a blacksmith amateur. You'll have to deal with it.`,
       goldChance: 0,
+      experienceChance: 0,
+      damageChance: 0,
+      levelUpChance: 0,
+      priceChance: 0,
       enchant: 0,
     },
     {
@@ -82,6 +96,10 @@ export default function Shop({
       name: "Gold Sword",
       desc: `For the rich people who likes to show their money.`,
       goldChance: 0,
+      experienceChance: 0,
+      damageChance: 0,
+      levelUpChance: 0,
+      priceChance: 0,
       enchant: 0,
     },
     {
@@ -95,6 +113,10 @@ export default function Shop({
       name: "Diamond Sword",
       desc: `1 stick and 2 diamonds and you can finally craft it!`,
       goldChance: 0,
+      experienceChance: 0,
+      damageChance: 0,
+      levelUpChance: 0,
+      priceChance: 0,
       enchant: 0,
     },
     {
@@ -108,6 +130,10 @@ export default function Shop({
       name: "Ruby Sword",
       desc: `Shines like blood. is it even made with Ruby?`,
       goldChance: 0,
+      experienceChance: 0,
+      damageChance: 0,
+      levelUpChance: 0,
+      priceChance: 0,
       enchant: 0,
     },
     {
@@ -121,6 +147,10 @@ export default function Shop({
       name: "Topaz Sword",
       desc: `I don't know why it deals so much damage, it's just rocks.`,
       goldChance: 0,
+      experienceChance: 0,
+      damageChance: 0,
+      levelUpChance: 0,
+      priceChance: 0,
       enchant: 0,
     },
     {
@@ -134,6 +164,10 @@ export default function Shop({
       name: "Sapphire Sword",
       desc: `Infused with magic, this sword shoots waves.`,
       goldChance: 0,
+      experienceChance: 0,
+      damageChance: 0,
+      levelUpChance: 0,
+      priceChance: 0,
       enchant: 0,
     },
     {
@@ -147,6 +181,10 @@ export default function Shop({
       name: "Titan Sword",
       desc: `You stole this sword from a mighty Titan. Well done.`,
       goldChance: 0,
+      experienceChance: 0,
+      damageChance: 0,
+      levelUpChance: 0,
+      priceChance: 0,
       enchant: 0,
     },
   ]);
@@ -380,6 +418,19 @@ export default function Shop({
     let sword = swords.find((s) => s.equipped);
     if (sword && sword.goldChance > Math.floor(Math.random() * 100)) {
       setScore(score + sword.price / 3);
+    }
+    if (sword && sword.experienceChance > Math.floor(Math.random() * 100)) {
+      setExperience(experience + inactiveDPS);
+    }
+    if (sword && sword.damageChance > Math.floor(Math.random() * 100)) {
+      sword.damage += sword.damage / 8
+    }
+    if (sword && sword.levelUpChance > Math.floor(Math.random() * 100)) {
+      sword.level++
+      sword.price = Math.ceil(sword.price * 1.07)
+    }
+    if (sword && sword.priceChance > Math.floor(Math.random() * 100)) {
+      sword.price = Math.ceil(sword.price * 0.9)
     }
   }, [life]);
 

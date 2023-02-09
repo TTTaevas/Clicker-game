@@ -275,6 +275,8 @@ export default function Game() {
           setScore={setScore}
           power={power}
           setPower={setPower}
+          experience={experience}
+          setExperience={setExperience}
           cps={cps}
           level={level}
         />

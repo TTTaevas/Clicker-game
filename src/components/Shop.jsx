@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Sword from "./Sword";
 import Potion from "./Potion";
 import Scrolls from "./Scrolls";
@@ -14,6 +14,7 @@ export default function Shop({
   displayNumber,
   score,
   setLife,
+  life,
   setScore,
   potion,
   setPotion,
@@ -35,10 +36,12 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
+      levelCapMultiplier: 10,
       price: 10,
       damage: 0.2,
       name: "Wooden Stick",
-      desc: `A weird stick an old man sold you. It looks very fragile`,
+      desc: `A weird stick an old man sold you. It looks very fragile.`,
+      goldChance: 0,
       enchant: 0,
     },
     {
@@ -46,10 +49,12 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
+      levelCapMultiplier: 10,
       price: 300,
       damage: 0.6,
       name: "Stone Sword",
       desc: `Two rocks assembled on a stick. It's very cubic.`,
+      goldChance: 0,
       enchant: 0,
     },
     {
@@ -57,10 +62,12 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
+      levelCapMultiplier: 10,
       price: 1000,
       damage: 1.4,
       name: "Iron Sword",
       desc: `Forged by a blacksmith amateur. You'll have to deal with it.`,
+      goldChance: 0,
       enchant: 0,
     },
     {
@@ -68,10 +75,12 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
+      levelCapMultiplier: 10,
       price: 4000,
       damage: 2.4,
       name: "Gold Sword",
       desc: `For the rich people who likes to show their money.`,
+      goldChance: 0,
       enchant: 0,
     },
     {
@@ -79,10 +88,12 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
+      levelCapMultiplier: 10,
       price: 10000,
       damage: 4,
       name: "Diamond Sword",
-      desc: `1 stick and 2 diamonds and you can finally craft it !`,
+      desc: `1 stick and 2 diamonds and you can finally craft it!`,
+      goldChance: 0,
       enchant: 0,
     },
     {
@@ -90,10 +101,12 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
+      levelCapMultiplier: 10,
       price: 20000,
       damage: 6,
       name: "Ruby Sword",
-      desc: `Shines like blood. is it even made with Ruby ?`,
+      desc: `Shines like blood. is it even made with Ruby?`,
+      goldChance: 0,
       enchant: 0,
     },
     {
@@ -101,10 +114,12 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
+      levelCapMultiplier: 10,
       price: 30000,
       damage: 8,
       name: "Topaz Sword",
-      desc: `I don't know why it makes so much damage, it's just rocks.`,
+      desc: `I don't know why it deals so much damage, it's just rocks.`,
+      goldChance: 0,
       enchant: 0,
     },
     {
@@ -112,10 +127,12 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
+      levelCapMultiplier: 10,
       price: 45000,
       damage: 11,
       name: "Sapphire Sword",
       desc: `Infused with magic, this sword shoots waves.`,
+      goldChance: 0,
       enchant: 0,
     },
     {
@@ -123,10 +140,12 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
+      levelCapMultiplier: 10,
       price: 100000,
       damage: 15,
       name: "Titan Sword",
       desc: `You stole this sword from a mighty Titan. Well done.`,
+      goldChance: 0,
       enchant: 0,
     },
   ]);
@@ -244,8 +263,9 @@ export default function Shop({
   const makeSwordDealDamage = (sword) => {
     setIntervalId(
       setInterval(
-        () => setLife((oldLife) => oldLife - sword.damage * sword.level),
-        200
+        () => {
+          setLife((oldLife) => oldLife - sword.damage * sword.level)
+        }, 200
       )
     );
   };
@@ -302,7 +322,7 @@ export default function Shop({
     }
     if (score >= Math.round(sword.price)) {
       const updatedSwords = swords.map((s) => {
-        if (s.id === sword.id && s.level < level * 10) {
+        if (s.id === sword.id && s.level < level * s.levelCapMultiplier) {
           setScore(score - Math.round(sword.price));
           return {
             ...s,
@@ -335,12 +355,19 @@ export default function Shop({
     return `${minutes}:${String(seconds).padStart(2, "0")}`;
   }
 
+  useEffect(() => {
+    let sword = swords.find((s) => s.equipped)
+    if (sword && sword.goldChance > Math.floor(Math.random() * 100)) {
+      setScore(score + (sword.price / 3))
+    }
+  }, [life])
+
   return (
     <>
       <div className="information">
         <div className="informationleft">
           <p className="score">
-            You have : {displayNumber(score)} gold{" "}
+            You have: {displayNumber(score)} gold{" "}
             <img className="coinIcon" src={coinIcon} />
           </p>
         </div>
@@ -384,24 +411,15 @@ export default function Shop({
       <div className="shopContainer">
         <br />
         {currentTab === 0 &&
-          swords.map((sword) => (
-            <Sword
-              displayNumber={displayNumber}
-              key={sword.id}
-              id={sword.id}
-              level={sword.level}
-              price={sword.price}
-              damage={sword.damage}
-              bought={sword.bought}
-              equipped={sword.equipped}
-              name={sword.name}
-              desc={sword.desc}
-              handleBuySword={handleBuySword}
-              handleEquipSword={handleEquipSword}
-              handleMouseOver={() => handleMouseOver(sword.id)}
-              handleMouseOut={handleMouseOut}
-            />
-          ))}
+          <Sword
+            displayNumber={displayNumber}
+            swords={swords}
+            handleBuySword={handleBuySword}
+            handleEquipSword={handleEquipSword}
+            handleMouseOver={handleMouseOver}
+            handleMouseOut={handleMouseOut}
+          />
+        }
         {isHovering &&
           hoverSwordId &&
           swords.map((sword) => {

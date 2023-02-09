@@ -2,77 +2,73 @@ import "../style/shop.css";
 import coinIcon from "../../assets/coin.png";
 export default function Sword({
   displayNumber,
-  id,
-  price,
-  damage,
-  name,
-  bought,
-  equipped,
+  swords,
   handleBuySword,
   handleEquipSword,
-  level,
-  desc,
   handleMouseOver,
   handleMouseOut,
 }) {
-  return (
-    <div
-      className="swordContainer"
-      onMouseOver={handleMouseOver}
-      onMouseOut={handleMouseOut}
-    >
-      {bought === false && (
-        <div className="swordsButtonsAndText">
+  return (swords.map((s) => {
+    return (
+      <div
+        className="swordContainer"
+        key={s.id}
+        onMouseOver={() => {handleMouseOver(s.id)}}
+        onMouseOut={handleMouseOut}
+      >
+        {s.bought === false && (
+          <div className="swordsButtonsAndText">
+            <button
+              className="swordButton"
+              type="button"
+                title={s.desc}
+                onClick={() => handleBuySword(s)}
+              >
+              Level: {s.level} <br />
+              Buy: {displayNumber(s.price)}
+              <img className="coinIcon" src={coinIcon} />
+            </button>
+            <p>{s.name}</p>
+          </div>
+        )}
+        {s.bought === true && (
+          <div className="swordsButtonsAndText">
+            <button
+              className="swordButton"
+              type="button"
+              title={s.desc}
+              onClick={() => handleBuySword(s)}
+            >
+              Level: {displayNumber(s.level)} <br />
+              Level up: {displayNumber(s.price)}
+              <img className="coinIcon" src={coinIcon} />
+            </button>
+            <p>
+              {s.name} / DPS: {Math.round(s.damage * 5 * s.level)}
+            </p>
+          </div>
+        )}
+        {s.bought === true && s.equipped === false && (
           <button
-            className="swordButton"
+            className="EquipButton"
             type="button"
-            title={desc}
-            onClick={() => handleBuySword({ id, price })}
+            onClick={() =>
+              handleEquipSword(s, true)
+            }
           >
-            Level : {level} <br />
-            Buy : {displayNumber(price)}
-            <img className="coinIcon" src={coinIcon} />
+            Equip
           </button>
-          <p>{name}</p>
-        </div>
-      )}
-      {bought === true && (
-        <div className="swordsButtonsAndText">
+        )}
+        {s.equipped === true && (
           <button
-            className="swordButton"
             type="button"
-            title={desc}
-            onClick={() => handleBuySword({ id, price })}
+            className="EquipButton"
+            onClick={() => handleEquipSword(s, false)}
           >
-            Level : {displayNumber(level)} <br />
-            Level up : {displayNumber(price)}
-            <img className="coinIcon" src={coinIcon} />
+            Unequip
           </button>
-          <p>
-            {name} / DPS : {Math.round(damage * 5 * level)}
-          </p>
-        </div>
-      )}
-      {bought === true && equipped === false && (
-        <button
-          className="EquipButton"
-          type="button"
-          onClick={() =>
-            handleEquipSword({ id, price, bought, damage, level }, true)
-          }
-        >
-          Equip
-        </button>
-      )}
-      {equipped === true && (
-        <button
-          type="button"
-          className="EquipButton"
-          onClick={() => handleEquipSword({ id, price, bought, damage }, false)}
-        >
-          Unequip
-        </button>
-      )}
-    </div>
-  );
+        )}
+      </div>
+    )
+  }));
 }

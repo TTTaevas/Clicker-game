@@ -4,6 +4,7 @@ import Potion from "./Potion";
 import Scrolls from "./Scrolls";
 import Enchants from "./Enchants";
 import SwordPopup from "./SwordPopup";
+import ScrollPopup from "./ScrollPopup";
 import swordIcon from "../../assets/sword.png";
 import potionIcon from "../../assets/potion.png";
 import scrollIcon from "../../assets/scroll.png";
@@ -152,6 +153,7 @@ export default function Shop({
   const [scrollUsageCooldown, setScrollUsageCooldown] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
   const [hoverSwordId, setHoverSwordId] = useState(null);
+  const [hoverScrollId, setHoverScrollId] = useState(null);
   const handleMouseOver = (id) => {
     setIsHovering(true);
     setHoverSwordId(id);
@@ -159,6 +161,14 @@ export default function Shop({
   const handleMouseOut = () => {
     setIsHovering(false);
     setHoverSwordId(null);
+  };
+  const handleScrollMouseOver = (id) => {
+    setIsHovering(true);
+    setHoverScrollId(id);
+  };
+  const handleScrollMouseOut = () => {
+    setIsHovering(false);
+    setHoverScrollId(null);
   };
   const [scrolls, setScrolls] = useState([
     {
@@ -169,10 +179,12 @@ export default function Shop({
       used: false,
       price: 19999,
       name: "First Scroll",
+      desc: "The power of this scroll is used to tap 10 times per second for 30 seconds.",
+      condensedDesc: "(10 clicks/s)",
       handleUse: () => {
         const intervalId = setInterval(
-          () => setLife((oldLife) => oldLife - power),
-          100
+          () => setLife((oldLife) => oldLife - power * 2),
+          200
         );
         setTimeout(() => clearInterval(intervalId), 30000);
       },
@@ -185,6 +197,8 @@ export default function Shop({
       used: false,
       price: 28888,
       name: "Second Scroll",
+      desc: "The power of this scroll is used to double your power for 30 seconds.",
+      condensedDesc: "(Power * 2)",
       handleUse: () => {
         setPower(power + level * 2);
         setTimeout(() => setPower(power + level), 30000);
@@ -198,6 +212,8 @@ export default function Shop({
       used: false,
       price: 37777,
       name: "Third Scroll",
+      desc: "The power of this scroll is used to multiply your power by 4 for 30 seconds.",
+      condensedDesc: "(Power * 4)",
       handleUse: () => {
         setPower(power + level * 4);
         setTimeout(() => setPower(power + level), 30000);
@@ -211,15 +227,22 @@ export default function Shop({
       used: false,
       price: 46666,
       name: "Fourth Scroll",
+      desc: "The power of this scroll is used to tap 10 times per second for 30 seconds but with your power multiplied by 3.",
+      condensedDesc: "(10 clicks/s, power * 3)",
       handleUse: () => {
         const intervalId = setInterval(
-          () => setLife((oldLife) => oldLife - power * level * 3),
-          100
+          () => setLife((oldLife) => oldLife - power * level * 6),
+          200
         );
         setTimeout(() => clearInterval(intervalId), 30000);
       },
     },
   ]);
+  const HandleHelpScrolls = () => {
+    alert(
+      "Scrolls are buyable 'skills' you can use one time each 15 minutes. You can only equip 3 or less but be careful! if you use one scroll, you will not be able to Unequip or equip other scrolls. Each scrolls basic duration is 30 seconds. If you have more than 1 scroll equipped and you decide to use only one, you will be able to use others later on. Enjoy using them!"
+    );
+  };
 
   const handleBuyScroll = (scroll) => {
     if (score >= Math.round(scroll.price)) {
@@ -234,7 +257,7 @@ export default function Shop({
     }
   };
   const handleEquipScroll = (scroll, equip) => {
-    if (scrollUsageCooldown > 0 || scroll.using > 0) return
+    if (scrollUsageCooldown > 0 || scroll.using > 0) return;
     let doAction = false;
     if (!equip) {
       doAction = true;
@@ -262,11 +285,9 @@ export default function Shop({
 
   const makeSwordDealDamage = (sword) => {
     setIntervalId(
-      setInterval(
-        () => {
-          setLife((oldLife) => oldLife - sword.damage * sword.level)
-        }, 200
-      )
+      setInterval(() => {
+        setLife((oldLife) => oldLife - sword.damage * sword.level);
+      }, 200)
     );
   };
   const handleEquipSword = (sword, equip) => {
@@ -356,11 +377,11 @@ export default function Shop({
   }
 
   useEffect(() => {
-    let sword = swords.find((s) => s.equipped)
+    let sword = swords.find((s) => s.equipped);
     if (sword && sword.goldChance > Math.floor(Math.random() * 100)) {
-      setScore(score + (sword.price / 3))
+      setScore(score + sword.price / 3);
     }
-  }, [life])
+  }, [life]);
 
   return (
     <>
@@ -370,6 +391,11 @@ export default function Shop({
             You have: {displayNumber(score)} gold{" "}
             <img className="coinIcon" src={coinIcon} />
           </p>
+          {scrollUsageCooldown > 0 && (
+            <p>
+              Scrolls Cooldown: {getLengthInWrittenForm(scrollUsageCooldown)}
+            </p>
+          )}
         </div>
         <div className="informationright">
           <p className="cps">{displayNumber(cps)} click per second</p>
@@ -379,6 +405,7 @@ export default function Shop({
           </p>
         </div>
       </div>
+
       <div
         className="tabs"
         onLoad={() => {
@@ -410,7 +437,7 @@ export default function Shop({
       </div>
       <div className="shopContainer">
         <br />
-        {currentTab === 0 &&
+        {currentTab === 0 && (
           <Sword
             displayNumber={displayNumber}
             swords={swords}
@@ -419,7 +446,7 @@ export default function Shop({
             handleMouseOver={handleMouseOver}
             handleMouseOut={handleMouseOut}
           />
-        }
+        )}
         {isHovering &&
           hoverSwordId &&
           swords.map((sword) => {
@@ -459,22 +486,43 @@ export default function Shop({
         )}
         {currentTab === 2 && (
           <>
-            {scrollUsageCooldown > 0 && (
-              <p>
-                Cooldown: {getLengthInWrittenForm(scrollUsageCooldown)}
-              </p>
-            )}
+            <button
+              onClick={() => HandleHelpScrolls()}
+              type="button"
+              className="infoScrolls"
+            >
+              Help
+            </button>
             <Scrolls
-              displayNumber={displayNumber}
               scrolls={scrolls}
+              displayNumber={displayNumber}
               scrollUsageCooldown={scrollUsageCooldown}
               setScrollUsageCooldown={setScrollUsageCooldown}
               handleBuyScroll={handleBuyScroll}
               handleSellScroll={handleSellScroll}
               handleEquipScroll={handleEquipScroll}
+              handleScrollMouseOver={handleScrollMouseOver}
+              handleScrollMouseOut={handleScrollMouseOut}
             />
           </>
         )}
+        {isHovering &&
+          hoverScrollId &&
+          scrolls.map((scroll) => {
+            if (scroll.id === hoverScrollId) {
+              return (
+                <ScrollPopup
+                  className="popup"
+                  used={scroll.used}
+                  using={scroll.using}
+                  bought={scroll.bought}
+                  desc={scroll.desc}
+                  condensedDesc={scroll.condensedDesc}
+                  equipped={scroll.equipped}
+                />
+              );
+            }
+          })}
         {currentTab === 3 && (
           <Enchants
             displayNumber={displayNumber}

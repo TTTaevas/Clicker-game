@@ -30,7 +30,7 @@ export default function Shop({
   const [intervalId, setIntervalId] = useState(null);
   const [enchantsPrice, setEnchantsPrice] = useState(1000000);
   const [potionStyle, setPotionStyle] = useState("potionButton");
-  let [length, setLength] = useState(900);
+  let [potionLength, setPotionlength] = useState(900);
   // Swords stats are not definitive.
 
   const [swords, setSwords] = useState([
@@ -450,7 +450,7 @@ export default function Shop({
         </div>
         <div className="informationright">
           <p className="cps">{displayNumber(cps)} click per second</p>
-          <p className="damagetext">{displayNumber(power)} HP per click</p>
+          <p className="damagetext">{displayNumber(power * (potion === 3 ? 2 : 1))} HP per click</p>
           <p className="damagetext">
             You inflict {displayNumber(inactiveDPS)} damage/second
           </p>
@@ -515,7 +515,11 @@ export default function Shop({
               );
             }
           })}
-
+        {currentTab === 1 && potion !== 0 && (
+          <p>
+            The potion's effects will dissipate in: {getLengthInWrittenForm(potionLength)}
+          </p>
+        )}
         {currentTab === 1 && (
           <Potion
             displayNumber={displayNumber}
@@ -523,17 +527,11 @@ export default function Shop({
             setScore={setScore}
             potionStyle={potionStyle}
             setPotionStyle={setPotionStyle}
-            length={length}
-            setLength={setLength}
+            length={potionLength}
+            setLength={setPotionlength}
             potion={potion}
             setPotion={setPotion}
           />
-        )}
-        {currentTab === 1 && potion && (
-          <p>
-            The potion's effects will dissipate in:
-            {getLengthInWrittenForm(length)}
-          </p>
         )}
         {currentTab === 2 && (
           <>

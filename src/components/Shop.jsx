@@ -399,7 +399,7 @@ export default function Shop({
         </div>
         <div className="informationright">
           <p className="cps">{displayNumber(cps)} click per second</p>
-          <p className="damagetext">{displayNumber(power)} HP per click</p>
+          <p className="damagetext">{displayNumber(power * (potion === 3 ? 2 : 1))} HP per click</p>
           <p className="damagetext">
             You inflict {displayNumber(inactiveDPS)} damage/second
           </p>
@@ -464,7 +464,11 @@ export default function Shop({
               );
             }
           })}
-
+        {currentTab === 1 && potion !== 0 && (
+          <p>
+            The potion's effects will dissipate in: {getLengthInWrittenForm(potionLength)}
+          </p>
+        )}
         {currentTab === 1 && (
           <Potion
             displayNumber={displayNumber}
@@ -477,11 +481,6 @@ export default function Shop({
             potion={potion}
             setPotion={setPotion}
           />
-        )}
-        {currentTab === 1 && potion !== 0 && (
-          <p>
-            The potion's effects will dissipate in: {getLengthInWrittenForm(potionLength)}
-          </p>
         )}
         {currentTab === 2 && (
           <>

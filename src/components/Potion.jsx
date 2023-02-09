@@ -43,6 +43,10 @@ export default function Potion({
         Buy gold potion: {displayNumber(price)} gold{" "}
           <img className="coinIcon" src={coinIcon} />
       </button>
+      <button className={potionStyle} type="button" onClick={() => buyPotion(3)}>
+        Buy strength potion: {displayNumber(price)} gold{" "}
+          <img className="coinIcon" src={coinIcon} />
+      </button>
     </>
   );
 }

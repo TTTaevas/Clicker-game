@@ -130,7 +130,11 @@ export default function Game() {
   const attackMonster = () => {
     if (monsterZone % 10 === 0) return;
     if (life > 0) {
-      setLife(life - power);
+      if (potion === 3) {
+        setLife(life - (power * 2));
+      } else {
+        setLife(life - power);
+      }
       if (potion === 1) {
         setExperience(experience + 2);
       } else {
@@ -151,7 +155,11 @@ export default function Game() {
   };
   const attackBoss = () => {
     if (life > 0 && monsterZone % 10 === 0) {
-      setLife(life - power * 7);
+      if (potion === 3) {
+        setLife(life - ((power * 7) * 2));
+      } else {
+        setLife(life - (power * 7));
+      }
       if (potion === 1) {
         setExperience(experience + 10);
       } else {

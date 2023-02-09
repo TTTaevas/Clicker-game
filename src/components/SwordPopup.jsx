@@ -20,17 +20,17 @@ export default function SwordPopup({
       <div className="bottomPopup">
         <p>
           {" "}
-          Next level cost : {Math.ceil(price * 1.07)}{" "}
+          Next level cost: {Math.ceil(price * 1.07)}{" "}
           <img className="coinIcon" src={coinIcon} />
         </p>
         {level === 0 ? (
           <p>
-            DPS : {Math.round(damage * 5)}{" "}
+            DPS: {Math.round(damage * 5)}{" "}
             <img className="coinIcon" src={swordIcon} />
           </p>
         ) : (
           <p>
-            DPS : {Math.round(level * 2 * damage * 5)}{" "}
+            DPS: {Math.round(damage * 5 * (level + 1))}{" "}
             <img className="coinIcon" src={swordIcon} />
           </p>
         )}

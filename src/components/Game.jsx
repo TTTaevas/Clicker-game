@@ -18,7 +18,7 @@ import Debug from "./Debug";
 
 export default function Game() {
   const allowDebug = true;
-  const [potion, setPotion] = useState(false);
+  const [potion, setPotion] = useState(0);
   const [firstBgStatus, setFirstBgStatus] = useState("bg1");
   const [secondBgStatus, setSecondBgStatus] = useState("bg2");
   const [currentMob, setCurrentMob] = useState(blob);
@@ -131,7 +131,7 @@ export default function Game() {
     if (monsterZone % 10 === 0) return;
     if (life > 0) {
       setLife(life - power);
-      if (potion === true) {
+      if (potion === 1) {
         setExperience(experience + 2);
       } else {
         setExperience(experience + 1);
@@ -152,7 +152,7 @@ export default function Game() {
   const attackBoss = () => {
     if (life > 0 && monsterZone % 10 === 0) {
       setLife(life - power * 7);
-      if (potion === true) {
+      if (potion === 1) {
         setExperience(experience + 10);
       } else {
         setExperience(experience + 5);

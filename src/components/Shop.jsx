@@ -33,7 +33,7 @@ export default function Shop({
   let [potionLength, setPotionlength] = useState(900);
   // Swords stats are not definitive.
 
-  const [swords, setSwords] = useState([
+  const [swords, setSwords] = useState(JSON.parse(localStorage.getItem("swords")) || [
     {
       id: 1,
       bought: false,
@@ -395,7 +395,7 @@ export default function Shop({
     setIsHovering(false);
     setHoverScrollId(null);
   };
-  const [scrolls, setScrolls] = useState([
+  const [scrolls, setScrolls] = useState(JSON.parse(localStorage.getItem("scrolls")) || [
     {
       id: 1,
       bought: false,
@@ -463,6 +463,10 @@ export default function Shop({
       },
     },
   ]);
+
+  useEffect(() => {localStorage.setItem("swords", JSON.stringify(swords.map((s) => {return {...s, equipped: false}}))), [swords]})
+  useEffect(() => {localStorage.setItem("scrolls", JSON.stringify(scrolls.map((s) => {return {...s, equipped: false}}))), [scrolls]})
+  
   const HandleHelpScrolls = () => {
     alert(
       "Scrolls are buyable 'skills' you can use one time each 15 minutes. You can only equip 3 or less but be careful! if you use one scroll, you will not be able to Unequip or equip other scrolls. Each scrolls basic duration is 30 seconds. If you have more than 1 scroll equipped and you decide to use only one, you will be able to use others later on. Enjoy using them!"

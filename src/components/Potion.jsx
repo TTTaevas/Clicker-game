@@ -12,7 +12,7 @@ export default function Potion({
   potionStyle,
   setPotionStyle,
 }) {
-  const [price, setPrice] = useState(250000);
+  const [price, setPrice] = useState(25000);
 
   const buyPotion = () => {
     if (!potion && score >= price) {

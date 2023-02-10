@@ -37,7 +37,7 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      levelCapMultiplier: 10,
+      levelCapMultiplier: 5,
       price: 10,
       damage: 0.2,
       name: "Wooden Stick",
@@ -50,7 +50,7 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      levelCapMultiplier: 10,
+      levelCapMultiplier: 5,
       price: 300,
       damage: 0.6,
       name: "Stone Sword",
@@ -63,7 +63,7 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      levelCapMultiplier: 10,
+      levelCapMultiplier: 5,
       price: 1000,
       damage: 1.4,
       name: "Iron Sword",
@@ -76,7 +76,7 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      levelCapMultiplier: 10,
+      levelCapMultiplier: 5,
       price: 4000,
       damage: 2.4,
       name: "Gold Sword",
@@ -89,7 +89,7 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      levelCapMultiplier: 10,
+      levelCapMultiplier: 5,
       price: 10000,
       damage: 4,
       name: "Diamond Sword",
@@ -102,7 +102,7 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      levelCapMultiplier: 10,
+      levelCapMultiplier: 5,
       price: 20000,
       damage: 6,
       name: "Ruby Sword",
@@ -115,7 +115,7 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      levelCapMultiplier: 10,
+      levelCapMultiplier: 5,
       price: 30000,
       damage: 8,
       name: "Topaz Sword",
@@ -128,7 +128,7 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      levelCapMultiplier: 10,
+      levelCapMultiplier: 5,
       price: 45000,
       damage: 11,
       name: "Sapphire Sword",
@@ -141,7 +141,7 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      levelCapMultiplier: 10,
+      levelCapMultiplier: 5,
       price: 100000,
       damage: 15,
       name: "Titan Sword",
@@ -177,7 +177,7 @@ export default function Shop({
       equipped: false,
       using: 0,
       used: false,
-      price: 19999,
+      price: 199999,
       name: "First Scroll",
       desc: "The power of this scroll is used to tap 10 times per second for 30 seconds.",
       condensedDesc: "(10 clicks/s)",
@@ -195,7 +195,7 @@ export default function Shop({
       equipped: false,
       using: 0,
       used: false,
-      price: 28888,
+      price: 288888,
       name: "Second Scroll",
       desc: "The power of this scroll is used to double your power for 30 seconds.",
       condensedDesc: "(Power * 2)",
@@ -210,7 +210,7 @@ export default function Shop({
       equipped: false,
       using: 0,
       used: false,
-      price: 37777,
+      price: 377777,
       name: "Third Scroll",
       desc: "The power of this scroll is used to multiply your power by 4 for 30 seconds.",
       condensedDesc: "(Power * 4)",
@@ -225,7 +225,7 @@ export default function Shop({
       equipped: false,
       using: 0,
       used: false,
-      price: 46666,
+      price: 466666,
       name: "Fourth Scroll",
       desc: "The power of this scroll is used to tap 10 times per second for 30 seconds but with your power multiplied by 3.",
       condensedDesc: "(10 clicks/s, power * 3)",
@@ -425,15 +425,21 @@ export default function Shop({
         <button className="tabButtons" onClick={() => setCurrentTab(0)}>
           <img src={swordIcon} alt="sword icon" />
         </button>
-        <button className="tabButtons" onClick={() => setCurrentTab(1)}>
-          <img src={potionIcon} alt="potion icon" />
-        </button>
-        <button className="tabButtons" onClick={() => setCurrentTab(2)}>
-          <img src={scrollIcon} alt="scrolls icon" />
-        </button>
-        <button className="tabButtons" onClick={() => setCurrentTab(3)}>
-          <img src={sparkIcon} alt="scrolls icon" />
-        </button>
+        {level >= 5 && (
+          <button className="tabButtons" onClick={() => setCurrentTab(1)}>
+            <img src={potionIcon} alt="potion icon" />
+          </button>
+        )}
+        {level >= 10 && (
+          <button className="tabButtons" onClick={() => setCurrentTab(2)}>
+            <img src={scrollIcon} alt="scrolls icon" />
+          </button>
+        )}
+        {level >= 20 && (
+          <button className="tabButtons" onClick={() => setCurrentTab(3)}>
+            <img src={sparkIcon} alt="scrolls icon" />
+          </button>
+        )}
       </div>
       <div className="shopContainer">
         <br />

@@ -29,9 +29,13 @@ export default function Zones({
   setSecondBgStatus,
   setNextZoneText,
 }) {
-  const [monsterCount, setMonsterCount] = useState(1);
-  const [countdown, setCountdown] = useState(30);
-  const [beforeBossLife, setBeforeBossLife] = useState(0);
+  const [monsterCount, setMonsterCount] = useState(Number(localStorage.getItem("monsterCount")) || 1);
+  const [countdown, setCountdown] = useState(Number(localStorage.getItem("countdown")) || 30);
+  const [beforeBossLife, setBeforeBossLife] = useState(Number(localStorage.getItem("beforeBossLife")) || 0);
+
+  useEffect(() => {localStorage.setItem("monsterCount", monsterCount)}, [monsterCount])
+  useEffect(() => {localStorage.setItem("countdown", countdown)}, [countdown])
+  useEffect(() => {localStorage.setItem("beforeBossLife", beforeBossLife)}, [beforeBossLife])
 
   const spawnMonster = () => {
     if (monsterCount === maxMonsterCount) {

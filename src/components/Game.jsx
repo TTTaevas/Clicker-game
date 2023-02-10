@@ -3,7 +3,14 @@ import "../style/game.css";
 import "../style/experience.css";
 import "../style/progressbar.css";
 import blob from "../../assets/blob.png";
-import hurtBlob from "../../assets/hurtBlob.png";
+import hurtblob from "../../assets/hurtBlob.png";
+import deadblob from "../../assets/deadBlob.png";
+import ghost from "../../assets/ghost.png";
+import deadghost from "../../assets/deadGhost.png";
+import hurtghost from "../../assets/hurtGhost.png";
+import skeleton from "../../assets/skeleton.png";
+import hurtskeleton from "../../assets/hurtSkeleton.png";
+import deadskeleton from "../../assets/hurtSkeleton.png";
 import target from "../../assets/target.png";
 import Shop from "./Shop";
 import Zones from "./Zones";
@@ -11,10 +18,18 @@ import Debug from "./Debug";
 
 export default function Game() {
   const allowDebug = true;
-  const [potion, setPotion] = useState(false);
-  const [blobClicked, setBlobClicked] = useState(false);
+  const [potion, setPotion] = useState(0);
+  const [firstBgStatus, setFirstBgStatus] = useState("bg1");
+  const [secondBgStatus, setSecondBgStatus] = useState("bg2");
+  const [currentMob, setCurrentMob] = useState(blob);
+  const [currentHurtMob, setCurrentHurtMob] = useState(hurtblob);
+  const [currentDeadMob, setCurrentDeadMob] = useState(deadblob);
+  const [currentMobClass, setCurrentMobClass] = useState("blob");
+  const [blobState, setBlobState] = useState(0);
+  const [nextZoneText, setNextZoneText] = useState(false);
   const [maxMonsterCount, setMaxMonsterCount] = useState(Number(localStorage.getItem("maxMonsterCount")) || 5);
   let [level, setLevel] = useState(Number(localStorage.getItem("level")) || 1);
+
   let [cps, setCps] = useState(0);
   let [power, setPower] = useState(Number(localStorage.getItem("power")) || 1);
   let [score, setScore] = useState(Number(localStorage.getItem("score")) || 0);
@@ -36,7 +51,6 @@ export default function Game() {
       height: container.offsetHeight,
     });
   }, []);
-
   useEffect(() => {localStorage.setItem("maxMonsterCount", maxMonsterCount)}, [maxMonsterCount])
   useEffect(() => {localStorage.setItem("level", level)}, [level])
   useEffect(() => {localStorage.setItem("power", power)}, [power])
@@ -54,12 +68,77 @@ export default function Game() {
     localStorage.setItem("experience", experience)
   }, [experience])
   useEffect(() => {localStorage.setItem("maxExperience", maxExperience)}, [maxExperience])
+  const displayNumber = (num) => {
+    let str = String(Math.round(num));
+    if (str.length < 4) {
+      return str;
+    }
+    let shorthands = [
+      "",
+      "K",
+      "M",
+      "B",
+      "T",
+      "q",
+      "Q",
+      "s",
+      "S",
+      "O",
+      "N",
+      "d",
+      "U",
+      "D",
+      "!",
+      "@",
+      "#",
+      "$",
+      "%",
+      "^",
+      "&",
+      "*",
+    ];
+
+    let i = 0;
+    while (str.length > 6) {
+      i++;
+      str = str.substring(0, str.length - 3);
+    }
+
+    let e = str.length - 3;
+    let display = `${str.substring(0, e)},${str.substring(e, str.length)}`;
+    display += shorthands[i];
+    return display;
+  };
 
   const clickPerSecond = () => {
     setCps(cps + 1);
     setTimeout(() => setCps((cps) => cps - 1), 1000);
   };
-
+  const changeSprites = () => {
+    const mob = Math.random() * 30;
+    if (mob <= 10) {
+      setCurrentMob(skeleton);
+      setCurrentHurtMob(hurtskeleton);
+      setTimeout(() => {
+        setCurrentDeadMob(deadskeleton);
+        setCurrentMobClass("skeleton");
+      }, 300);
+    } else if (mob < 20) {
+      setCurrentMob(ghost);
+      setCurrentHurtMob(hurtghost);
+      setTimeout(() => {
+        setCurrentDeadMob(deadghost);
+        setCurrentMobClass("ghost");
+      }, 300);
+    } else if (mob < 30) {
+      setCurrentMob(blob);
+      setCurrentHurtMob(hurtblob);
+      setTimeout(() => {
+        setCurrentDeadMob(deadblob);
+        setCurrentMobClass("blob");
+      }, 300);
+    }
+  };
   const setRandomPosition = () => {
     setImagePosition({
       x: Math.floor(Math.random() * containerDimensions.width),
@@ -69,33 +148,47 @@ export default function Game() {
   const attackMonster = () => {
     if (monsterZone % 10 === 0) return;
     if (life > 0) {
-      setLife(life - power);
-      if (potion === true) {
+      if (potion === 3) {
+        setLife(life - (power * 2));
+      } else {
+        setLife(life - power);
+      }
+      if (potion === 1) {
         setExperience(experience + 2);
       } else {
         setExperience(experience + 1);
       }
+      let spriteTimer = 100;
+      if (life === 1) {
+        setBlobState(2);
+        spriteTimer = 300;
+      } else {
+        setBlobState(1);
+      }
+      clickPerSecond();
+      setTimeout(() => {
+        setBlobState(0);
+      }, spriteTimer);
     }
-    setBlobClicked(true);
-    clickPerSecond();
-    setTimeout(() => {
-      setBlobClicked(false);
-    }, 100);
   };
   const attackBoss = () => {
     if (life > 0 && monsterZone % 10 === 0) {
-      setLife(life - power * 3);
-      if (potion === true) {
+      if (potion === 3) {
+        setLife(life - ((power * 7) * 2));
+      } else {
+        setLife(life - (power * 7));
+      }
+      if (potion === 1) {
         setExperience(experience + 10);
       } else {
         setExperience(experience + 5);
       }
       setRandomPosition();
     }
-    setBlobClicked(true);
+    setBlobState(1);
     clickPerSecond();
     setTimeout(() => {
-      setBlobClicked(false);
+      setBlobState(0);
     }, 100);
   };
   return (
@@ -108,13 +201,18 @@ export default function Game() {
           setMonsterZone={setMonsterZone}
         />
       )}
-      <div className="gameContainer">
-        <div className="experience">
-          <h2> Level {level}</h2>
-          <progress max={maxExperience} value={experience} /> <br />
-          {experience}/{maxExperience} XP
-        </div>
-        <div className="clickzone" ref={containerRef}>
+      <div className="backgroundContainer">
+        <div className={secondBgStatus} />
+        <div className="gameContainer">
+          <Experiencebar
+            setExperience={setExperience}
+            experience={experience}
+            power={power}
+            setPower={setPower}
+            level={level}
+            setLevel={setLevel}
+          />
+          <div className="clickzone" ref={containerRef}>
           <button
             type="button"
             onClick={() => attackMonster()}
@@ -136,50 +234,84 @@ export default function Game() {
           {monsterZone % 10 === 0 && (
             <button
               type="button"
-              className="target"
-              onClick={() => attackBoss()}
+              onClick={() => attackMonster()}
+              id={currentMobClass}
             >
-              <img
-                src={target}
-                alt="random"
-                style={{
-                  width: "50px",
-                  position: "absolute",
-                  left: imagePosition.x,
-                  top: imagePosition.y,
-                }}
-              />
+              {blobState === 0 && (
+                <img src={currentMob} alt="monster" id={currentMobClass} />
+              )}
+              {blobState === 1 && (
+                <img src={currentHurtMob} alt="monster" id={currentMobClass} />
+              )}
+              {blobState === 2 && (
+                <img src={currentDeadMob} alt="monster" id={currentMobClass} />
+              )}
             </button>
-          )}
+            {monsterZone % 10 === 0 && (
+              <button
+                type="button"
+                className="target"
+                onClick={() => attackBoss()}
+              >
+                <img
+                  src={target}
+                  alt="random"
+                  draggable="false"
+                  onDragStart={() => {
+                    return false;
+                  }}
+                  style={{
+                    width: "50px",
+                    position: "absolute",
+                    left: imagePosition.x,
+                    top: imagePosition.y,
+                    MozUserSelect: "none",
+                  }}
+                />
+              </button>
+            )}
+          </div>
+          {nextZoneText && <h2 className="nextZoneText">Next Zone...</h2>}
+          <div className="bottomGame">
+            <Zones
+              displayNumber={displayNumber}
+              score={score}
+              setScore={setScore}
+              life={life}
+              setLife={setLife}
+              maxLife={maxLife}
+              setMaxLife={setMaxLife}
+              monsterZone={monsterZone}
+              setMonsterZone={setMonsterZone}
+              experience={experience}
+              setExperience={setExperience}
+              potion={potion}
+              maxMonsterCount={maxMonsterCount}
+              setMaxMonsterCount={setMaxMonsterCount}
+              setBlobState={setBlobState}
+              changeSprites={changeSprites}
+              setFirstBgStatus={setFirstBgStatus}
+              setSecondBgStatus={setSecondBgStatus}
+              setNextZoneText={setNextZoneText}
+            />
+          </div>
         </div>
-        <div className="bottomGame">
-          <Zones
-            score={score}
-            setScore={setScore}
-            life={life}
-            setLife={setLife}
-            maxLife={maxLife}
-            setMaxLife={setMaxLife}
-            monsterZone={monsterZone}
-            setMonsterZone={setMonsterZone}
-            experience={experience}
-            setExperience={setExperience}
-            potion={potion}
-            maxMonsterCount={maxMonsterCount}
-            setMaxMonsterCount={setMaxMonsterCount}
-          />
-        </div>
+        <div className={firstBgStatus} />
       </div>
       <div className="health">
         <div className="healthbarcontainer">
-          <div style={{width:`${(life / maxLife) * 100}%`}} className="healthbar"></div>
+          <div
+            style={{ width: `${(life / maxLife) * 100}%` }}
+            className="healthbar"
+          ></div>
         </div>
         <p className="healthcounter">
-          {Math.round(life)} / {maxLife} HP
+          {displayNumber(life)} / {displayNumber(maxLife)} HP
         </p>
       </div>
       <footer>
         <Shop
+          displayNumber={displayNumber}
           potion={potion}
           setPotion={setPotion}
           score={score}
@@ -188,6 +320,8 @@ export default function Game() {
           setScore={setScore}
           power={power}
           setPower={setPower}
+          experience={experience}
+          setExperience={setExperience}
           cps={cps}
           level={level}
         />

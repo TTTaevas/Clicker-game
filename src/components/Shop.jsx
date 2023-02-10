@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import Sword from "./Sword";
 import Potion from "./Potion";
 import Scrolls from "./Scrolls";
@@ -33,7 +33,7 @@ export default function Shop({
   let [potionLength, setPotionlength] = useState(900);
   // Swords stats are not definitive.
 
-  const [swords, setSwords] = useState([
+  const [swords, setSwords] = useState(JSON.parse(localStorage.getItem("swords")) || [
     {
       id: 1,
       bought: false,
@@ -375,27 +375,7 @@ export default function Shop({
       enchant: 0,
     },
   ]);
-  const [scrollUsageCooldown, setScrollUsageCooldown] = useState(0);
-  const [isHovering, setIsHovering] = useState(false);
-  const [hoverSwordId, setHoverSwordId] = useState(null);
-  const [hoverScrollId, setHoverScrollId] = useState(null);
-  const handleMouseOver = (id) => {
-    setIsHovering(true);
-    setHoverSwordId(id);
-  };
-  const handleMouseOut = () => {
-    setIsHovering(false);
-    setHoverSwordId(null);
-  };
-  const handleScrollMouseOver = (id) => {
-    setIsHovering(true);
-    setHoverScrollId(id);
-  };
-  const handleScrollMouseOut = () => {
-    setIsHovering(false);
-    setHoverScrollId(null);
-  };
-  const [scrolls, setScrolls] = useState([
+  const [scrolls, setScrolls] = useState(JSON.parse(localStorage.getItem("scrolls")) || [
     {
       id: 1,
       bought: false,
@@ -463,11 +443,34 @@ export default function Shop({
       },
     },
   ]);
+  const [scrollUsageCooldown, setScrollUsageCooldown] = useState(0);
+  const [isHovering, setIsHovering] = useState(false);
+  const [hoverSwordId, setHoverSwordId] = useState(null);
+  const [hoverScrollId, setHoverScrollId] = useState(null);
+  const handleMouseOver = (id) => {
+    setIsHovering(true);
+    setHoverSwordId(id);
+  };
+  const handleMouseOut = () => {
+    setIsHovering(false);
+    setHoverSwordId(null);
+  };
+  const handleScrollMouseOver = (id) => {
+    setIsHovering(true);
+    setHoverScrollId(id);
+  };
+  const handleScrollMouseOut = () => {
+    setIsHovering(false);
+    setHoverScrollId(null);
+  };
   const HandleHelpScrolls = () => {
     alert(
       "Scrolls are buyable 'skills' you can use one time each 15 minutes. You can only equip 3 or less but be careful! if you use one scroll, you will not be able to Unequip or equip other scrolls. Each scrolls basic duration is 30 seconds. If you have more than 1 scroll equipped and you decide to use only one, you will be able to use others later on. Enjoy using them!"
     );
   };
+
+  useEffect(() => {localStorage.setItem("swords", JSON.stringify(swords.map((s) => {return {...s, equipped: false}}))), [swords]})
+  useEffect(() => {localStorage.setItem("scrolls", JSON.stringify(scrolls.map((s) => {return {...s, equipped: false}}))), [scrolls]})
 
   const handleBuyScroll = (scroll) => {
     if (score >= Math.round(scroll.price)) {

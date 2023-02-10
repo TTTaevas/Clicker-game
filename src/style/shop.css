@@ -234,6 +234,16 @@ select {
 .coinIcon {
   width: 15px;
 } 
+.potionContainer {
+  display:flex;
+  flex-direction:column;
+  padding: 0 10px;
+  gap: 20px;
+}
+.potion {
+  display:inline-flex;
+  gap: 20px;
+}
 @media screen and (max-height: 600px) {
   .shopContainer {
     position: relative;

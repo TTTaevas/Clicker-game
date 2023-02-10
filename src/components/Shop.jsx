@@ -159,7 +159,7 @@ export default function Shop({
       equipped: false,
       level: 0,
       levelCapMultiplier: 5,
-      price: 45000,
+      price: 35000,
       damage: 11,
       name: "Sapphire Sword",
       desc: `Infused with magic, this sword shoots waves.`,
@@ -175,7 +175,7 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      levelCapMultiplier: 10,
+      levelCapMultiplier: 5,
       price: 45000,
       damage: 11,
       name: "Ice Sword",
@@ -192,7 +192,7 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      levelCapMultiplier: 10,
+      levelCapMultiplier: 5,
       price: 65000,
       damage: 14,
       name: "Sharp Sword",
@@ -209,7 +209,7 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      levelCapMultiplier: 10,
+      levelCapMultiplier: 5,
       price: 80000,
       damage: 16,
       name: "Sapphire Sword",
@@ -226,7 +226,7 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      levelCapMultiplier: 10,
+      levelCapMultiplier: 5,
       price: 110000,
       damage: 20,
       name: "Invisible Sword",
@@ -243,7 +243,7 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      levelCapMultiplier: 10,
+      levelCapMultiplier: 5,
       price: 140000,
       damage: 24,
       name: "Titan Sword",
@@ -260,7 +260,7 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      levelCapMultiplier: 10,
+      levelCapMultiplier: 5,
       price: 190000,
       damage: 30,
       name: "Legendary Sword",
@@ -277,7 +277,7 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      levelCapMultiplier: 10,
+      levelCapMultiplier: 5,
       price: 240000,
       damage: 36,
       name: "Spectral Sword",
@@ -294,7 +294,7 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      levelCapMultiplier: 10,
+      levelCapMultiplier: 5,
       price: 300000,
       damage: 44,
       name: "King's Gift",
@@ -311,7 +311,7 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      levelCapMultiplier: 10,
+      levelCapMultiplier: 5,
       price: 360000,
       damage: 53,
       name: "Earth Slayer",
@@ -328,7 +328,7 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      levelCapMultiplier: 10,
+      levelCapMultiplier: 5,
       price: 450000,
       damage: 66,
       name: "Dwarves' Gem",
@@ -345,11 +345,28 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      levelCapMultiplier: 10,
+      levelCapMultiplier: 5,
       price: 620000,
       damage: 90,
       name: "The Gods' Demise",
       desc: `Specifically created to end the rule of the Gods, once and for all.`,
+      goldChance: 0,
+      experienceChance: 0,
+      damageChance: 0,
+      levelUpChance: 0,
+      priceChance: 0,
+      enchant: 0,
+    },
+    {
+      id: 20,
+      bought: false,
+      equipped: false,
+      level: 0,
+      levelCapMultiplier: 5,
+      price: 1000000,
+      damage: 250,
+      name: "Void Blade",
+      desc: `It has the power of a black hole, directly forged from Andromeda.`,
       goldChance: 0,
       experienceChance: 0,
       damageChance: 0,
@@ -617,6 +634,12 @@ export default function Shop({
               Scrolls Cooldown: {getLengthInWrittenForm(scrollUsageCooldown)}
             </p>
           )}
+          {potion !== 0 && (
+            <p>
+              The potion's effects will dissipate in:{" "}
+              {getLengthInWrittenForm(potionLength)}
+            </p>
+          )}
         </div>
         <div className="informationright">
           <p className="cps">{displayNumber(cps)} click per second</p>
@@ -693,12 +716,6 @@ export default function Shop({
               );
             }
           })}
-        {currentTab === 1 && potion !== 0 && (
-          <p>
-            The potion's effects will dissipate in:{" "}
-            {getLengthInWrittenForm(potionLength)}
-          </p>
-        )}
         {currentTab === 1 && (
           <Potion
             displayNumber={displayNumber}

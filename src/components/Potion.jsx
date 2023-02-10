@@ -34,22 +34,46 @@ export default function Potion({
   };
 
   return (
-    <>
-      <button className={potionStyle} type="button" onClick={() => buyPotion(1)}>
-        Buy XP potion:<br />
-        {displayNumber(price)} gold{" "}
+    <div className="potionContainer">
+      <div className="potion">
+        <button
+          className={potionStyle}
+          type="button"
+          onClick={() => buyPotion(1)}
+        >
+          Buy XP potion:
+          <br />
+          {displayNumber(price)} gold{" "}
           <img className="coinIcon" src={coinIcon} />
-      </button>
-      <button className={potionStyle} type="button" onClick={() => buyPotion(2)}>
-        Buy gold potion:<br />
-        {displayNumber(price)} gold{" "}
+        </button>
+        <p>XP * 2 for 15mins</p>
+      </div>
+      <div className="potion">
+        <button
+          className={potionStyle}
+          type="button"
+          onClick={() => buyPotion(2)}
+        >
+          Buy gold potion:
+          <br />
+          {displayNumber(price)} gold{" "}
           <img className="coinIcon" src={coinIcon} />
-      </button>
-      <button className={potionStyle} type="button" onClick={() => buyPotion(3)}>
-        Buy strength potion:<br />
-        {displayNumber(price)} gold{" "}
+        </button>
+        <p>More gold each mob killed for 15mins</p>
+      </div>
+      <div className="potion">
+        <button
+          className={potionStyle}
+          type="button"
+          onClick={() => buyPotion(3)}
+        >
+          Buy strength potion:
+          <br />
+          {displayNumber(price)} gold{" "}
           <img className="coinIcon" src={coinIcon} />
-      </button>
-    </>
+        </button>
+        <p>Power * 2 for 15mins</p>
+      </div>
+    </div>
   );
 }

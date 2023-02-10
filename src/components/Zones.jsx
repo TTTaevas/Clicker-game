@@ -102,13 +102,17 @@ export default function Zones({
       setMaxMonsterCount(10);
     }
     if (life <= 0) {
-      setScore(Math.round(score + monsterZone * maxLife * 0.1));
+      if (potion === 2) {
+        setScore(Math.round(score + monsterZone * maxLife * 0.2));
+      } else {
+        setScore(Math.round(score + monsterZone * maxLife * 0.1));
+      }
       setMonsterCount(monsterCount + 1);
       setBlobState(2);
       setTimeout(() => setBlobState(0), 300);
       changeSprites();
       spawnMonster();
-      if (potion) {
+      if (potion === 1) {
         setExperience(experience + monsterZone * 2);
       } else {
         setExperience(experience + monsterZone);

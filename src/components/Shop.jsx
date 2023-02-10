@@ -21,6 +21,8 @@ export default function Shop({
   setPotion,
   power,
   setPower,
+  experience,
+  setExperience,
   level,
   cps,
 }) {
@@ -28,7 +30,7 @@ export default function Shop({
   const [intervalId, setIntervalId] = useState(null);
   const [enchantsPrice, setEnchantsPrice] = useState(1000000);
   const [potionStyle, setPotionStyle] = useState("potionButton");
-  let [length, setLength] = useState(900);
+  let [potionLength, setPotionlength] = useState(900);
   // Swords stats are not definitive.
 
   const [swords, setSwords] = useState([
@@ -43,6 +45,10 @@ export default function Shop({
       name: "Wooden Stick",
       desc: `A weird stick an old man sold you. It looks very fragile.`,
       goldChance: 0,
+      experienceChance: 0,
+      damageChance: 0,
+      levelUpChance: 0,
+      priceChance: 0,
       enchant: 0,
     },
     {
@@ -56,6 +62,10 @@ export default function Shop({
       name: "Stone Sword",
       desc: `Two rocks assembled on a stick. It's very cubic.`,
       goldChance: 0,
+      experienceChance: 0,
+      damageChance: 0,
+      levelUpChance: 0,
+      priceChance: 0,
       enchant: 0,
     },
     {
@@ -69,6 +79,10 @@ export default function Shop({
       name: "Iron Sword",
       desc: `Forged by a blacksmith amateur. You'll have to deal with it.`,
       goldChance: 0,
+      experienceChance: 0,
+      damageChance: 0,
+      levelUpChance: 0,
+      priceChance: 0,
       enchant: 0,
     },
     {
@@ -82,6 +96,10 @@ export default function Shop({
       name: "Gold Sword",
       desc: `For the rich people who likes to show their money.`,
       goldChance: 0,
+      experienceChance: 0,
+      damageChance: 0,
+      levelUpChance: 0,
+      priceChance: 0,
       enchant: 0,
     },
     {
@@ -95,6 +113,10 @@ export default function Shop({
       name: "Diamond Sword",
       desc: `1 stick and 2 diamonds and you can finally craft it!`,
       goldChance: 0,
+      experienceChance: 0,
+      damageChance: 0,
+      levelUpChance: 0,
+      priceChance: 0,
       enchant: 0,
     },
     {
@@ -108,6 +130,10 @@ export default function Shop({
       name: "Ruby Sword",
       desc: `Shines like blood. is it even made with Ruby?`,
       goldChance: 0,
+      experienceChance: 0,
+      damageChance: 0,
+      levelUpChance: 0,
+      priceChance: 0,
       enchant: 0,
     },
     {
@@ -118,9 +144,13 @@ export default function Shop({
       levelCapMultiplier: 5,
       price: 30000,
       damage: 8,
-      name: "Topaz Sword",
-      desc: `I don't know why it deals so much damage, it's just rocks.`,
+      name: "Fire Sword",
+      desc: `A magical sword made of fire. Useful to cook some skeletons.`,
       goldChance: 0,
+      experienceChance: 0,
+      damageChance: 0,
+      levelUpChance: 0,
+      priceChance: 0,
       enchant: 0,
     },
     {
@@ -134,6 +164,10 @@ export default function Shop({
       name: "Sapphire Sword",
       desc: `Infused with magic, this sword shoots waves.`,
       goldChance: 0,
+      experienceChance: 0,
+      damageChance: 0,
+      levelUpChance: 0,
+      priceChance: 0,
       enchant: 0,
     },
     {
@@ -141,12 +175,186 @@ export default function Shop({
       bought: false,
       equipped: false,
       level: 0,
-      levelCapMultiplier: 5,
-      price: 100000,
-      damage: 15,
+      levelCapMultiplier: 10,
+      price: 45000,
+      damage: 11,
+      name: "Ice Sword",
+      desc: `A magical sword made of ice. Shatter your foes to pieces!`,
+      goldChance: 0,
+      experienceChance: 0,
+      damageChance: 0,
+      levelUpChance: 0,
+      priceChance: 0,
+      enchant: 0,
+    },
+    {
+      id: 10,
+      bought: false,
+      equipped: false,
+      level: 0,
+      levelCapMultiplier: 10,
+      price: 65000,
+      damage: 14,
+      name: "Sharp Sword",
+      desc: `Really cool-looking, but its blade is so edgy it renders any sheath useless...`,
+      goldChance: 0,
+      experienceChance: 0,
+      damageChance: 0,
+      levelUpChance: 0,
+      priceChance: 0,
+      enchant: 0,
+    },
+    {
+      id: 11,
+      bought: false,
+      equipped: false,
+      level: 0,
+      levelCapMultiplier: 10,
+      price: 80000,
+      damage: 16,
+      name: "Sapphire Sword",
+      desc: `Infused with magic, this sword shoots waves.`,
+      goldChance: 0,
+      experienceChance: 0,
+      damageChance: 0,
+      levelUpChance: 0,
+      priceChance: 0,
+      enchant: 0,
+    },
+    {
+      id: 12,
+      bought: false,
+      equipped: false,
+      level: 0,
+      levelCapMultiplier: 10,
+      price: 110000,
+      damage: 20,
+      name: "Invisible Sword",
+      desc: `This magical sword is only visible to its holder.`,
+      goldChance: 0,
+      experienceChance: 0,
+      damageChance: 0,
+      levelUpChance: 0,
+      priceChance: 0,
+      enchant: 0,
+    },
+    {
+      id: 13,
+      bought: false,
+      equipped: false,
+      level: 0,
+      levelCapMultiplier: 10,
+      price: 140000,
+      damage: 24,
       name: "Titan Sword",
       desc: `You stole this sword from a mighty Titan. Well done.`,
       goldChance: 0,
+      experienceChance: 0,
+      damageChance: 0,
+      levelUpChance: 0,
+      priceChance: 0,
+      enchant: 0,
+    },
+    {
+      id: 14,
+      bought: false,
+      equipped: false,
+      level: 0,
+      levelCapMultiplier: 10,
+      price: 190000,
+      damage: 30,
+      name: "Legendary Sword",
+      desc: `It was rumoured to be hidden in the Dark Forest's depths, and it turns out those rumours were accurate.`,
+      goldChance: 0,
+      experienceChance: 0,
+      damageChance: 0,
+      levelUpChance: 0,
+      priceChance: 0,
+      enchant: 0,
+    },
+    {
+      id: 15,
+      bought: false,
+      equipped: false,
+      level: 0,
+      levelCapMultiplier: 10,
+      price: 240000,
+      damage: 36,
+      name: "Spectral Sword",
+      desc: `A ghostly opponent attempted to slay you with this strange sword, but now it's your time to slay with it.`,
+      goldChance: 0,
+      experienceChance: 0,
+      damageChance: 0,
+      levelUpChance: 0,
+      priceChance: 0,
+      enchant: 0,
+    },
+    {
+      id: 16,
+      bought: false,
+      equipped: false,
+      level: 0,
+      levelCapMultiplier: 10,
+      price: 300000,
+      damage: 44,
+      name: "King's Gift",
+      desc: `You've successfully defended a kingdom from an army of skeletons, your heroism did not go unrewarded.`,
+      goldChance: 0,
+      experienceChance: 0,
+      damageChance: 0,
+      levelUpChance: 0,
+      priceChance: 0,
+      enchant: 0,
+    },
+    {
+      id: 17,
+      bought: false,
+      equipped: false,
+      level: 0,
+      levelCapMultiplier: 10,
+      price: 360000,
+      damage: 53,
+      name: "Earth Slayer",
+      desc: `Said to have been sent from the skies to Earth, thereby scarring the planet.`,
+      goldChance: 0,
+      experienceChance: 0,
+      damageChance: 0,
+      levelUpChance: 0,
+      priceChance: 0,
+      enchant: 0,
+    },
+    {
+      id: 18,
+      bought: false,
+      equipped: false,
+      level: 0,
+      levelCapMultiplier: 10,
+      price: 450000,
+      damage: 66,
+      name: "Dwarves' Gem",
+      desc: `Forged by the best forgers in the deepest depths of the planet with the best materials.`,
+      goldChance: 0,
+      experienceChance: 0,
+      damageChance: 0,
+      levelUpChance: 0,
+      priceChance: 0,
+      enchant: 0,
+    },
+    {
+      id: 19,
+      bought: false,
+      equipped: false,
+      level: 0,
+      levelCapMultiplier: 10,
+      price: 620000,
+      damage: 90,
+      name: "The Gods' Demise",
+      desc: `Specifically created to end the rule of the Gods, once and for all.`,
+      goldChance: 0,
+      experienceChance: 0,
+      damageChance: 0,
+      levelUpChance: 0,
+      priceChance: 0,
       enchant: 0,
     },
   ]);
@@ -381,6 +589,19 @@ export default function Shop({
     if (sword && sword.goldChance > Math.floor(Math.random() * 100)) {
       setScore(score + sword.price / 3);
     }
+    if (sword && sword.experienceChance > Math.floor(Math.random() * 100)) {
+      setExperience(experience + inactiveDPS);
+    }
+    if (sword && sword.damageChance > Math.floor(Math.random() * 100)) {
+      sword.damage += sword.damage / 8;
+    }
+    if (sword && sword.levelUpChance > Math.floor(Math.random() * 100)) {
+      sword.level++;
+      sword.price = Math.ceil(sword.price * 1.07);
+    }
+    if (sword && sword.priceChance > Math.floor(Math.random() * 100)) {
+      sword.price = Math.ceil(sword.price * 0.9);
+    }
   }, [life]);
 
   return (
@@ -399,7 +620,9 @@ export default function Shop({
         </div>
         <div className="informationright">
           <p className="cps">{displayNumber(cps)} click per second</p>
-          <p className="damagetext">{displayNumber(power)} HP per click</p>
+          <p className="damagetext">
+            {displayNumber(power * (potion === 3 ? 2 : 1))} HP per click
+          </p>
           <p className="damagetext">
             You inflict {displayNumber(inactiveDPS)} damage/second
           </p>
@@ -470,7 +693,12 @@ export default function Shop({
               );
             }
           })}
-
+        {currentTab === 1 && potion !== 0 && (
+          <p>
+            The potion's effects will dissipate in:{" "}
+            {getLengthInWrittenForm(potionLength)}
+          </p>
+        )}
         {currentTab === 1 && (
           <Potion
             displayNumber={displayNumber}
@@ -478,17 +706,11 @@ export default function Shop({
             setScore={setScore}
             potionStyle={potionStyle}
             setPotionStyle={setPotionStyle}
-            length={length}
-            setLength={setLength}
+            length={potionLength}
+            setLength={setPotionlength}
             potion={potion}
             setPotion={setPotion}
           />
-        )}
-        {currentTab === 1 && potion && (
-          <p>
-            The potion's effects will dissipate in:
-            {getLengthInWrittenForm(length)}
-          </p>
         )}
         {currentTab === 2 && (
           <>
